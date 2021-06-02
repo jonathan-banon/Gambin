@@ -50,6 +50,24 @@ class Rent
     private \DateTimeInterface $updatedAt;
 
     /**
+     * @ORM\OneToOne(targetEntity=Stock::class, inversedBy="rent", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $stock;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Deposit::class, inversedBy="rent", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $deposit;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="rents")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
      * @ORM\PrePersist
      */
     public function onPrePersist(): void
@@ -139,6 +157,42 @@ class Rent
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getStock(): ?Stock
+    {
+        return $this->stock;
+    }
+
+    public function setStock(Stock $stock): self
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    public function getDeposit(): ?Deposit
+    {
+        return $this->deposit;
+    }
+
+    public function setDeposit(Deposit $deposit): self
+    {
+        $this->deposit = $deposit;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

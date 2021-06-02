@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RatingRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Datetime;
 
@@ -33,6 +35,23 @@ class Rating
      * @ORM\Column(type="datetime")
      */
     private \DateTimeInterface $updatedAt;
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="ratings")
+     */
+    private $products;
+
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="rating", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     /**
      * @ORM\PrePersist
@@ -89,6 +108,47 @@ class Rating
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        // set the owning side of the relation if necessary
+        if ($user->getRating() !== $this) {
+            $user->setRating($this);
+        }
+
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        $this->products->removeElement($product);
 
         return $this;
     }

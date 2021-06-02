@@ -672,11 +672,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
             "time": "2021-06-01T18:38:32+00:00"
-=======
-            "time": "2021-05-06T19:21:22+00:00"
->>>>>>> 3fedefc448f01312813e5339a22e6f21d1f8b2ee
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",

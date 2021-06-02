@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -22,27 +23,27 @@ class Product
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private string $name;
+    private ?string $name;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private string $identifier;
+    private ?string $identifier;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private string $description;
+    private ?string $description;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private string $storage;
+    private ?string $storage;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private float $price;
+    private ?float $price;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
@@ -57,12 +58,12 @@ class Product
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private int $target;
+    private ?int $target;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private string $marque;
+    private ?string $marque;
 
     public function getId(): ?int
     {
@@ -129,24 +130,24 @@ class Product
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): \DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -179,16 +180,16 @@ class Product
     /**
      * @ORM\PrePersist
      */
-    public function onPrePersist()
+    public function onPrePersist(): void
     {
-        $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();
+        $this->createdAt = new DateTime();
+        $this->updatedAt = new DateTime();
     }
     /**
      * @ORM\PreUpdate()
      */
-    public function onPreUpdate()
+    public function onPreUpdate(): void
     {
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new DateTime();
     }
 }

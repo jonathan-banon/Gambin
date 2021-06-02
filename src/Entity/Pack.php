@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PackRepository;
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=PackRepository::class)
@@ -21,28 +22,28 @@ class Pack
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private string $identifier;
+    private ?string $identifier;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private string $name;
+    private ?string $name;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private float $price;
+    private ?float $price;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
      */
-    private \DateTimeInterface $created_at;
+    private \DateTimeInterface $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
      */
 
-    private \DateTimeInterface $updated_at;
+    private \DateTimeInterface $updatedAt;
 
     public function getId(): ?int
     {
@@ -73,54 +74,54 @@ class Pack
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getPrice(): ?float
     {
         return $this->price;
     }
 
-    public function setPrice(?int $price): self
+    public function setPrice(?float $price): self
     {
         $this->price = $price;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): \DateTimeInterface
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
     /**
      * @ORM\PrePersist
      */
-    public function onPrePersist()
+    public function onPrePersist(): void
     {
-        $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();
+        $this->createdAt = new DateTime();
+        $this->updatedAt = new DateTime();
     }
     /**
      * @ORM\PreUpdate()
      */
-    public function onPreUpdate()
+    public function onPreUpdate(): void
     {
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new DateTime();
     }
 }

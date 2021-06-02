@@ -6,6 +6,8 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Datetime;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -38,9 +40,9 @@ class User implements UserInterface
     private string $password;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private string $pseudo;
+    private ?string $pseudo;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -53,19 +55,19 @@ class User implements UserInterface
     private string $lastName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private string $address;
+    private ?string $address;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private string $postalCode;
+    private ?string $postalCode;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private string $city;
+    private ?string $city;
 
     /**
      * @ORM\Column(type="datetime")
@@ -195,7 +197,7 @@ class User implements UserInterface
         return $this->pseudo;
     }
 
-    public function setPseudo(string $pseudo): self
+    public function setPseudo(?string $pseudo): self
     {
         $this->pseudo = $pseudo;
 
@@ -231,7 +233,7 @@ class User implements UserInterface
         return $this->address;
     }
 
-    public function setAddress(string $address): self
+    public function setAddress(?string $address): self
     {
         $this->address = $address;
         return $this;
@@ -242,7 +244,7 @@ class User implements UserInterface
         return $this->postalCode;
     }
 
-    public function setPostalCode(string $postalCode): self
+    public function setPostalCode(?string $postalCode): self
     {
         $this->postalCode = $postalCode;
         return $this;
@@ -253,7 +255,7 @@ class User implements UserInterface
         return $this->city;
     }
 
-    public function setCity(string $city): self
+    public function setCity(?string $city): self
     {
         $this->city = $city;
         return $this;

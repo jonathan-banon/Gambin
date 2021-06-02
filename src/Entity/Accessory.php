@@ -44,6 +44,17 @@ class Accessory
      */
     private \DateTimeInterface $updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="accessories")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Stock::class, inversedBy="accessories")
+     */
+    private $stock;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,5 +133,29 @@ class Accessory
     public function onPreUpdate(): void
     {
         $this->updatedAt = new DateTime();
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    public function getStock(): ?Stock
+    {
+        return $this->stock;
+    }
+
+    public function setStock(?Stock $stock): self
+    {
+        $this->stock = $stock;
+
+        return $this;
     }
 }

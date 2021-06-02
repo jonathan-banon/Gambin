@@ -3,9 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Datetime;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -91,6 +95,28 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private ?string $billingCity;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Rent::class, mappedBy="user")
+     */
+    private $rents;
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="users")
+     */
+    private $products;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Rating::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $rating;
+
+    public function __construct()
+    {
+        $this->rents = new ArrayCollection();
+        $this->products = new ArrayCollection();
+    }
 
     /**
      * @ORM\PrePersist
@@ -312,6 +338,75 @@ class User implements UserInterface
     public function setBillingCity(?string $billingCity): self
     {
         $this->billingCity = $billingCity;
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rent[]
+     */
+    public function getRents(): Collection
+    {
+        return $this->rents;
+    }
+
+    public function addRent(Rent $rent): self
+    {
+        if (!$this->rents->contains($rent)) {
+            $this->rents[] = $rent;
+            $rent->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRent(Rent $rent): self
+    {
+        if ($this->rents->removeElement($rent)) {
+            // set the owning side to null (unless already changed)
+            if ($rent->getUser() === $this) {
+                $rent->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRating(): ?Rating
+    {
+        return $this->rating;
+    }
+
+    public function setRating(Rating $rating): self
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            $product->removeUser($this);
+        }
+
         return $this;
     }
 }

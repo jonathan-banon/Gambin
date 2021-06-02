@@ -50,6 +50,11 @@ class Deposit
     private \DateTimeInterface $updatedAt;
 
     /**
+     * @ORM\OneToOne(targetEntity=Rent::class, mappedBy="deposit", cascade={"persist", "remove"})
+     */
+    private $rent;
+
+    /**
      * @ORM\PrePersist
      */
     public function onPrePersist(): void
@@ -135,6 +140,23 @@ class Deposit
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function getRent(): ?Rent
+    {
+        return $this->rent;
+    }
+
+    public function setRent(Rent $rent): self
+    {
+        // set the owning side of the relation if necessary
+        if ($rent->getDeposit() !== $this) {
+            $rent->setDeposit($this);
+        }
+
+        $this->rent = $rent;
+
         return $this;
     }
 }

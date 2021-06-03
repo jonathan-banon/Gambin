@@ -22,7 +22,7 @@ class HomeController extends AbstractController
             ->getRepository(Product::class)
             ->findAll();
 
-        return $this->render('home/new.html.twig', [
+        return $this->render('home/index.html.twig', [
             'products' => $products
         ]);
     }

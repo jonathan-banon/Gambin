@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+
+    <h1>Gamme de produit proposée par Gambin : </h1>
+    {% for product in products %}
+        <div>
+            <h3>{{ loop.index }} / {{ product.name }} (actuellement disponible à {{ product.storage }})</h3>
+            <a href="{{ path("product_show", {id: product.id}) }}">Voir info supplémentaire</a>
+            <br>
+        </div>
+    {% else %}
+        Aucun produit trouvé.
+    {% endfor %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <a href="{{ path("home") }}">Retour sur la page d'accueille</a>
+
+{% endblock %}

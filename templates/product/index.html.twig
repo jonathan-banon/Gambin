@@ -8,7 +8,7 @@
     {% for product in products %}
         <div>
             <h3>{{ loop.index }} / {{ product.name }} (actuellement disponible à {{ product.storage }})</h3>
-            <a href="{{ path("product_show", { id: product.id }) }}">Voir info supplémentaire</a>
+            <a href="{{ path("product_show", {id: product.id}) }}">Voir info supplémentaire</a>
             <br>
         </div>
     {% else %}

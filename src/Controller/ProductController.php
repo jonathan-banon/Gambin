@@ -39,7 +39,7 @@ class ProductController extends AbstractController
 
         if (!$product) {
             throw $this->createNotFoundException(
-                'No program with id : '.$id.' found in program\'s table.'
+                'No product found.'
             );
         }
         return $this->render('product/show.html.twig', [

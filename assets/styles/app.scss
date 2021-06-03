@@ -1,5 +1,5 @@
 @import 'variables.scss';
-@import 'nav_bar.css';
+
 
 // customize some Bootstrap variables
 $primary: darken(#428bca, 20%);
@@ -9,6 +9,6 @@ $primary: darken(#428bca, 20%);
 
 @import 'global.scss';
 @import 'form.scss';
-
+@import 'nav_bar.scss';
 
 

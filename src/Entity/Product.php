@@ -62,8 +62,6 @@ class Product
      */
     private ?int $target;
 
-
-
     /**
      * @ORM\ManyToMany(targetEntity=Pack::class, mappedBy="products")
      */

@@ -52,7 +52,7 @@ class Deposit
     /**
      * @ORM\OneToOne(targetEntity=Rent::class, mappedBy="deposit", cascade={"persist", "remove"})
      */
-    private $rent;
+    private ?Rent $rent;
 
     /**
      * @ORM\PrePersist

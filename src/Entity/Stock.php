@@ -45,12 +45,12 @@ class Stock
      * @ORM\ManyToOne(targetEntity=City::class, inversedBy="stocks")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $city;
+    private ?City $city;
 
     /**
      * @ORM\OneToOne(targetEntity=Rent::class, mappedBy="stock", cascade={"persist", "remove"})
      */
-    private $rent;
+    private ?Rent $rent;
 
     public function __construct()
     {

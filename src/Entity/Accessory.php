@@ -48,12 +48,12 @@ class Accessory
      * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="accessories")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $product;
+    private ?Product $product;
 
     /**
      * @ORM\ManyToOne(targetEntity=Stock::class, inversedBy="accessories")
      */
-    private $stock;
+    private ?Stock $stock;
 
     public function getId(): ?int
     {

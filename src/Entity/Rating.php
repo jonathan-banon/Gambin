@@ -46,7 +46,7 @@ class Rating
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="rating", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private ?User $user;
 
     public function __construct()
     {

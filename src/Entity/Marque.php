@@ -29,6 +29,11 @@ class Marque
      */
     private $products;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Image::class, mappedBy="marque", cascade={"persist", "remove"})
+     */
+    private $image;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -77,6 +82,28 @@ class Marque
                 $product->setMarque(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($image === null && $this->image !== null) {
+            $this->image->setMarque(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($image !== null && $image->getMarque() !== $this) {
+            $image->setMarque($this);
+        }
+
+        $this->image = $image;
 
         return $this;
     }

@@ -18,11 +18,10 @@ class AccessoryController extends AbstractController
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $accessory=new Accessory();
-        $form = $this->createForm(AccessoryType::class,$accessory);
+        $accessory = new Accessory();
+        $form = $this->createForm(AccessoryType::class, $accessory);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($accessory);
             $entityManager->flush();
         }
@@ -31,6 +30,4 @@ class AccessoryController extends AbstractController
             'addAccessoryForm' => $form->createView(),
         ]);
     }
-
-
 }

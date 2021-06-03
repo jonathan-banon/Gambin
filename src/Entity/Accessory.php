@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AccessoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
@@ -51,9 +53,25 @@ class Accessory
     private ?Product $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Stock::class, inversedBy="accessories")
+     * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="accessory")
      */
-    private ?Stock $stock;
+    private $stocks;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private ?float $price;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="accessory")
+     */
+    private $images;
+
+    public function __construct()
+    {
+        $this->stocks = new ArrayCollection();
+        $this->images = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -146,14 +164,74 @@ class Accessory
         return $this;
     }
 
-    public function getStock(): ?Stock
+    /**
+     * @return Collection|Stock[]
+     */
+    public function getStocks(): Collection
     {
-        return $this->stock;
+        return $this->stocks;
     }
 
-    public function setStock(?Stock $stock): self
+    public function addStock(Stock $stock): self
     {
-        $this->stock = $stock;
+        if (!$this->stocks->contains($stock)) {
+            $this->stocks[] = $stock;
+            $stock->setAccessory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStock(Stock $stock): self
+    {
+        if ($this->stocks->removeElement($stock)) {
+            // set the owning side to null (unless already changed)
+            if ($stock->getAccessory() === $this) {
+                $stock->setAccessory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?float $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setAccessory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getAccessory() === $this) {
+                $image->setAccessory(null);
+            }
+        }
 
         return $this;
     }

@@ -31,15 +31,6 @@ class Stock
      */
     private \DateTimeInterface $updatedAt;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="stock")
-     */
-    private $products;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Accessory::class, mappedBy="stock")
-     */
-    private $accessories;
 
     /**
      * @ORM\ManyToOne(targetEntity=City::class, inversedBy="stocks")
@@ -52,11 +43,15 @@ class Stock
      */
     private ?Rent $rent;
 
-    public function __construct()
-    {
-        $this->products = new ArrayCollection();
-        $this->accessories = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="stocks")
+     */
+    private $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Accessory::class, inversedBy="stocks")
+     */
+    private $accessory;
 
     public function getId(): ?int
     {
@@ -102,66 +97,6 @@ class Stock
         $this->updatedAt = new DateTime();
     }
 
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
-
-    public function addProduct(Product $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->setStock($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        if ($this->products->removeElement($product)) {
-            // set the owning side to null (unless already changed)
-            if ($product->getStock() === $this) {
-                $product->setStock(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Accessory[]
-     */
-    public function getAccessories(): Collection
-    {
-        return $this->accessories;
-    }
-
-    public function addAccessory(Accessory $accessory): self
-    {
-        if (!$this->accessories->contains($accessory)) {
-            $this->accessories[] = $accessory;
-            $accessory->setStock($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAccessory(Accessory $accessory): self
-    {
-        if ($this->accessories->removeElement($accessory)) {
-            // set the owning side to null (unless already changed)
-            if ($accessory->getStock() === $this) {
-                $accessory->setStock(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getCity(): ?City
     {
         return $this->city;
@@ -187,6 +122,30 @@ class Stock
         }
 
         $this->rent = $rent;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    public function getAccessory(): ?Accessory
+    {
+        return $this->accessory;
+    }
+
+    public function setAccessory(?Accessory $accessory): self
+    {
+        $this->accessory = $accessory;
 
         return $this;
     }

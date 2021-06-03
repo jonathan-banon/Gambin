@@ -38,15 +38,15 @@
                 {{ form_start(addAccessoryForm) }}
                 <div class="col-sm mb-3 ">
                     <label for="">Nom du produit</label>
-                   {{form_widget(addAccessoryForm.name,{'attr':{'class':'form-control'}}) }}
+                   {{ form_widget(addAccessoryForm.name, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="col-sm mb-3">
                     <label for="">Catégorie</label>
-                    {{form_widget(addAccessoryForm.product,{'attr':{'class':'form-control'}}) }}
+                    {{ form_widget(addAccessoryForm.product, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="col-sm mb-3 ">
                     <label for="">Description</label>
-                    {{form_widget(addAccessoryForm.description,{'attr':{'class':'form-control'}}) }}
+                    {{ form_widget(addAccessoryForm.description, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="col-sm">
                     <button type="submit" class="btn button-style">Ajouter</button>

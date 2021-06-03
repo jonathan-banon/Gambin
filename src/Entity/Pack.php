@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PackRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
@@ -44,6 +46,16 @@ class Pack
      */
 
     private \DateTimeInterface $updatedAt;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="packs")
+     */
+    private $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -123,5 +135,29 @@ class Pack
     public function onPreUpdate(): void
     {
         $this->updatedAt = new DateTime();
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        $this->products->removeElement($product);
+
+        return $this;
     }
 }

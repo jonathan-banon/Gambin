@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
@@ -60,10 +62,46 @@ class Product
      */
     private ?int $target;
 
+
+
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\ManyToMany(targetEntity=Pack::class, mappedBy="products")
      */
-    private ?string $marque;
+    private $packs;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $marque;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Accessory::class, mappedBy="product")
+     */
+    private $accessories;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Stock::class, inversedBy="products")
+     */
+    private $stock;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Rating::class, mappedBy="products")
+     */
+    private $ratings;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="products")
+     */
+    private $users;
+
+    public function __construct()
+    {
+        $this->packs = new ArrayCollection();
+        $this->accessories = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
+        $this->users = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -166,17 +204,7 @@ class Product
         return $this;
     }
 
-    public function getMarque(): ?string
-    {
-        return $this->marque;
-    }
 
-    public function setMarque(?string $marque): self
-    {
-        $this->marque = $marque;
-
-        return $this;
-    }
     /**
      * @ORM\PrePersist
      */
@@ -191,5 +219,137 @@ class Product
     public function onPreUpdate(): void
     {
         $this->updatedAt = new DateTime();
+    }
+
+    /**
+     * @return Collection|Pack[]
+     */
+    public function getPacks(): Collection
+    {
+        return $this->packs;
+    }
+
+    public function addPack(Pack $pack): self
+    {
+        if (!$this->packs->contains($pack)) {
+            $this->packs[] = $pack;
+            $pack->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removePack(Pack $pack): self
+    {
+        if ($this->packs->removeElement($pack)) {
+            $pack->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function getMarque(): ?Marque
+    {
+        return $this->marque;
+    }
+
+    public function setMarque(?Marque $marque): self
+    {
+        $this->marque = $marque;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Accessory[]
+     */
+    public function getAccessories(): Collection
+    {
+        return $this->accessories;
+    }
+
+    public function addAccessory(Accessory $accessory): self
+    {
+        if (!$this->accessories->contains($accessory)) {
+            $this->accessories[] = $accessory;
+            $accessory->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAccessory(Accessory $accessory): self
+    {
+        if ($this->accessories->removeElement($accessory)) {
+            // set the owning side to null (unless already changed)
+            if ($accessory->getProduct() === $this) {
+                $accessory->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getStock(): ?Stock
+    {
+        return $this->stock;
+    }
+
+    public function setStock(?Stock $stock): self
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            $rating->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        $this->users->removeElement($user);
+
+        return $this;
     }
 }

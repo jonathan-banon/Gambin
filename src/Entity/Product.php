@@ -71,7 +71,7 @@ class Product
      * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $marque;
+    private ?Marque $marque;
 
     /**
      * @ORM\OneToMany(targetEntity=Accessory::class, mappedBy="product")

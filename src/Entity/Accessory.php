@@ -50,7 +50,7 @@ class Accessory
      * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="accessories")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $product;
+    private ?Product $product;
 
     /**
      * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="accessory")

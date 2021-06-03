@@ -53,19 +53,19 @@ class Rent
      * @ORM\OneToOne(targetEntity=Stock::class, inversedBy="rent", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $stock;
+    private Stock $stock;
 
     /**
      * @ORM\OneToOne(targetEntity=Deposit::class, inversedBy="rent", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $deposit;
+    private Deposit $deposit;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="rents")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private ?User $user;
 
     /**
      * @ORM\PrePersist

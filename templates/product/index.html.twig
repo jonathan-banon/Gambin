@@ -18,7 +18,11 @@
                 {% for product in products %}
                 <div class="card col-4 py-4 mx-2" style="width: 18rem;">
                     <div class="card-block">
-                        <img class="card-img-top" alt="Card image cap">
+                        {% for image in product.images %}
+                            {% if loop.index0 == 0 %}
+                                <img class="card-img-top" src="{{ image.url }}" alt="Card image cap">
+                            {% endif %}
+                        {% endfor %}
                         <div class="card-body">
                             <h5 class="card-title">{{ loop.index }} / {{ product.name }}</h5>
                             <p class="card-text">A partir de {{ product.price }} €</p>

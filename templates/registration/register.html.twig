@@ -2,7 +2,7 @@
 
 {% form_theme registrationForm 'bootstrap_4_layout.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
     <div class="container ">
@@ -22,6 +22,7 @@
                     <div class="input-group-append">
                         <span class="input-group-text" id="basic-addon1"><i class="far fa-envelope"></i></span>
                     </div>
+                    {{ form_errors(registrationForm.email) }}
                 </div>
             </div>
 
@@ -45,10 +46,24 @@
 
             <div class="row">
                 <div class="input-group mb-3 col-12">
-                    {{ form_widget(registrationForm.plainPassword) }}
+                    {{ form_widget(registrationForm.plainPassword.first) }}
                     <div class="input-group-append">
                         <span class="input-group-text" id="basic-addon3"><i class="fas fa-lock"></i></span>
                     </div>
+                    {{ form_errors(registrationForm.plainPassword.first) }}
+                </div>
+                <div class="input-group mb-3 col-12">
+                    {{ form_widget(registrationForm.plainPassword.second) }}
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon3">
+                            {% if form_errors(registrationForm.plainPassword.first) == "" %}
+                                <i class="fas fa-check-circle"></i>
+                            {% else %}
+                                <i class="far fa-times-circle text-danger"></i>
+                            {% endif %}
+                        </span>
+                    </div>
+                    {{ form_errors(registrationForm.plainPassword.second) }}
                 </div>
             </div>
 

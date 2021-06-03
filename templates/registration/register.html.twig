@@ -5,23 +5,60 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container ">
             {% for flashError in app.flashes('verify_email_error') %}
                 <div class="alert alert-danger" role="alert">{{ flashError }}</div>
             {% endfor %}
-
-            <h1>Register</h1>
-
+            <div class="row">
+                <div class="col-12 text-center">
+                <h1>Inscription</h1>
+                </div>
+            </div>
             {{ form_start(registrationForm) }}
-                {{ form_row(registrationForm.email) }}
-                {{ form_row(registrationForm.plainPassword, {
-                    label: 'Password'
-                }) }}
-            {{ form_row(registrationForm.firstName) }}
-            {{ form_row(registrationForm.lastName) }}
-                {{ form_row(registrationForm.agreeTerms) }}
 
-                <button type="submit" class="btn">Register</button>
+            <div class="row">
+                <div class="input-group col-12">
+                    {{ form_widget(registrationForm.email) }}
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon1"><i class="far fa-envelope"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="input-group mb-3 col-6">
+                    {{ form_widget(registrationForm.firstName) }}
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2"><i class="far fa-user"></i></span>
+                    </div>
+                </div>
+                {{ form_errors(registrationForm.firstName) }}
+
+                <div class="input-group mb-3 col-6">
+                    {{ form_widget(registrationForm.lastName) }}
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2"><i class="far fa-user"></i></span>
+                    </div>
+                </div>
+                {{ form_errors(registrationForm.lastName) }}
+            </div>
+
+            <div class="row">
+                <div class="input-group mb-3 col-12">
+                    {{ form_widget(registrationForm.plainPassword) }}
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon3"><i class="fas fa-lock"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            {{ form_widget(registrationForm.agreeTerms) }}
+
+            <div class="row mt-2">
+                <div class="col-12">
+                <button type="submit" class="btn button-style">Continue</button>
+                </div>
+            </div>
             {{ form_end(registrationForm) }}
     </div>
 {% endblock %}

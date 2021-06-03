@@ -62,8 +62,6 @@ class Product
      */
     private ?int $target;
 
-
-
     /**
      * @ORM\ManyToMany(targetEntity=Pack::class, mappedBy="products")
      */
@@ -81,19 +79,25 @@ class Product
     private $accessories;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Stock::class, inversedBy="products")
-     */
-    private $stock;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Rating::class, mappedBy="products")
-     */
-    private $ratings;
-
-    /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="products")
+     * @ORM\JoinTable(name="favorite")
      */
     private $users;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="product")
+     */
+    private $stocks;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="product")
+     */
+    private $images;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="product")
+     */
+    private $ratings;
 
     public function __construct()
     {
@@ -101,6 +105,8 @@ class Product
         $this->accessories = new ArrayCollection();
         $this->ratings = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->stocks = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -290,45 +296,6 @@ class Product
         return $this;
     }
 
-    public function getStock(): ?Stock
-    {
-        return $this->stock;
-    }
-
-    public function setStock(?Stock $stock): self
-    {
-        $this->stock = $stock;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Rating[]
-     */
-    public function getRatings(): Collection
-    {
-        return $this->ratings;
-    }
-
-    public function addRating(Rating $rating): self
-    {
-        if (!$this->ratings->contains($rating)) {
-            $this->ratings[] = $rating;
-            $rating->addProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRating(Rating $rating): self
-    {
-        if ($this->ratings->removeElement($rating)) {
-            $rating->removeProduct($this);
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection|User[]
      */
@@ -349,6 +316,96 @@ class Product
     public function removeUser(User $user): self
     {
         $this->users->removeElement($user);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Stock[]
+     */
+    public function getStocks(): Collection
+    {
+        return $this->stocks;
+    }
+
+    public function addStock(Stock $stock): self
+    {
+        if (!$this->stocks->contains($stock)) {
+            $this->stocks[] = $stock;
+            $stock->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStock(Stock $stock): self
+    {
+        if ($this->stocks->removeElement($stock)) {
+            // set the owning side to null (unless already changed)
+            if ($stock->getProduct() === $this) {
+                $stock->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getProduct() === $this) {
+                $image->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getProduct() === $this) {
+                $rating->setProduct(null);
+            }
+        }
 
         return $this;
     }

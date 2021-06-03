@@ -38,20 +38,15 @@ class Rating
 
 
     /**
-     * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="ratings")
-     */
-    private $products;
-
-    /**
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="rating", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
-    public function __construct()
-    {
-        $this->products = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="ratings")
+     */
+    private $product;
 
     /**
      * @ORM\PrePersist
@@ -129,26 +124,14 @@ class Rating
         return $this;
     }
 
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProducts(): Collection
+    public function getProduct(): ?Product
     {
-        return $this->products;
+        return $this->product;
     }
 
-    public function addProduct(Product $product): self
+    public function setProduct(?Product $product): self
     {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        $this->products->removeElement($product);
+        $this->product = $product;
 
         return $this;
     }

@@ -52,6 +52,12 @@ class Pack
      */
     private $products;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Image::class, mappedBy="pack", cascade={"persist", "remove"})
+     */
+    private $image;
+
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -157,6 +163,28 @@ class Pack
     public function removeProduct(Product $product): self
     {
         $this->products->removeElement($product);
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($image === null && $this->image !== null) {
+            $this->image->setPack(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($image !== null && $image->getPack() !== $this) {
+            $image->setPack($this);
+        }
+
+        $this->image = $image;
 
         return $this;
     }

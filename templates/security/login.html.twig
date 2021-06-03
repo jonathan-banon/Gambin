@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connectez-vous!{% endblock %}
 
 {% block body %}
     <div class="container">
+
         <form method="post">
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+
 
             {% if app.user %}
                 <div class="mb-3">
@@ -15,11 +14,15 @@
                 </div>
             {% endif %}
 
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <label for="inputEmail">Email</label>
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-            <label for="inputPassword">Password</label>
-            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1>Connexion</h1>
+                </div>
+            </div>
+
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control col-12 mb-3 {{ error != '' ? 'is-invalid' : ''}}" autocomplete="email" required autofocus placeholder="Email">
+
+            <input type="password" name="password" id="inputPassword" class="form-control mt-3 {{ error != '' ? 'is-invalid' : ''}}" autocomplete="current-password col-12" required placeholder="Mot de passe">
 
             <input type="hidden" name="_csrf_token"
                    value="{{ csrf_token('authenticate') }}"
@@ -35,10 +38,27 @@
                     </label>
                 </div>
             #}
+            {% if error %}
+                <span class="invalid-feedback d-block"><span class="d-block">
+                    <span class="d-block">
+                        <span class="form-error-icon badge badge-danger text-uppercase">Error</span> <span class="form-error-message">{{ error.messageKey|trans(error.messageData, 'security') }}</span>
+                    </span>
+                </span>
+            {% endif %}
 
-            <button class="btn btn-lg btn-primary" type="submit">
-                Sign in
-            </button>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <button type="submit" class="btn button-style">Me connecter</button>
+                </div>
+            </div>
+
+
+
+            <div class="row d-flex justify-content-center mt-3">
+                <strong>Pas de compte ?</strong>
+                <a href="{{ path('app_register') }}" class="ml-2"><p>Inscrivez-vous</p></a>
+            </div>
+
         </form>
     </div>
 {% endblock %}

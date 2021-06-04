@@ -1,0 +1,23 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+
+body {
+  background-color: $color-white;
+  min-height: 100%;
+  color: $light;
+}
+
+h1{
+  font-weight: $title-weigth;
+}
+
+.grey-text{
+  color:$grey-color;
+}
+
+a{
+  text-decoration:none;
+}
+

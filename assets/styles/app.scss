@@ -1,6 +1,15 @@
 @import 'variables.scss';
 
-body {
-    background-color: $wild-color;
-    color: $light;
-}
+
+// customize some Bootstrap variables
+$primary: darken(#428bca, 20%);
+
+// the ~ allows you to reference things in node_modules
+@import "~bootstrap/scss/bootstrap";
+
+@import 'global.scss';
+@import 'form.scss';
+@import 'nav_bar.scss';
+@import 'footer.scss';
+
+

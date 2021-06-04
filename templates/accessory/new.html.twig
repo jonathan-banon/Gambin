@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accessory{% endblock %}
+
+{% block body %}
+
+
+
+<div class="row  ">
+
+
+    <div class="container col-10 d-md-flex mt-5 mb-5">
+        <div class="col-sm justify-content-md-start">
+            <div class="w-50%">
+            <img class="fluid" src="{{ asset('build/AdobeStock_257633369.png') }}" alt="">
+            </div>
+        </div>
+
+        <div class="col-sm justify-content-md-start border  border-dark rounded p-3">
+            <div class="container col-sm mt-3  ">
+                <h1> Ajouter un type d'accessoire</h1>
+
+                <div class="col-sm h-50  text-center">
+                    <img class="fluid w-50" src="{{ asset('build/transat_Plan-de-travail-1-copie-3.png') }}" alt="">
+                </div>
+
+                {{ form_start(addAccessoryForm) }}
+                <div class="col-sm mb-3 ">
+                    <label for="">Nom de l'accessoire</label>
+                   {{ form_widget(addAccessoryForm.name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-sm mb-3">
+                    <label for="">Produit associé</label>
+                    {{ form_widget(addAccessoryForm.product, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-sm mb-3 ">
+                    <label for="">Description</label>
+                    {{ form_widget(addAccessoryForm.description, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-sm">
+                    <button type="submit" class="btn button-style">Ajouter</button>
+                </div>
+                {{ form_end(addAccessoryForm) }}
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+{% endblock %}

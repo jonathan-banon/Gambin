@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block body %}
+
+    <div class="product">
+        <div class="product-body">
+            <h1 class="mt-0">Petite description succincte</h1>
+            <p>{{ product.description }}</p>
+            <p>Cet équipement est idéalement pour les enfants de {{ product.target }} ans</p>
+            <p>Pour la modique somme de : {{ product.price }} euros !</p>
+        </div>
+    </div>
+
+    <a href="{{ path('product_index') }}">
+        Retour à la liste des produits
+    </a>
+
+{% endblock %}

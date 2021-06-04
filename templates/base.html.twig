@@ -4,6 +4,8 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 		<title>
 			{% block title %}Projet 3 Name{% endblock %}
 		</title>
@@ -12,11 +14,15 @@
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
 
+	</head>
+	<body>
+		{% include 'component/_navbar.html.twig' %}
+		{% block body %}{% endblock %}
+		{% include 'component/_footer.html.twig' %}
+
+
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
-	</head>
-	<body>
-		{% block body %}{% endblock %}
 	</body>
 </html>

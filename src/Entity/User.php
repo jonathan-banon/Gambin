@@ -110,7 +110,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToOne(targetEntity=Rating::class, mappedBy="user", cascade={"persist", "remove"})
      */
-    private Rating $rating;
+    private ?Rating $rating;
 
     public function __construct()
     {
@@ -376,7 +376,7 @@ class User implements UserInterface
         return $this->rating;
     }
 
-    public function setRating(Rating $rating): self
+    public function setRating(?Rating $rating): self
     {
         $this->rating = $rating;
 

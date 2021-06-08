@@ -26,6 +26,7 @@ class RegistrationFormType extends AbstractType
                            'class'            => 'picture-input',
                            ]
             ])
+
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'label'  => "J'accepte les conditions générales",
@@ -36,6 +37,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les champs de mot de passe doivent correspondrent',
@@ -65,11 +67,18 @@ class RegistrationFormType extends AbstractType
                             'class' => 'picture-input',
                             ],
             ])
+
             ->add('lastName', TextType::class, [
                 'attr' => ['aria-describedby' => "basic-addon3",
                            'placeholder' => 'Nom',
                            'class' => 'picture-input'
                 ],
+            ])
+
+            ->add('pseudo', TextType::class, [
+                'attr' => ['aria-describedby' => "bassic-addon4",
+                           'placeholder' => 'Pseudo',
+                           'class' => 'picture-input']
             ])
         ;
     }

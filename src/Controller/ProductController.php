@@ -34,12 +34,8 @@ class ProductController extends AbstractController
      * @Route("/show/{id<^[0-9]+$>}", name="show")
      * @return Response
      */
-    public function show(int $id): Response
+    public function show(Product $product): Response
     {
-        $product = $this->getDoctrine()
-            ->getRepository(Product::class)
-            ->findOneBy(['id' => $id]);
-
         if (!$product) {
             throw $this->createNotFoundException(
                 'No product found.'

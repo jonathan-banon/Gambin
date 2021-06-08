@@ -24,23 +24,23 @@
                     <img class="fluid w-50" src="{{ asset('build/transat_Plan-de-travail-1-copie-3.png') }}" alt="">
                 </div>
 
-                {{ form_start(addAccessoryForm) }}
+                {{ form_start(form) }}
                 <div class="col-sm mb-3 ">
                     <label for="">Nom de l'accessoire</label>
-                   {{ form_widget(addAccessoryForm.name, {'attr': {'class': 'form-control'}}) }}
+                   {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="col-sm mb-3">
                     <label for="">Produit associé</label>
-                    {{ form_widget(addAccessoryForm.product, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_widget(form.product, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="col-sm mb-3 ">
                     <label for="">Description</label>
-                    {{ form_widget(addAccessoryForm.description, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="col-sm">
                     <button type="submit" class="btn button-style">Ajouter</button>
                 </div>
-                {{ form_end(addAccessoryForm) }}
+                {{ form_end(form) }}
 
             </div>
         </div>

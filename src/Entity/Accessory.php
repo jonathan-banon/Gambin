@@ -55,17 +55,43 @@ class Accessory
     /**
      * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="accessory")
      */
-    private $stocks;
+    private Collection $stocks;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private ?float $price;
 
     /**
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="accessory")
      */
-    private $images;
+    private Collection $images;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $characteristic;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $argumentOne;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $argumentTwo;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $argumentThree;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private float $pricePerDay;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private float $priceService;
 
     public function __construct()
     {
@@ -194,18 +220,6 @@ class Accessory
         return $this;
     }
 
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(?float $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Image[]
      */
@@ -232,6 +246,78 @@ class Accessory
                 $image->setAccessory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCharacteristic(): ?string
+    {
+        return $this->characteristic;
+    }
+
+    public function setCharacteristic(?string $characteristic): self
+    {
+        $this->characteristic = $characteristic;
+
+        return $this;
+    }
+
+    public function getArgumentOne(): ?string
+    {
+        return $this->argumentOne;
+    }
+
+    public function setArgumentOne(?string $argumentOne): self
+    {
+        $this->argumentOne = $argumentOne;
+
+        return $this;
+    }
+
+    public function getArgumentTwo(): ?string
+    {
+        return $this->argumentTwo;
+    }
+
+    public function setArgumentTwo(?string $argumentTwo): self
+    {
+        $this->argumentTwo = $argumentTwo;
+
+        return $this;
+    }
+
+    public function getArgumentThree(): ?string
+    {
+        return $this->argumentThree;
+    }
+
+    public function setArgumentThree(?string $argumentThree): self
+    {
+        $this->argumentThree = $argumentThree;
+
+        return $this;
+    }
+
+    public function getPricePerDay(): ?float
+    {
+        return $this->pricePerDay;
+    }
+
+    public function setPricePerDay(float $pricePerDay): self
+    {
+        $this->pricePerDay = $pricePerDay;
+
+        return $this;
+    }
+
+    public function getPriceService(): ?float
+    {
+        return $this->priceService;
+    }
+
+    public function setPriceService(float $priceService): self
+    {
+        $this->priceService = $priceService;
 
         return $this;
     }

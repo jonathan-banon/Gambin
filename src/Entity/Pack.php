@@ -31,10 +31,6 @@ class Pack
      */
     private ?string $name;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private ?float $price;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
@@ -50,12 +46,32 @@ class Pack
     /**
      * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="packs")
      */
-    private $products;
+    private Collection $products;
 
     /**
      * @ORM\OneToOne(targetEntity=Image::class, mappedBy="pack", cascade={"persist", "remove"})
      */
-    private $image;
+    private ?Image $image;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Category::class, mappedBy="pack", cascade={"persist", "remove"})
+     */
+    private ?Category $category;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private float $pricePerDay;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private float $priceService;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private string $description;
 
 
     public function __construct()
@@ -88,18 +104,6 @@ class Pack
     public function setName(?string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(?float $price): self
-    {
-        $this->price = $price;
 
         return $this;
     }
@@ -185,6 +189,64 @@ class Pack
         }
 
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($category === null && $this->category !== null) {
+            $this->category->setPack(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($category !== null && $category->getPack() !== $this) {
+            $category->setPack($this);
+        }
+
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getPricePerDay(): ?float
+    {
+        return $this->pricePerDay;
+    }
+
+    public function setPricePerDay(float $pricePerDay): self
+    {
+        $this->pricePerDay = $pricePerDay;
+
+        return $this;
+    }
+
+    public function getPriceService(): ?float
+    {
+        return $this->priceService;
+    }
+
+    public function setPriceService(float $priceService): self
+    {
+        $this->priceService = $priceService;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

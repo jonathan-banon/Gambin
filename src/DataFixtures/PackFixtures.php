@@ -13,20 +13,29 @@ class PackFixtures extends Fixture
         $pack = new Pack();
         $pack->setName('Nature');
         $pack->setIdentifier('nature');
-        $pack->setPrice(500);
+        $pack->setPricePerDay(500);
+        $pack->setPriceService(25);
+        $pack->setDescription('Pack Nature');
         $manager->persist($pack);
+        $this->setReference('pack_0', $pack);
 
         $pack = new Pack();
         $pack->setName('Plage');
         $pack->setIdentifier('beach');
-        $pack->setPrice(500);
+        $pack->setPricePerDay(500);
+        $pack->setPriceService(25);
+        $pack->setDescription('Pack Plage');
         $manager->persist($pack);
+        $this->setReference('pack_1', $pack);
 
         $pack = new Pack();
         $pack->setName('Ville');
         $pack->setIdentifier('ville');
-        $pack->setPrice(500);
+        $pack->setPricePerDay(500);
+        $pack->setPriceService(25);
+        $pack->setDescription('Pack Ville');
         $manager->persist($pack);
+        $this->setReference('pack_2', $pack);
 
         $manager->flush();
     }

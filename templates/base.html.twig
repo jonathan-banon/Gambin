@@ -13,14 +13,16 @@
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
-
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
 	<body>
-		{% include 'component/_navbar.html.twig' %}
-		{% block body %}{% endblock %}
-		{% include 'component/_footer.html.twig' %}
+		<div class="container-fluid vh-100">
+			{% include 'component/_navbar.html.twig' %}
+			{% block body %}{% endblock %}
+			{% include 'component/_footer.html.twig' %}
+		</div>
+
 	</body>
 </html>

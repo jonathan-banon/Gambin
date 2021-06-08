@@ -24,6 +24,7 @@ class UserFixtures extends Fixture
         $user->setLastName('PrénomTest');
         $password = $this->encoder->encodePassword($user, 'test');
         $user->setPassword($password);
+        $user->setPseudo('test');
         $manager->persist($user);
         $this->addReference('user_0', $user);
 
@@ -33,6 +34,7 @@ class UserFixtures extends Fixture
         $user->setLastName('Prénom1Test');
         $password = $this->encoder->encodePassword($user, 'test');
         $user->setPassword($password);
+        $user->setPseudo('test1');
         $manager->persist($user);
         $this->addReference('user_1', $user);
 

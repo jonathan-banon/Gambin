@@ -14,6 +14,7 @@ use Datetime;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity("email", message ="Ce mail existe déjà")
+ * @UniqueEntity("pseudo", message ="Ce pseudo existe déjà")
  * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface
@@ -40,11 +41,6 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private string $password;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private ?string $pseudo;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -99,23 +95,28 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity=Rent::class, mappedBy="user")
      */
-    private $rents;
+    private Collection $rents;
 
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="users")
-     */
-    private $products;
 
     /**
      * @ORM\OneToOne(targetEntity=Rating::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private ?Rating $rating;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="users")
+     */
+    private Collection $favorites;
+
+    /**
+     * @ORM\Column(type="string", length=100, unique=true)
+     */
+    private string $pseudo;
+
     public function __construct()
     {
         $this->rents = new ArrayCollection();
-        $this->products = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
     }
 
     /**
@@ -214,18 +215,6 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(?string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
     }
 
     public function getFirstName(): ?string
@@ -386,26 +375,35 @@ class User implements UserInterface
     /**
      * @return Collection|Product[]
      */
-    public function getProducts(): Collection
+    public function getFavorites(): Collection
     {
-        return $this->products;
+        return $this->favorites;
     }
 
-    public function addProduct(Product $product): self
+    public function addFavorite(Product $favorite): self
     {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->addUser($this);
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites[] = $favorite;
         }
 
         return $this;
     }
 
-    public function removeProduct(Product $product): self
+    public function removeFavorite(Product $favorite): self
     {
-        if ($this->products->removeElement($product)) {
-            $product->removeUser($this);
-        }
+        $this->favorites->removeElement($favorite);
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }

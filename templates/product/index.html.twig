@@ -24,7 +24,7 @@
                         {% endfor %}
                         <div class="card-body">
                             <h5 class="card-title">{{ loop.index }} / {{ product.name }}</h5>
-                            <p class="card-text">A partir de {{ product.price }} €</p>
+                            <p class="card-text">A partir de {{ product.pricePerDay }} €</p>
                             <a href="{{ path("product_show", {id: product.id}) }}" class="btn btn-primary">Voir la fiche produit</a>
                         </div>
                     </div>
@@ -33,14 +33,5 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
     <a href="{{ path("home") }}">Retour sur la page d'accueille</a>
-=======
-    <br>
-    <br>
-    <br>
-    <br>
-    <a href="{{ path("home") }}">Retour sur la page d'accueil</a>
-
->>>>>>> d17b0d5a40883b92eaa0cd49073bcd7a337a22ef
 {% endblock %}

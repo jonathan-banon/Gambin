@@ -14,6 +14,7 @@ use Datetime;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity("email", message ="Ce mail existe déjà")
+ * @UniqueEntity("pseudo", message ="Ce pseudo existe déjà")
  * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface
@@ -40,11 +41,6 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private string $password;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private ?string $pseudo;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -111,6 +107,11 @@ class User implements UserInterface
      * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="users")
      */
     private Collection $favorites;
+
+    /**
+     * @ORM\Column(type="string", length=100, unique=true)
+     */
+    private string $pseudo;
 
     public function __construct()
     {
@@ -214,18 +215,6 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(?string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
     }
 
     public function getFirstName(): ?string
@@ -403,6 +392,18 @@ class User implements UserInterface
     public function removeFavorite(Product $favorite): self
     {
         $this->favorites->removeElement($favorite);
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }

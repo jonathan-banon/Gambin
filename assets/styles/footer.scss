@@ -1,14 +1,12 @@
-footer{
+footer {
   background-color: $color-blue;
   color: $color-white;
   position: absolute;
   bottom: 0;
-  height: 190px;
+  height: 20vh;
   width: 100%;
+  .logo-footer{
+    width: 42vh;
+    height: auto;
+  }
 }
-
-.logo-footer{
-  width: 170px;
-  height: auto;
-}
-

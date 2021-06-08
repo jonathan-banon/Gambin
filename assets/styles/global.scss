@@ -1,22 +1,13 @@
 * {
   font-family: 'Roboto', sans-serif;
+  body {
+    background-color: $color-white;
+    color: $light;
+    h1{
+      font-weight: $title-weigth;
+    }
+    a{
+      text-decoration:none;
+    }
+  }
 }
-
-
-body {
-  background-color: $color-white;
-  color: $light;
-}
-
-h1{
-  font-weight: $title-weigth;
-}
-
-.grey-text{
-  color:$grey-color;
-}
-
-a{
-  text-decoration:none;
-}
-

@@ -14,10 +14,11 @@
   width: 100%;
 }
 
-.background-style{
-  background-color: $color-blue;
+.catalogue {
+  background: $color-gray;
 }
 
-.catalogue {
-  background: rgba(16, 0, 47, 0.05);
+
+.grey-text{
+  color:$color-grey;
 }

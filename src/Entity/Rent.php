@@ -12,6 +12,15 @@ use Datetime;
  */
 class Rent
 {
+    public const STATUS = [
+        0 => 'available',
+        1 => 'cart',
+        2 => 'reserved',
+        3 => 'getBack',
+        4 => 'cleaning',
+    ];
+
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

@@ -1,14 +1,11 @@
 
 .navbar{
   background-color: $color-white;
+  .logo-nav{
+    width: 25vh;
+    height: auto;
+  }
+  li {
+    margin-bottom: 3%;
+  }
 }
-
-.logo-nav{
-  width: 100px;
-  height: auto;
-}
-
-li{
-  margin-bottom: 10px;
-}
-

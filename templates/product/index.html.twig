@@ -3,7 +3,6 @@
 {% block title %}Catalogue produits!{% endblock %}
 
 {% block body %}
-
     <div class="catalogue text-dark col-12 text-center mx-auto py-3 ">
         <a href="#">Les équipents</a>
         <a href="#"class="mx-5">Les packs</a>
@@ -25,7 +24,7 @@
                         {% endfor %}
                         <div class="card-body">
                             <h5 class="card-title">{{ loop.index }} / {{ product.name }}</h5>
-                            <p class="card-text">A partir de {{ product.price }} €</p>
+                            <p class="card-text">A partir de {{ product.pricePerDay }} €</p>
                             <a href="{{ path("product_show", {id: product.id}) }}" class="btn btn-primary">Voir la fiche produit</a>
                         </div>
                     </div>
@@ -34,10 +33,5 @@
             </div>
         </div>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <a href="{{ path("home") }}">Retour sur la page d'accueil</a>
-
+    <a href="{{ path("home") }}">Retour sur la page d'accueille</a>
 {% endblock %}

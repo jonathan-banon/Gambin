@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Accessory;
+use App\Entity\Image;
 use App\Form\AccessoryType;
+use App\Form\PictureType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

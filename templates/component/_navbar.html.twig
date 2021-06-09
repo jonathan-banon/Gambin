@@ -1,36 +1,34 @@
-<div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light border-bottom row d-flex justify-content-around">
-        <div class="col-3">
-            <a href="{{ path('home') }}">
-                <img src="{{ asset('build/logo-nav.png') }}" alt="ACME logo" class="logo-nav">
-            </a>
-        </div>
-        <button class="navbar-toggler button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse col-9" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto d-flex justify-content-around w-100">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ path('home') }}">Accueil<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">A propos de nous</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('accessory_new') }}">Les équipements</a>
-                </li>
-                <li class="d-flex align-items-center">
-                    <i class="fas fa-shopping-cart"></i>
-                </li>
-                <li>
-                    <div class="d-flex">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
-                        <a class="nav-link" href="{{ path('app_login') }}">S'identifier</a>
+<nav class="navbar navbar-expand-lg navbar-light border-bottom row d-flex justify-content-around">
+    <div class="col-3">
+        <a href="{{ path('home') }}">
+            <img src="{{ asset('build/logo-nav.png') }}" alt="ACME logo" class="logo-nav">
+        </a>
+    </div>
+    <button class="navbar-toggler button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse col-9" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto d-flex justify-content-around w-100">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ path('home') }}">Accueil<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">A propos de nous</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('accessory_new') }}">Les équipements</a>
+            </li>
+            <li class="d-flex align-items-center">
+                <i class="fas fa-shopping-cart"></i>
+            </li>
+            <li>
+                <div class="d-flex">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-arrow-right"></i>
                     </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</div>
+                    <a class="nav-link" href="{{ path('app_login') }}">S'identifier</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

@@ -1,8 +1,9 @@
 footer {
   background-color: $color-blue;
   color: $color-white;
-  position: absolute;
+  position: fixed;
   bottom: 0;
+  left: 0;
   height: 20vh;
   width: 100%;
   .logo-footer{
@@ -10,3 +11,4 @@ footer {
     height: auto;
   }
 }
+

@@ -3,11 +3,14 @@
   body {
     background-color: $color-white;
     color: $light;
+    margin-top: 12vh;
     h1{
       font-weight: $title-weigth;
     }
     a{
       text-decoration:none;
     }
+
   }
 }
+

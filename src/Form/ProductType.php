@@ -16,9 +16,15 @@ class ProductType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
+            ->add('identifier')
             ->add('storage')
-            ->add('price')
             ->add('target')
+            ->add('characteristic')
+            ->add('argument_one')
+            ->add('argument_two')
+            ->add('argument_three')
+            ->add('price_per_day')
+
             ->add('marque', EntityType::class, [
                 'class' => Marque::class,
                 'choice_label' => 'name',

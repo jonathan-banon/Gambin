@@ -18,10 +18,10 @@
 		{% endblock %}
 	</head>
 	<body>
-		<div class="container-fluid vh-100">
-			{% include 'component/_navbar.html.twig' %}
+		{% include 'component/_navbar.html.twig' %}
+		<div class="content">
 			{% block body %}{% endblock %}
-			{% include 'component/_footer.html.twig' %}
 		</div>
+		{% include 'component/_footer.html.twig' %}
 	</body>
 </html>

@@ -5,12 +5,15 @@ namespace App\Entity;
 use App\Repository\AccessoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=AccessoryRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity("name")
  */
 class Accessory
 {
@@ -22,7 +25,8 @@ class Accessory
     private int $id;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(name="name", type="string", length=100, nullable=false, unique=true )
+     * @Assert\NotBlank
      */
     private ?string $name;
 

@@ -1,8 +1,11 @@
 
 .navbar{
   background-color: $color-white;
+  position: fixed;
+  top: 0;
+  left: 0;
   .logo-nav{
-    width: 25vh;
+    width: 15vh;
     height: auto;
   }
   li {

@@ -130,6 +130,28 @@ class Product
      */
     private float $priceService;
 
+    public function __sleep()
+    {
+         return [];
+    }
+
+    /**
+    * @ORM\PrePersist
+    */
+    public function onPrePersist(): void
+    {
+        $this->createdAt = new DateTime();
+        $this->updatedAt = new DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate()
+    */
+    public function onPreUpdate(): void
+    {
+            $this->updatedAt = new DateTime();
+    }
+
     public function __construct()
     {
         $this->packs = new ArrayCollection();
@@ -230,22 +252,6 @@ class Product
         return $this;
     }
 
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function onPrePersist(): void
-    {
-        $this->createdAt = new DateTime();
-        $this->updatedAt = new DateTime();
-    }
-    /**
-     * @ORM\PreUpdate()
-     */
-    public function onPreUpdate(): void
-    {
-        $this->updatedAt = new DateTime();
-    }
 
     /**
      * @return Collection|Pack[]

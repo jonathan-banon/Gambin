@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block title %}Informations - {{ app.user.pseudo }}{% endblock %}
+
+{% block body %}
+    <h1>Paramètre du compte</h1>
+    <div class="container justify-content-center form-information">
+        <h2>Addresses de livraison</h2>
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 col-lg-9">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit" class="btn button-style">Valider les modifications</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    <a href="{{ path('user_index') }}"><button class="btn button-decoration"><i class="fas fa-arrow-circle-left"></i>  Revenir à mon Compte</button></a>
+
+
+
+{% endblock %}
+

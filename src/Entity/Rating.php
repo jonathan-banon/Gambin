@@ -46,7 +46,7 @@ class Rating
     /**
      * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="ratings")
      */
-    private $product;
+    private ?Product $product;
 
     /**
      * @ORM\PrePersist
@@ -132,7 +132,6 @@ class Rating
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
-
         return $this;
     }
 }

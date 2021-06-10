@@ -3,9 +3,86 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    <div class="container-fluid vh-100">
-        <h1>Welcome on your project 3</h1>
-        <h1>Liste des produits de puériculture proposées par Gambin : </h1>
-        <a href="{{ path("product_index") }}">Voir cette fameuse liste</a>
+    <div class="container-fluid mt-5">
+       <div class="row mt-5">
+           <div class="col-sm-10 d-flex justify-content-center">
+               <div class="col-sm-5 ">
+                   <h1 class="home mt-5 pt-5"> Voyagez sans <br>
+                       déménager la <br>
+                       chambre de bébé!</h1>
+
+                   <a href="{{ path("product_index") }}"><button type="button" class="btn btn-primary btn-lg">Je veux louer</button></a>
+               </div>
+               <div class="col-sm-5">
+                      <div class=" fluid m-3 ">
+                          <img class="" src="{{ asset('build/picture_home_Gambin.png') }}" alt="">
+                      </div>
+               </div>
+           </div>
+       </div>
+    </div>
+    <div class="mt-5 container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-sm-10 d-flex justify-content-evenly wrap">
+                <div class="m-3 wrap">
+                    <img  class="w-25" src="{{ asset('build/star_Gambin.svg') }}" alt="">
+                    <h3> L’hygiène comme priorité absolue</h3>
+                    <p class="text-break">Nos équipements sont nettoyés avec des produits virucides (contre la Covid-19), bactéricides et fongicides, respectueux
+                        de l’environnement.</p>
+                    <a href="">En savoir plus</a>
+                </div>
+                <div class="m-3 wrap">
+                    <img  class="w-25" src="{{ asset('build/heart_Gambin.svg') }}" alt="">
+                    <h3> La qualité avant tout</h3>
+                    <p class="text-break">Sélection de marques reconnues pour la qualité de leurs produits (satisfaction client, test consommateurs, etc).</p>
+                    <a href="">En savoir plus</a>
+                </div>
+                <div class="m-3 wrap">
+                    <img  class="w-25" src="{{ asset('build/delivery_Gambin.svg') }}" alt="">
+                    <h3> Livraison sur mesure</h3>
+                    <p class="text-break">Gare, aéroport, hôtels, airbnb : faites-vous livrer sur le lieu de votre choix, nous nous occupons de tout.</p>
+                    <a href="">En savoir plus</a>
+                </div>
+                <div class="m-3 wrap">
+                    <img  class="w-25" src="{{ asset('build/chat_Gambin.svg') }}" alt="">
+                    <h3> Un Service Client dédié</h3>
+                    <p class="text-break">En cas de problème, nous vous dépannons 2h. Nous remplaçons le matériel en cas de casse.</p>
+                    <a href="">En savoir plus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid w-100 mt-5">
+        <div class="row">
+            <div class="col-10">
+                <div class="back-design ml-0 pt-5">
+                    <h2 class="Title-2 text-center mt-5"> Nos équipements</h2>
+                    <div class=" row d-flex justify-content-center">
+                        <div class="col-3 d-flex flex-column m-5 h-100">
+                            <img  class="w-75 m-3" src="{{ asset('build/Group_2.png') }}" alt="">
+                            <h3> Pour la sortie</h3>
+                            <p class="text-break">L’indispensable pour parcourir la ville avec bébé
+                                et profiter sereinement de son séjour. <br>
+                                Notre sélection : Babyzen <br>
+
+                                A partir de 36€ la journée.</p>
+                            <a href="">En savoir plus</a>
+                        </div>
+                        <div class="col-3 d-flex flex-column m-5 h-100">
+                            <img  class="w-75 m-3 p-0" src="{{ asset('build/Group_3.png') }}" alt="">
+                            <h3> Pour dormir</h3>
+                            <p class="text-break">En cas de problème, nous vous dépannons 2h. <br>Nous remplaçons le matériel en cas de cas.</p>
+                            <a href="">En savoir plus</a>
+                        </div>
+                        <div class="col-3 d-flex flex-column m-5 h-100">
+                            <img  class="w-75 m-3" src="{{ asset('build/Group_4.png') }}" alt="">
+                            <h3> Pour le repas</h3>
+                            <p class="text-break">En cas de problème, nous vous dépannons 2h. <br>Nous remplaçons le matériel en cas de cas.</p>
+                            <a href="">En savoir plus</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

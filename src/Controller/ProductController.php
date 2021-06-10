@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+
+use App\Entity\Product;
 use App\Entity\Rating;
 use App\Entity\User;
 use App\Form\ProductType;
@@ -11,7 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Product;
 
 /**
  * @Route("/product", name="product_")

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{ app.user.pseudo }}{% endblock %}
+
+{% block body %}
+    <h1>Paramètre du compte</h1>
+    <div class="container justify-content-center rent-information">
+        <h2>Mes dernières locations</h2>
+        {% for rent in rents %}
+            <h3> Location du {{ rent.dateIn|date("d/m/Y") }} au {{ rent.dateOut|date("d/m/Y") }}</h3>
+            <p>  Date de retour du produit :   {{ rent.dateReturn|date("d/m/Y") }}
+            <p> Produit : {{ rent.stock.product.name }}</p>
+            {% for image in rent.stock.product.images %}
+                {%  if loop.index0 == 0 %}
+                    <img src="{{ image.url }}" alt="image du produit" class="img-fluid">
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+    <a href="{{ path('user_index') }}">Revenir à mon Compte</a>
+
+
+
+{% endblock %}
+

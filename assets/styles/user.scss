@@ -3,18 +3,6 @@
   margin-right: 20px;
 }
 
-.card-title {
-  font-size: 1.5em;
-}
-
-.user-card {
-  margin-top: 30px;
-  border-radius: 25px;
-  background: #ffffff;
-  box-shadow:  9px 9px 12px #f2f2f2,
-  -9px -9px 12px #ffffff;
-}
-
 .form-information, .form-password{
   h2{
     text-align: center;
@@ -34,3 +22,44 @@
     background-color: transparent;
   }
 }
+
+.container-user{
+  a {
+    color: $font-color;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  .user-card {
+    margin-top: 30px;
+    border-radius: 25px;
+    background: #ffffff;
+    &:hover {
+      box-shadow: 9px 9px 12px #f2f2f2,
+      -9px -9px 12px #ffffff;
+    }
+  }
+  .card-title, .button-decoration {
+    font-size: 1.5em;
+  }
+  .button-decoration{
+    font-weight:$title-weight;
+    height:$height-button;
+    width: $width-button;
+    background-color: transparent;
+    color: $font-color;
+    border: 1px solid $color-border-grey;
+    border-radius: $border-radius-button;
+    &:hover{
+      box-shadow:  9px 9px 12px #f2f2f2,
+      -9px -9px 12px #ffffff;
+    }
+  }
+}
+
+.rent-information{
+  .img-fluid{
+    height: 150px;
+  }
+}
+

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\ChangePasswordType;
 use App\Form\UserInformationType;
+use App\Repository\RentRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -80,6 +81,19 @@ class UserController extends AbstractController
         }
         return $this->render('user/password.html.twig', [
             'form_password' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/rent", name="rent")
+     */
+    public function rent(UserRepository $userRepository, RentRepository $rentRepository): Response
+    {
+        $userMail = $this->getUser()->getUsername();
+        $userId = $userRepository->findOneBy(['email' => $userMail])->getId();
+        $rents = $rentRepository->findBy(['user' => $userId]);
+        return $this->render('user/rent.html.twig', [
+            'rents' => $rents
         ]);
     }
 }

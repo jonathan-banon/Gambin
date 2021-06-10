@@ -97,12 +97,6 @@ class User implements UserInterface
      */
     private Collection $rents;
 
-
-    /**
-     * @ORM\OneToOne(targetEntity=Rating::class, mappedBy="user", cascade={"persist", "remove"})
-     */
-    private ?Rating $rating;
-
     /**
      * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="users")
      */
@@ -123,10 +117,16 @@ class User implements UserInterface
      */
     private ?\DateTimeInterface $birthDate;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $ratings;
+
     public function __construct()
     {
         $this->rents = new ArrayCollection();
         $this->favorites = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     /**
@@ -370,18 +370,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRating(): ?Rating
-    {
-        return $this->rating;
-    }
-
-    public function setRating(?Rating $rating): self
-    {
-        $this->rating = $rating;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Product[]
      */
@@ -438,6 +426,36 @@ class User implements UserInterface
     public function setBirthDate(?\DateTimeInterface $birthDate): self
     {
         $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getUser() === $this) {
+                $rating->setUser(null);
+            }
+        }
 
         return $this;
     }

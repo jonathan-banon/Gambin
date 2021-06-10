@@ -1,7 +1,8 @@
 footer {
   background-color: $color-blue;
   color: $color-white;
-  height: 13vh;
+  flex-shrink: 0;
+  height: 15vh;
   font-size:1vw ;
   .logo-footer{
     width: 14vh;
@@ -10,3 +11,7 @@ footer {
 }
 
 
+//.footer,
+////.push {
+////  height: 50px;
+////}

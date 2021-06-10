@@ -4,14 +4,50 @@
 
 {% block body %}
 
-    <div class="product">
-        <div class="product-body">
-            <h1 class="mt-0">Petite description succincte</h1>
-            <p>{{ product.description }}</p>
-            <p>Cet équipement est idéalement pour les enfants de {{ product.target }} ans</p>
-            <p>Pour la modique somme de : {{ product.price }} euros !</p>
-        </div>
+    <div class="text-dark col-12 py-3 ">
+        <a href="{{ path("home") }}"> Accueil </a>
+        <a> > </a>
+        <a href="{{ path("product_index") }}"> Catalogue </a>
+        <a> > </a>
+        <a> {{ product.name }} </a>
     </div>
+    <div class="container col-12 pt-2">
+    <div class="row">
+        <div class="col-2 border border-warning">
+            {% for image in product.images %}
+                <img class="card-img-top" src="{{ image.url }}" alt="Card image cap">
+            {% endfor %}
+        </div>
+        <div class="card col-6 border border-danger">
+            <div class="card-block">
+                {% for image in product.images %}
+                    {% if loop.index == 1 %}
+                        <img class="card-img-top" src="{{ image.url }}" alt="Card image cap">
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="card-body">
+                <p class="font-weight-bold">Description :</p>
+                <p>{{ product.description }}</p>
+                <ul>
+                    <li>{{ product.argumentOne }}</li>
+                    <li>{{ product.argumentTwo }}</li>
+                    <li>{{ product.argumentThree }}</li>
+                </ul>
+                <p class="font-weight-bold">Caractéristiques :</p>
+                <p>{{ product.characteristic }}</p>
+                <p>Age idéal : {{ product.target }} ans</p>
+            </div>
+        </div>
+        <div class="col-4">
+            <h1> {{ product.name }} </h1>
+            <p> {{ product.pricePerDay }}€ / journée</p>
+            <img class="img-fluid" src="{{ asset('build/capture-écran-réserver.png') }}" alt="filtre catalogue">
+        </div>
+
+    </div>
+
+
 
     <a href="{{ path('product_index') }}">
         Retour à la liste des produits

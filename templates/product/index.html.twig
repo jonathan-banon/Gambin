@@ -8,27 +8,27 @@
         <a href="#"class="mx-5">Les packs</a>
         <a href="#">Les accessoires</a>
     </div>
-    <div class="container pt-5">
+    <div class="container col-12 pt-5">
         <div class="row">
-            <div class="col-4">
+            <div class="col-3 border border-danger">
                 <img class="img-fluid" src="{{ asset('build/filtre-catalogue.png') }}" alt="filtre catalogue">
             </div>
-            <div class="d-flex col-8">
+            <div class="d-flex flex-wrap border border-warning center col-md-9">
                 {% for product in products %}
-                <div class="card col-4 py-4 mx-2" style="width: 18rem;">
-                    <div class="card-block">
-                        {% for image in product.images %}
-                            {% if loop.index0 == 0 %}
-                                <img class="card-img-top" src="{{ image.url }}" alt="Card image cap">
-                            {% endif %}
-                        {% endfor %}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ loop.index }} / {{ product.name }}</h5>
-                            <p class="card-text">A partir de {{ product.pricePerDay }} €</p>
-                            <a href="{{ path("product_show", {id: product.id}) }}" class="btn btn-primary">Voir la fiche produit</a>
+                    <div class="card col-5 mx-5 mb-5 border border-dark">
+                        <div class="card-block">
+                            {% for image in product.images %}
+                                {% if loop.index == 1 %}
+                                    <img class="card-img-top" src="{{ image.url }}" alt="Card image cap">
+                                {% endif %}
+                            {% endfor %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text">A partir de {{ product.pricePerDay }} €</p>
+                                <a href="{{ path("product_show", {id: product.id}) }}" class="btn btn-primary">Voir la fiche produit</a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
         </div>

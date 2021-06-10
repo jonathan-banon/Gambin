@@ -17,7 +17,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
         $product->setDescription("La poussette Yoyo est la poussette idéale pour arpenter les pavais 
         bordelais comme les quais le long de la garonne. Très légère, elle se déplie facilement d’une main.");
         $product->setStorage('Bordeaux ');
-        $product->setPricePerDay(24);
+        $product->setPricePerDay(6);
         $product->setPriceService(15);
         $product->setArgumentOne('Légère et maniable');
         $product->setArgumentTwo('Dépliable à la main');
@@ -38,7 +38,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
         (seulement 6kg). Récupérez cet équipement dès votre arrivée à destination ou demandez une livraison
          directement à votre hébergement. Notre livreur vous explique comment elle se règle. Idéal dès la naissance.");
         $product->setStorage('Bordeaux ');
-        $product->setPricePerDay(24);
+        $product->setPricePerDay(6);
         $product->setPriceService(15);
         $product->setArgumentOne('Légère et maniable');
         $product->setArgumentTwo('Dépliable à la main');
@@ -58,7 +58,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
          dans un transat ? Notre transat bébé de la marque Babyjorn devrait vous satisfaire. Idéal dès la naissance
           et jusqu’à 2 ans. ");
         $product->setStorage('Bordeaux ');
-        $product->setPricePerDay(24);
+        $product->setPricePerDay(4);
         $product->setPriceService(15);
         $product->setArgumentOne('Légère et maniable');
         $product->setArgumentTwo('Dépliable à la main');
@@ -76,7 +76,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
         $product->setDescription("Pour flâner en ville tout en portant bébé dans la position la 
         plus confortable pour son développement. Ce porte-bébé s’utilise de la naissance jusqu’aux 20kg de bébé.");
         $product->setStorage('Bordeaux ');
-        $product->setPricePerDay(24);
+        $product->setPricePerDay(4);
         $product->setPriceService(15);
         $product->setArgumentOne('Légère et maniable');
         $product->setArgumentTwo('Dépliable à la main');
@@ -97,7 +97,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
           dès votre arrivée à destination ou demandez une livraison directement à votre hébergement. Notre livreur 
           vous explique comment elle se règle.");
         $product->setStorage('Bordeaux ');
-        $product->setPricePerDay(24);
+        $product->setPricePerDay(4);
         $product->setPriceService(15);
         $product->setArgumentOne('Légère et maniable');
         $product->setArgumentTwo('Dépliable à la main');

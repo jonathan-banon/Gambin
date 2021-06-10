@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DepositRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Datetime;
 
@@ -50,9 +52,15 @@ class Deposit
     private \DateTimeInterface $updatedAt;
 
     /**
-     * @ORM\OneToOne(targetEntity=Rent::class, mappedBy="deposit", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Rent::class, mappedBy="deposit")
      */
-    private ?Rent $rent;
+    private Collection $rents;
+
+    public function __construct()
+    {
+        $this->rents = new ArrayCollection();
+    }
+
 
     /**
      * @ORM\PrePersist
@@ -143,19 +151,32 @@ class Deposit
         return $this;
     }
 
-    public function getRent(): ?Rent
+    /**
+     * @return Collection|Rent[]
+     */
+    public function getRents(): Collection
     {
-        return $this->rent;
+        return $this->rents;
     }
 
-    public function setRent(Rent $rent): self
+    public function addRent(Rent $rent): self
     {
-        // set the owning side of the relation if necessary
-        if ($rent->getDeposit() !== $this) {
+        if (!$this->rents->contains($rent)) {
+            $this->rents[] = $rent;
             $rent->setDeposit($this);
         }
 
-        $this->rent = $rent;
+        return $this;
+    }
+
+    public function removeRent(Rent $rent): self
+    {
+        if ($this->rents->removeElement($rent)) {
+            // set the owning side to null (unless already changed)
+            if ($rent->getDeposit() === $this) {
+                $rent->setDeposit(null);
+            }
+        }
 
         return $this;
     }

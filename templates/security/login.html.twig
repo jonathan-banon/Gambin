@@ -6,14 +6,6 @@
     <div class="container container-login">
 
         <form method="post">
-
-
-            {% if app.user %}
-                <div class="mb-3">
-                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-                </div>
-            {% endif %}
-
             <div class="row">
                 <div class="col-12 text-center">
                     <h1>Connexion</h1>

@@ -23,6 +23,13 @@ class ImageFixtures extends Fixture implements DependentFixtureInterface
         $image->setProduct($this->getReference('product_0'));
         $manager->persist($image);
 
+        $image = new Image();
+        $image->setUrl('https://gambin.co/wp-content/uploads/2021/05/litparap-05.png');
+        $image->setProduct($this->getReference('product_1'));
+        $manager->persist($image);
+
+
+
         $manager->flush();
     }
 

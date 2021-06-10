@@ -5,12 +5,15 @@ namespace App\Entity;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity("name")
  */
 class Product
 {
@@ -23,7 +26,7 @@ class Product
 
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=false, unique=true)
      */
     private ?string $name;
 
@@ -67,8 +70,9 @@ class Product
     /**
      * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
      */
-    private ?Marque $marque;
+    private Marque $marque;
 
     /**
      * @ORM\OneToMany(targetEntity=Accessory::class, mappedBy="product")

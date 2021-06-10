@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Accessory;
 use App\Entity\Image;
 use App\Entity\Product;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

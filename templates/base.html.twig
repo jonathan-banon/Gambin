@@ -19,6 +19,11 @@
 	</head>
 	<body>
 		{% include 'component/_navbar.html.twig' %}
+		{% for category, messages in app.flashes %}
+				{% for message in messages %}
+					<div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+					{% endfor %}
+		{% endfor %}
 		<div class="content">
 			{% block body %}{% endblock %}
 		</div>

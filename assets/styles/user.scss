@@ -1,5 +1,6 @@
 .logo {
-  width: 44px;
+  width: 70px;
+  margin-right: 20px;
 }
 
 .card-title {
@@ -12,4 +13,24 @@
   background: #ffffff;
   box-shadow:  9px 9px 12px #f2f2f2,
   -9px -9px 12px #ffffff;
+}
+
+.form-information, .form-password{
+  h2{
+    text-align: center;
+  }
+  label {
+      color : $color-grey;
+    }
+  input {
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-top-color: transparent;
+  }
+}
+
+.form-password{
+  .alert-danger{
+    background-color: transparent;
+  }
 }

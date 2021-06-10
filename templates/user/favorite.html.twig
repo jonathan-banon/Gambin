@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{ app.user.pseudo }}{% endblock %}
+
+{% block body %}
+    <h1>Paramètre du compte</h1>
+    <div class="container justify-content-center form-information">
+        <h2>Mes Produits favoris</h2>
+        <div class="row d-flex justify-content-center">
+
+            {% for favorite in app.user.favorites %}
+                <div class="col-lg-4 col-12">
+                    <div class="card" style="width: 18rem;">
+                        {% for image in favorite.images %}
+                            {% if loop.index0 == 0 %}
+                                <img class="card-img-top" src="{{ image.url }}" alt="Card image cap">
+                            {% endif %}
+                        {% endfor %}
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ favorite.name }}</h5>
+                            <p class="card-text">{{ favorite.description }}</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <a href="{{ path('user_index') }}">Revenir à mon Compte</a>
+
+
+
+{% endblock %}
+

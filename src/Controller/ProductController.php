@@ -37,7 +37,7 @@ class ProductController extends AbstractController
      * @Route("/show/{id<^[0-9]+$>}", name="show")
      * @return Response
      */
-    public function show(Product $product): Response
+    public function show(Product $product, Request $request, EntityManagerInterface $entityManager): Response
     {
         if (!$product) {
             throw $this->createNotFoundException(
@@ -49,9 +49,19 @@ class ProductController extends AbstractController
             ->getRepository(Product::class)
             ->findAll();
 
+        $rating = new Rating();
+        $form = $this->createForm(RantingType::class, $rating);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($rating);
+            $entityManager->flush();
+        }
+
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'products' => $products,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -71,26 +81,6 @@ class ProductController extends AbstractController
         }
 
         return $this->render('product/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/newRating", name="newRating")
-     * @return Response
-     */
-    public function newRating(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $rating = new Rating();
-        $form = $this->createForm(RantingType::class, $rating);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($rating);
-            $entityManager->flush();
-        }
-
-        return $this->render('product/show.html.twig', [
             'form' => $form->createView(),
         ]);
     }

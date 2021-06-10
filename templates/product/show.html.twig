@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block body %}
@@ -101,7 +103,8 @@
             </div>
             <div>
                 <h1 class="text-center"> Ajouter un commentaire </h1>
-                <div class="col-10 mx-auto">
+                <div class="col-6 mx-auto">
+                    <label for="">Commentaire</label>
                     {{ form_start(form) }}
                     {{ form_widget(form) }}
                     <button class="">Envoyer</button>

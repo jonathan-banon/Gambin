@@ -26,7 +26,11 @@
                     <div class="d-flex align-items-center">
                         <i class="fas fa-arrow-right"></i>
                     </div>
-                    <a class="nav-link" href="{{ path('app_login') }}">S'identifier</a>
+                    {% if app.user %}
+                        <a class="nav-link" href="{{ path('user_index') }}">Mon Compte</a>
+                    {% else %}
+                        <a class="nav-link" href="{{ path('app_login') }}">S'identifier</a>
+                    {% endif %}
                 </div>
             </li>
         </ul>

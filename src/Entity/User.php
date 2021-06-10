@@ -113,6 +113,16 @@ class User implements UserInterface
      */
     private string $pseudo;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $phoneNumber;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?\DateTimeInterface $birthDate;
+
     public function __construct()
     {
         $this->rents = new ArrayCollection();
@@ -404,6 +414,30 @@ class User implements UserInterface
     public function setPseudo(string $pseudo): self
     {
         $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(?string $phoneNumber): self
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    public function getBirthDate(): ?\DateTimeInterface
+    {
+        return $this->birthDate;
+    }
+
+    public function setBirthDate(?\DateTimeInterface $birthDate): self
+    {
+        $this->birthDate = $birthDate;
 
         return $this;
     }

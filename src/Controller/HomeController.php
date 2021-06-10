@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,11 +17,9 @@ class HomeController extends AbstractController
      * @Route("/", name="home")
      * @return Response A response instance
      */
-    public function index(): Response
+    public function index(ProductRepository $productRepository): Response
     {
-        $products = $this->getDoctrine()
-            ->getRepository(Product::class)
-            ->findAll();
+        $products = $productRepository->findAll();
 
         return $this->render('home/index.html.twig', [
             'products' => $products

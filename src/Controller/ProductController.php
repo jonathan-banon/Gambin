@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Product;
+use App\Entity\Rating;
+use App\Entity\User;
 use App\Form\ProductType;
+use App\Form\RantingType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,15 +38,31 @@ class ProductController extends AbstractController
      * @Route("/show/{id<^[0-9]+$>}", name="show")
      * @return Response
      */
-    public function show(Product $product): Response
+    public function show(Product $product, Request $request, EntityManagerInterface $entityManager): Response
     {
         if (!$product) {
             throw $this->createNotFoundException(
                 'No product found.'
             );
         }
+
+        $products = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->findAll();
+
+        $rating = new Rating();
+        $form = $this->createForm(RantingType::class, $rating);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($rating);
+            $entityManager->flush();
+        }
+
         return $this->render('product/show.html.twig', [
             'product' => $product,
+            'products' => $products,
+            'form' => $form->createView(),
         ]);
     }
 

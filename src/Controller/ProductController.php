@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Rating;
 use App\Entity\User;
 use App\Form\ProductType;
+use App\Form\RantingType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,14 +49,9 @@ class ProductController extends AbstractController
             ->getRepository(Product::class)
             ->findAll();
 
-        $users = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->findAll();
-
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'products' => $products,
-            'users' => $users,
         ]);
     }
 
@@ -74,6 +71,26 @@ class ProductController extends AbstractController
         }
 
         return $this->render('product/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/newRating", name="newRating")
+     * @return Response
+     */
+    public function newRating(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $rating = new Rating();
+        $form = $this->createForm(RantingType::class, $rating);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($rating);
+            $entityManager->flush();
+        }
+
+        return $this->render('product/show.html.twig', [
             'form' => $form->createView(),
         ]);
     }

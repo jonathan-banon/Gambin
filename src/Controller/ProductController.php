@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\ProductType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,8 +42,19 @@ class ProductController extends AbstractController
                 'No product found.'
             );
         }
+
+        $products = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->findAll();
+
+        $users = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findAll();
+
         return $this->render('product/show.html.twig', [
             'product' => $product,
+            'products' => $products,
+            'users' => $users,
         ]);
     }
 

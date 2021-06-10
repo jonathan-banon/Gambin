@@ -3,7 +3,14 @@
   body {
     background-color: $color-white;
     color: $light;
-    margin-top: 12vh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    //margin-top: 12vh;
+    .content{
+      flex: 1 0 auto;
+      margin-top: 18vh;
+    }
     h1{
       font-weight: $title-weight;
     }
@@ -12,4 +19,3 @@
     }
   }
 }
-

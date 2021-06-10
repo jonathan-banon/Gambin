@@ -55,6 +55,8 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $rating->setUser($this->getUser());
+            $rating->setProduct($product);
             $entityManager->persist($rating);
             $entityManager->flush();
         }

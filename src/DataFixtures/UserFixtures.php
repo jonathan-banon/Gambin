@@ -26,6 +26,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $password = $this->encoder->encodePassword($user, 'test');
         $user->setPassword($password);
         $user->setPseudo('test');
+        $user->addFavorite($this->getReference('product_0'));
+        $user->addFavorite($this->getReference('product_1'));
+        $user->addFavorite($this->getReference('product_2'));
         $manager->persist($user);
         $this->addReference('user_0', $user);
 
@@ -36,9 +39,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $password = $this->encoder->encodePassword($user, 'test');
         $user->setPassword($password);
         $user->setPseudo('test1');
-        $user->addFavorite($this->getReference('product_0'));
-        $user->addFavorite($this->getReference('product_1'));
-        $user->addFavorite($this->getReference('product_2'));
         $manager->persist($user);
         $this->addReference('user_1', $user);
 

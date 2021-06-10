@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ favorite.name }}</h5>
                             <p class="card-text">{{ favorite.description }}</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="{{ path('product_show', {id: favorite.id}) }}" class="btn btn-primary">Go somewhere</a>
                         </div>
                     </div>
                 </div>
@@ -29,9 +29,6 @@
             {% endfor %}
         </div>
     </div>
-    <a href="{{ path('user_index') }}">Revenir à mon Compte</a>
-
-
-
+    <a href="{{ path('user_index') }}"><button class="btn button-decoration"><i class="fas fa-arrow-circle-left"></i>  Revenir à mon Compte</button></a>
 {% endblock %}
 

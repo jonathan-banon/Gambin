@@ -3,6 +3,22 @@
   margin-right: 20px;
 }
 
+.button-decoration{
+  font-weight:$title-weight;
+  height:$height-button;
+  width: $width-button;
+  background-color: transparent;
+  color: $font-color;
+  border: 1px solid $color-border-grey;
+  border-radius: $border-radius-button;
+  font-size: 1.1em;
+  &:hover{
+    box-shadow:  9px 9px 12px #f2f2f2,
+    -9px -9px 12px #ffffff;
+  }
+}
+
+
 .form-information, .form-password{
   h2{
     text-align: center;
@@ -39,27 +55,45 @@
       -9px -9px 12px #ffffff;
     }
   }
-  .card-title, .button-decoration {
+  .card-title, {
     font-size: 1.5em;
   }
-  .button-decoration{
-    font-weight:$title-weight;
-    height:$height-button;
-    width: $width-button;
-    background-color: transparent;
-    color: $font-color;
-    border: 1px solid $color-border-grey;
-    border-radius: $border-radius-button;
-    &:hover{
-      box-shadow:  9px 9px 12px #f2f2f2,
-      -9px -9px 12px #ffffff;
-    }
-  }
+
 }
 
 .rent-information{
-  .img-fluid{
-    height: 150px;
+  h2{
+    margin-top: 30px;
+  }
+  h3, h4{
+    font-size: 0.75em;
+    color: $color-grey;
+  }
+  a {
+    color: $font-color;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  .card-rent{
+    margin-bottom: 15px;
+    width: 350px;
+    height: 70px;
+    box-shadow: 0 3px 4px
+    rgba(153, 155, 168, 0.30);
+    border-radius: $border-radius-button;
+    .img-fluid{
+      height: 70px;
+    }
+    p{
+      font-weight: $title-weight;
+    }
+  }
+  .location{
+    border-bottom: 1px solid #EDE8E9;
+    margin-top: 30px;
   }
 }
+
 

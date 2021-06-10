@@ -3,6 +3,10 @@
   font-size: 4.5rem;
   line-height: 95px;
 }
+h2.home{
+  font-size: 3rem;
+  line-height: 10px;
+}
 .Title-2{
   font-weight: bold;
   font-size: 3rem;
@@ -13,4 +17,21 @@
   background-repeat: no-repeat;
   width:100%;
   height: 900px;
+}
+.golden-title{
+  font-weight: bold;
+  font-size: 2em;
+  line-height: 95px;
+  color: #FEBF63;
+}
+div.card.bg-card{
+  background-color: #F7F7F7;
+  border-color:#F7F7F7 ;
+}
+.guillemets{
+  width: 300px;
+  height:300px;
+  background-image: url("../images/Title.png");
+  background-size: contain;
+  background-repeat: no-repeat;
 }

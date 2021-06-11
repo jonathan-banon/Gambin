@@ -16,12 +16,12 @@
 
     <div class="container col-12 pt-2">
         <div class="row">
-            <div class="col-2 border border-warning">
+            <div class="col-2">
                 {% for image in product.images %}
                     <img class="card-img-top" src="{{ image.url }}" alt="Card image cap">
                 {% endfor %}
             </div>
-            <div class="card col-6 border border-danger">
+            <div class="card col-6">
                 <div class="card-block">
                     {% for image in product.images %}
                         {% if loop.index == 1 %}
@@ -44,8 +44,7 @@
             </div>
             <div class="col-4">
                 <h1> {{ product.name }} </h1>
-                <p> {{ product.pricePerDay }}€ / journée</p>
-                <img class="img-fluid" src="{{ asset('build/capture-écran-réserver.png') }}" alt="filtre catalogue">
+                <h3> A partir de {{ product.pricePerDay }}€ / journée (+ frais de service)</h3>
             </div>
         </div>
 
@@ -53,9 +52,9 @@
             <div class="font-weight-bold col-12 text-center my-5">
                 <h4>Les accessoires disponibles pour cet équipement</h4>
             </div>
-            <div class="d-flex flex-wrap border border-warning center col-8 mx-auto">
+            <div class="d-flex flex-wrap center col-12 mx-auto">
                 {% for accessory in product.accessories %}
-                    <div class="card col-5 mx-5 mb-5 border border-dark">
+                    <div class="card col-3 mx-auto mb-5">
                         <div class="card-block">
                             {% for image in accessory.images %}
                                 {% if loop.index == 1 %}
@@ -69,6 +68,10 @@
                             </div>
                         </div>
                     </div>
+                {% else %}
+                    <div class=" col-12 text-center text-danger my-5">
+                        <p> Nous de disposons pas encore d'accessoire pour ce produit </p>
+                    </div>
                 {% endfor %}
             </div>
         </div>
@@ -77,9 +80,9 @@
             <div class="font-weight-bold text-center my-5">
                 <h4>Les autres équipements</h4>
             </div>
-            <div class="d-flex flex-wrap border border-warning center col-8 mx-auto">
+            <div class="d-flex flex-wrap center col-12 mx-auto">
                 {% for product in products %}
-                    <div class="card col-5 mx-5 mb-5 border border-dark">
+                    <div class="card col-3 mx-5 mb-5">
                         <div class="card-block">
                             {% for image in product.images %}
                                 {% if loop.index == 1 %}
@@ -98,26 +101,26 @@
         </div>
 
         <div>
-            <div class="font-weight-bold">
-                <h4>Commentaires</h4>
-            </div>
             <div>
-                <h1 class="text-center"> Ajouter un commentaire </h1>
-                <div class="col-6 mx-auto">
+                <h1 class="text-center my-5"> Ajouter un commentaire </h1>
+                <div class="col-5 mx-auto">
                     <label for="">Commentaire</label>
                     {{ form_start(form) }}
-                    {{ form_widget(form) }}
-                    <button class="">Envoyer</button>
+                    {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+                    <button class="btn button-style col-2 my-3">Envoyer</button>
                     {{ form_end(form) }}
                 </div>
             </div>
-            <div class="d-flex flex-wrap border border-warning center col-md-9">
+            <div class="font-weight-bold my-5">
+                <h4>Commentaires</h4>
+            </div>
+            <div class="d-flex flex-wrap center col-md-9">
                 {% for rating in product.ratings %}
-                            <div class="card">
+                            <div class="card my-3">
                                 <div class="row">
                                     <div class="col-md-2">
                                         <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                                        <p class="text-secondary text-center">15 Minutes Ago</p>
+                                        <p class="text-secondary text-center">{{ rating.createdAt |date('F j, Y, g:i a')}}</p>
                                     </div>
                                     <div class="col-md-10">
                                         <p>
@@ -132,13 +135,17 @@
                                     </div>
                                 </div>
                             </div>
+                {% else %}
+                    <div class=" col-12 text-center text-danger my-5">
+                        <p> Il n'y a pas de commentaire pour cette article </p>
+                    </div>
                 {% endfor %}
             </div>
         </div>
 
         <div class="mx-auto my-5 text-center">
-            <a href="#" class="top mx-5"><button>Retour en de page</button></a>
-            <a href="{{ path('product_index') }}"><button> Retour à la liste des produits </button></a>
+            <a href="#" class="top mx-5"><button class="btn button-style col-3">Retour en haut de page</button></a>
+            <a href="{{ path('product_index') }}"><button class="btn button-style col-3"> Retour à la liste des produits </button></a>
         </div>
 
     </div>

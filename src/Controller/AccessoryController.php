@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Accessory;
+use App\Entity\Image;
 use App\Form\AccessoryType;
+use App\Form\PictureType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,10 +13,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/accessory", name="accessory_")
+ */
 class AccessoryController extends AbstractController
 {
     /**
-     * @Route("/newaccessory", name="accessory_new")
+     * @Route("/new", name="new")
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -27,7 +32,7 @@ class AccessoryController extends AbstractController
         }
 
         return $this->render('accessory/new.html.twig', [
-            'addAccessoryForm' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 }

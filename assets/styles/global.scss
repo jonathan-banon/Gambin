@@ -1,23 +1,21 @@
 * {
   font-family: 'Roboto', sans-serif;
+  body {
+    background-color: $color-white;
+    color: $light;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    //margin-top: 12vh;
+    .content{
+      flex: 1 0 auto;
+      margin-top: 18vh;
+    }
+    h1{
+      font-weight: $title-weight;
+    }
+    a{
+      text-decoration:none;
+    }
+  }
 }
-
-
-body {
-  background-color: $color-white;
-  min-height: 100%;
-  color: $light;
-}
-
-h1{
-  font-weight: $title-weigth;
-}
-
-.grey-text{
-  color:$grey-color;
-}
-
-a{
-  text-decoration:none;
-}
-

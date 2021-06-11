@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\Image;
+use App\Entity\Accessory;
 use App\Entity\Marque;
 use App\Entity\Product;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -16,13 +18,33 @@ class ProductType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('storage')
-            ->add('price')
-            ->add('target')
+            ->add('characteristic')
+            ->add('argumentOne')
+            ->add('argumentTwo')
+            ->add('argumentThree')
+            ->add('pricePerDay')
+            ->add('priceService')
+            ->add('images', EntityType::class, [
+                'class' => Image::class,
+                'choice_label' => 'url',
+                'expanded' => false,
+                'multiple' => true,
+                'by_reference' => false,
+            ])
+            ->add('accessories', EntityType::class, [
+                'by_reference' => false,
+                'class' => Accessory::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => false,
+                'required' => false
+            ])
             ->add('marque', EntityType::class, [
                 'class' => Marque::class,
                 'choice_label' => 'name',
-            ]);
+                'expanded' => false,
+                'multiple' => false
+                ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

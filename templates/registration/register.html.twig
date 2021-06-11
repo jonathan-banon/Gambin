@@ -5,7 +5,7 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <div class="container ">
+    <div class="container container-register">
             {% for flashError in app.flashes('verify_email_error') %}
                 <div class="alert alert-danger" role="alert">{{ flashError }}</div>
             {% endfor %}
@@ -26,6 +26,16 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="input-group mb-3 col-12">
+                    {{ form_widget(registrationForm.pseudo) }}
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2"><i class="far fa-user"></i></span>
+                    </div>
+                </div>
+                {{ form_errors(registrationForm.pseudo) }}
+            </div>
+
             <div class="row mt-3">
                 <div class="input-group mb-3 col-6">
                     {{ form_widget(registrationForm.firstName) }}
@@ -43,6 +53,7 @@
                 </div>
                 {{ form_errors(registrationForm.lastName) }}
             </div>
+
 
             <div class="row">
                 <div class="input-group mb-3 col-12">

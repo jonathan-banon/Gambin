@@ -36,17 +36,16 @@ class Rating
      */
     private \DateTimeInterface $updatedAt;
 
-
-    /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="rating", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private ?User $user;
-
     /**
      * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="ratings")
      */
-    private $product;
+    private ?Product $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ratings")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     /**
      * @ORM\PrePersist
@@ -107,23 +106,6 @@ class Rating
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user): self
-    {
-        // set the owning side of the relation if necessary
-        if ($user->getRating() !== $this) {
-            $user->setRating($this);
-        }
-
-        $this->user = $user;
-
-        return $this;
-    }
-
     public function getProduct(): ?Product
     {
         return $this->product;
@@ -132,6 +114,17 @@ class Rating
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

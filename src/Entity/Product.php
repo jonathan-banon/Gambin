@@ -5,12 +5,15 @@ namespace App\Entity;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity("name")
  */
 class Product
 {
@@ -23,7 +26,7 @@ class Product
 
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=false, unique=true)
      */
     private ?string $name;
 
@@ -42,10 +45,7 @@ class Product
      */
     private ?string $storage;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private ?float $price;
+
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
@@ -65,48 +65,106 @@ class Product
     /**
      * @ORM\ManyToMany(targetEntity=Pack::class, mappedBy="products")
      */
-    private $packs;
+    private Collection $packs;
 
     /**
      * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
      */
-    private ?Marque $marque;
+    private Marque $marque;
 
     /**
      * @ORM\OneToMany(targetEntity=Accessory::class, mappedBy="product")
      */
-    private $accessories;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="products")
-     * @ORM\JoinTable(name="favorite")
-     */
-    private $users;
+    private Collection $accessories;
 
     /**
      * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="product")
      */
-    private $stocks;
+    private Collection $stocks;
 
     /**
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="product")
      */
-    private $images;
+    private Collection $images;
 
     /**
      * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="product")
      */
-    private $ratings;
+    private Collection $ratings;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="products")
+     */
+    private Collection $categories;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="favorites")
+     */
+    private Collection $users;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $characteristic;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $argumentOne;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $argumentTwo;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $argumentThree;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private float $pricePerDay;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private float $priceService;
+
+    public function __sleep()
+    {
+         return [];
+    }
+
+    /**
+    * @ORM\PrePersist
+    */
+    public function onPrePersist(): void
+    {
+        $this->createdAt = new DateTime();
+        $this->updatedAt = new DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate()
+    */
+    public function onPreUpdate(): void
+    {
+            $this->updatedAt = new DateTime();
+    }
 
     public function __construct()
     {
         $this->packs = new ArrayCollection();
         $this->accessories = new ArrayCollection();
         $this->ratings = new ArrayCollection();
-        $this->users = new ArrayCollection();
         $this->stocks = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -162,18 +220,6 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(?float $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
     public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
@@ -210,22 +256,6 @@ class Product
         return $this;
     }
 
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function onPrePersist(): void
-    {
-        $this->createdAt = new DateTime();
-        $this->updatedAt = new DateTime();
-    }
-    /**
-     * @ORM\PreUpdate()
-     */
-    public function onPreUpdate(): void
-    {
-        $this->updatedAt = new DateTime();
-    }
 
     /**
      * @return Collection|Pack[]
@@ -292,30 +322,6 @@ class Product
                 $accessory->setProduct(null);
             }
         }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        $this->users->removeElement($user);
 
         return $this;
     }
@@ -406,6 +412,132 @@ class Product
                 $rating->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->removeElement($category)) {
+            $category->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addFavorite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeFavorite($this);
+        }
+
+        return $this;
+    }
+
+    public function getCharacteristic(): ?string
+    {
+        return $this->characteristic;
+    }
+
+    public function setCharacteristic(?string $characteristic): self
+    {
+        $this->characteristic = $characteristic;
+
+        return $this;
+    }
+
+    public function getArgumentOne(): ?string
+    {
+        return $this->argumentOne;
+    }
+
+    public function setArgumentOne(?string $argumentOne): self
+    {
+        $this->argumentOne = $argumentOne;
+
+        return $this;
+    }
+
+    public function getArgumentTwo(): ?string
+    {
+        return $this->argumentTwo;
+    }
+
+    public function setArgumentTwo(?string $argumentTwo): self
+    {
+        $this->argumentTwo = $argumentTwo;
+
+        return $this;
+    }
+
+    public function getArgumentThree(): ?string
+    {
+        return $this->argumentThree;
+    }
+
+    public function setArgumentThree(?string $argumentThree): self
+    {
+        $this->argumentThree = $argumentThree;
+
+        return $this;
+    }
+
+    public function getPricePerDay(): ?float
+    {
+        return $this->pricePerDay;
+    }
+
+    public function setPricePerDay(float $pricePerDay): self
+    {
+        $this->pricePerDay = $pricePerDay;
+
+        return $this;
+    }
+
+    public function getPriceService(): ?float
+    {
+        return $this->priceService;
+    }
+
+    public function setPriceService(float $priceService): self
+    {
+        $this->priceService = $priceService;
 
         return $this;
     }

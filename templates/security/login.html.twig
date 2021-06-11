@@ -3,26 +3,18 @@
 {% block title %}Connectez-vous!{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container container-login">
 
         <form method="post">
-
-
-            {% if app.user %}
-                <div class="mb-3">
-                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-                </div>
-            {% endif %}
-
             <div class="row">
                 <div class="col-12 text-center">
                     <h1>Connexion</h1>
                 </div>
             </div>
 
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control col-12 mb-3 {{ error != '' ? 'is-invalid' : ''}}" autocomplete="email" required autofocus placeholder="Email">
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control col-12 mb-3 {{ error != '' ? 'is-invalid' : '' }}" autocomplete="email" required autofocus placeholder="Email">
 
-            <input type="password" name="password" id="inputPassword" class="form-control mt-3 {{ error != '' ? 'is-invalid' : ''}}" autocomplete="current-password col-12" required placeholder="Mot de passe">
+            <input type="password" name="password" id="inputPassword" class="form-control mt-3 {{ error != '' ? 'is-invalid' : '' }}" autocomplete="current-password col-12" required placeholder="Mot de passe">
 
             <input type="hidden" name="_csrf_token"
                    value="{{ csrf_token('authenticate') }}"

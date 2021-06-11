@@ -12,6 +12,15 @@ use Datetime;
  */
 class Rent
 {
+    public const STATUS = [
+        0 => 'available',
+        1 => 'cart',
+        2 => 'reserved',
+        3 => 'getBack',
+        4 => 'cleaning',
+    ];
+
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -56,16 +65,15 @@ class Rent
     private Stock $stock;
 
     /**
-     * @ORM\OneToOne(targetEntity=Deposit::class, inversedBy="rent", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private Deposit $deposit;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="rents")
      * @ORM\JoinColumn(nullable=false)
      */
     private ?User $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Deposit::class, inversedBy="rents")
+     */
+    private ?Deposit $deposit;
 
     /**
      * @ORM\PrePersist
@@ -173,18 +181,6 @@ class Rent
         return $this;
     }
 
-    public function getDeposit(): ?Deposit
-    {
-        return $this->deposit;
-    }
-
-    public function setDeposit(Deposit $deposit): self
-    {
-        $this->deposit = $deposit;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -193,6 +189,18 @@ class Rent
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDeposit(): ?Deposit
+    {
+        return $this->deposit;
+    }
+
+    public function setDeposit(?Deposit $deposit): self
+    {
+        $this->deposit = $deposit;
 
         return $this;
     }

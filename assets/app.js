@@ -17,11 +17,3 @@ const $ = require('jquery');
 require('bootstrap');
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
-
-// or you can include specific pieces
-// require('bootstrap/js/dist/tooltip');
-// require('bootstrap/js/dist/popover');
-
-$(document).ready(function() {
-    $('[data-toggle="popover"]').popover();
-});

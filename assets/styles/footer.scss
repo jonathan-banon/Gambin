@@ -1,12 +1,17 @@
-footer{
+footer {
   background-color: $color-blue;
   color: $color-white;
-  height: 190px;
-  width: 100%;
+  flex-shrink: 0;
+  height: 15vh;
+  font-size:1vw ;
+  .logo-footer{
+    width: 14vh;
+    height: auto;
+  }
 }
 
-.logo-footer{
-  width: 170px;
-  height: auto;
-}
 
+//.footer,
+////.push {
+////  height: 50px;
+////}

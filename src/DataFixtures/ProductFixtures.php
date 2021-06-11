@@ -17,9 +17,15 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
         $product->setDescription("La poussette Yoyo est la poussette idéale pour arpenter les pavais 
         bordelais comme les quais le long de la garonne. Très légère, elle se déplie facilement d’une main.");
         $product->setStorage('Bordeaux ');
-        $product->setPrice(850.50);
+        $product->setPricePerDay(6);
+        $product->setPriceService(15);
+        $product->setArgumentOne('Légère et maniable');
+        $product->setArgumentTwo('Dépliable à la main');
+        $product->setArgumentThree('Harnais 5 points');
+        $product->setCharacteristic('Ce porte-bébé s’utilise de la naissance jusqu’aux 20kg de bébé.');
         $product->setTarget(2);
         $product->setMarque($this->getReference('marque_0'));
+        $product->addCategory($this->getReference('category_0'));
         $manager->persist($product);
         $this->addReference('product_0', $product);
 
@@ -32,9 +38,15 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
         (seulement 6kg). Récupérez cet équipement dès votre arrivée à destination ou demandez une livraison
          directement à votre hébergement. Notre livreur vous explique comment elle se règle. Idéal dès la naissance.");
         $product->setStorage('Bordeaux ');
-        $product->setPrice(550.50);
+        $product->setPricePerDay(6);
+        $product->setPriceService(15);
+        $product->setArgumentOne('Légère et maniable');
+        $product->setArgumentTwo('Dépliable à la main');
+        $product->setArgumentThree('Harnais 5 points');
+        $product->setCharacteristic('Ce porte-bébé s’utilise de la naissance jusqu’aux 20kg de bébé.');
         $product->setTarget(3);
         $product->setMarque($this->getReference('marque_1'));
+        $product->addCategory($this->getReference('category_0'));
         $manager->persist($product);
         $this->addReference('product_1', $product);
 
@@ -46,9 +58,15 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
          dans un transat ? Notre transat bébé de la marque Babyjorn devrait vous satisfaire. Idéal dès la naissance
           et jusqu’à 2 ans. ");
         $product->setStorage('Bordeaux ');
-        $product->setPrice(100.50);
+        $product->setPricePerDay(4);
+        $product->setPriceService(15);
+        $product->setArgumentOne('Légère et maniable');
+        $product->setArgumentTwo('Dépliable à la main');
+        $product->setArgumentThree('Harnais 5 points');
+        $product->setCharacteristic('Ce porte-bébé s’utilise de la naissance jusqu’aux 20kg de bébé.');
         $product->setTarget(2);
         $product->setMarque($this->getReference('marque_1'));
+        $product->addCategory($this->getReference('category_0'));
         $manager->persist($product);
         $this->addReference('product_2', $product);
 
@@ -58,9 +76,15 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
         $product->setDescription("Pour flâner en ville tout en portant bébé dans la position la 
         plus confortable pour son développement. Ce porte-bébé s’utilise de la naissance jusqu’aux 20kg de bébé.");
         $product->setStorage('Bordeaux ');
-        $product->setPrice(50.50);
+        $product->setPricePerDay(4);
+        $product->setPriceService(15);
+        $product->setArgumentOne('Légère et maniable');
+        $product->setArgumentTwo('Dépliable à la main');
+        $product->setArgumentThree('Harnais 5 points');
+        $product->setCharacteristic('Ce porte-bébé s’utilise de la naissance jusqu’aux 20kg de bébé.');
         $product->setTarget(2);
         $product->setMarque($this->getReference('marque_2'));
+        $product->addCategory($this->getReference('category_0'));
         $manager->persist($product);
         $this->addReference('product_3', $product);
 
@@ -73,9 +97,15 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
           dès votre arrivée à destination ou demandez une livraison directement à votre hébergement. Notre livreur 
           vous explique comment elle se règle.");
         $product->setStorage('Bordeaux ');
-        $product->setPrice(80.50);
+        $product->setPricePerDay(4);
+        $product->setPriceService(15);
+        $product->setArgumentOne('Légère et maniable');
+        $product->setArgumentTwo('Dépliable à la main');
+        $product->setArgumentThree('Harnais 5 points');
+        $product->setCharacteristic('Ce porte-bébé s’utilise de la naissance jusqu’aux 20kg de bébé.');
         $product->setTarget(2);
         $product->setMarque($this->getReference('marque_3'));
+        $product->addCategory($this->getReference('category_0'));
         $manager->persist($product);
         $this->addReference('product_4', $product);
 
@@ -87,6 +117,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             MarqueFixtures::class,
+            CategoryFixtures::class,
         ];
     }
 }

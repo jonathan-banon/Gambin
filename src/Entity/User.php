@@ -14,6 +14,7 @@ use Datetime;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity("email", message ="Ce mail existe déjà")
+ * @UniqueEntity("pseudo", message ="Ce pseudo existe déjà")
  * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface
@@ -40,11 +41,6 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private string $password;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private ?string $pseudo;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -99,23 +95,38 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity=Rent::class, mappedBy="user")
      */
-    private $rents;
-
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="users")
-     */
-    private $products;
+    private Collection $rents;
 
     /**
-     * @ORM\OneToOne(targetEntity=Rating::class, mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="users")
      */
-    private ?Rating $rating;
+    private Collection $favorites;
+
+    /**
+     * @ORM\Column(type="string", length=100, unique=true)
+     */
+    private string $pseudo;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $phoneNumber;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?\DateTimeInterface $birthDate;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $ratings;
 
     public function __construct()
     {
         $this->rents = new ArrayCollection();
-        $this->products = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     /**
@@ -214,18 +225,6 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(?string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
     }
 
     public function getFirstName(): ?string
@@ -371,40 +370,91 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRating(): ?Rating
-    {
-        return $this->rating;
-    }
-
-    public function setRating(?Rating $rating): self
-    {
-        $this->rating = $rating;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Product[]
      */
-    public function getProducts(): Collection
+    public function getFavorites(): Collection
     {
-        return $this->products;
+        return $this->favorites;
     }
 
-    public function addProduct(Product $product): self
+    public function addFavorite(Product $favorite): self
     {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->addUser($this);
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites[] = $favorite;
         }
 
         return $this;
     }
 
-    public function removeProduct(Product $product): self
+    public function removeFavorite(Product $favorite): self
     {
-        if ($this->products->removeElement($product)) {
-            $product->removeUser($this);
+        $this->favorites->removeElement($favorite);
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(?string $phoneNumber): self
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    public function getBirthDate(): ?\DateTimeInterface
+    {
+        return $this->birthDate;
+    }
+
+    public function setBirthDate(?\DateTimeInterface $birthDate): self
+    {
+        $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getUser() === $this) {
+                $rating->setUser(null);
+            }
         }
 
         return $this;

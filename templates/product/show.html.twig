@@ -1,20 +1,153 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block body %}
 
-    <div class="product">
-        <div class="product-body">
-            <h1 class="mt-0">Petite description succincte</h1>
-            <p>{{ product.description }}</p>
-            <p>Cet équipement est idéalement pour les enfants de {{ product.target }} ans</p>
-            <p>Pour la modique somme de : {{ product.price }} euros !</p>
-        </div>
+    <div class="text-dark col-12 my-3 ">
+        <a href="{{ path("home") }}"> Accueil </a>
+        <a> > </a>
+        <a href="{{ path("product_index") }}"> Catalogue </a>
+        <a> > </a>
+        <a> {{ product.name }} </a>
     </div>
 
-    <a href="{{ path('product_index') }}">
-        Retour à la liste des produits
-    </a>
+    <div class="container col-12 pt-2">
+        <div class="row">
+            <div class="col-2">
+                {% for image in product.images %}
+                    <img class="card-img-top" src="{{ image.url }}" alt="Card image cap">
+                {% endfor %}
+            </div>
+            <div class="card col-6">
+                <div class="card-block">
+                    {% for image in product.images %}
+                        {% if loop.index == 1 %}
+                            <img class="card-img-top" src="{{ image.url }}" alt="Card image cap">
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="card-body">
+                    <p class="font-weight-bold">Description :</p>
+                    <p>{{ product.description }}</p>
+                    <ul>
+                        <li>{{ product.argumentOne }}</li>
+                        <li>{{ product.argumentTwo }}</li>
+                        <li>{{ product.argumentThree }}</li>
+                    </ul>
+                    <p class="font-weight-bold">Caractéristiques :</p>
+                    <p>{{ product.characteristic }}</p>
+                    <p>Age idéal : {{ product.target }} ans</p>
+                </div>
+            </div>
+            <div class="col-4">
+                <h1> {{ product.name }} </h1>
+                <h3> A partir de {{ product.pricePerDay }}€ / journée (+ frais de service)</h3>
+            </div>
+        </div>
+
+        <div>
+            <div class="font-weight-bold col-12 text-center my-5">
+                <h4>Les accessoires disponibles pour cet équipement</h4>
+            </div>
+            <div class="d-flex flex-wrap center col-12 mx-auto">
+                {% for accessory in product.accessories %}
+                    <div class="card col-3 mx-auto mb-5">
+                        <div class="card-block">
+                            {% for image in accessory.images %}
+                                {% if loop.index == 1 %}
+                                    <img class="card-img-top" src="{{ image.url }}" alt="Card image cap">
+                                {% endif %}
+                            {% endfor %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ accessory.name }}</h5>
+                                <p class="card-text">A partir de {{ accessory.pricePerDay }} €</p>
+                                <a href="{{ path("product_show", {id: accessory.id}) }}" class="btn btn-primary">-> Ajouter</a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class=" col-12 text-center text-danger my-5">
+                        <p> Nous de disposons pas encore d'accessoire pour ce produit </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div>
+            <div class="font-weight-bold text-center my-5">
+                <h4>Les autres équipements</h4>
+            </div>
+            <div class="d-flex flex-wrap center col-12 mx-auto">
+                {% for product in products %}
+                    <div class="card col-3 mx-5 mb-5">
+                        <div class="card-block">
+                            {% for image in product.images %}
+                                {% if loop.index == 1 %}
+                                    <img class="card-img-top" src="{{ image.url }}" alt="Card image cap">
+                                {% endif %}
+                            {% endfor %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text">A partir de {{ product.pricePerDay }} €</p>
+                                <a href="{{ path("product_show", {id: product.id}) }}" class="btn btn-primary">Voir la fiche produit</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <h1 class="text-center my-5"> Ajouter un commentaire </h1>
+                <div class="col-5 mx-auto">
+                    <label for="">Commentaire</label>
+                    {{ form_start(form) }}
+                    {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+                    <button class="btn button-style col-2 my-3">Envoyer</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+            <div class="font-weight-bold my-5">
+                <h4>Commentaires</h4>
+            </div>
+            <div class="d-flex flex-wrap center col-md-9">
+                {% for rating in product.ratings %}
+                            <div class="card my-3">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+                                        <p class="text-secondary text-center">{{ rating.createdAt |date('F j, Y, g:i a')}}</p>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <p>
+                                            <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{ rating.user.pseudo }}</strong></a>
+                                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        </p>
+                                        <div class="clearfix"></div>
+                                        <p>{{ rating.content }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                {% else %}
+                    <div class=" col-12 text-center text-danger my-5">
+                        <p> Il n'y a pas de commentaire pour cette article </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="mx-auto my-5 text-center">
+            <a href="#" class="top mx-5"><button class="btn button-style col-3">Retour en haut de page</button></a>
+            <a href="{{ path('product_index') }}"><button class="btn button-style col-3"> Retour à la liste des produits </button></a>
+        </div>
+
+    </div>
 
 {% endblock %}

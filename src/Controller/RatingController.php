@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Rating;
-use App\Form\RantingType;
+use App\Form\RatingType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,7 +36,7 @@ class RatingController extends AbstractController
     public function newRating(Request $request, EntityManagerInterface $entityManager): Response
     {
         $rating = new Rating();
-        $form = $this->createForm(RantingType::class, $rating);
+        $form = $this->createForm(RatingType::class, $rating);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

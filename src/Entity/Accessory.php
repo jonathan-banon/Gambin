@@ -325,4 +325,9 @@ class Accessory
 
         return $this;
     }
+
+    public function getPriceClean()
+    {
+        return $this->getPriceService();
+    }
 }

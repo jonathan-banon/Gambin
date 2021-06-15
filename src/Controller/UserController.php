@@ -43,8 +43,6 @@ class UserController extends AbstractController
             $entityManager->persist($this->getUser());
             $entityManager->flush();
             $this->addFlash('success', 'Informations de profil mis à jour');
-        } elseif ($form->isSubmitted() && !($form->isValid())) {
-            $form->addError(new FormError('Une erreur est survenue'));
         }
         return $this->render('user/information.html.twig', [
             'form_information' => $form->createView()
@@ -80,8 +78,6 @@ class UserController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
                 $this->addFlash('success', 'Votre mot de passe a été changé avec succès');
-            } else {
-                $form->addError(new FormError('Ancien mot de passe incorrect'));
             }
         }
         return $this->render('user/password.html.twig', [
@@ -94,11 +90,8 @@ class UserController extends AbstractController
      */
     public function rent(UserRepository $userRepository, RentRepository $rentRepository): Response
     {
-        $userMail = $this->getUser()->getUsername();
-        $userId = $userRepository->findOneBy(['email' => $userMail])->getId();
-        $rents = $rentRepository->findBy(['user' => $userId]);
         return $this->render('user/rent.html.twig', [
-            'rents' => $rents
+            'rents' => $rentRepository->findBy(['user' => $this->getUser()])
         ]);
     }
 
@@ -115,8 +108,6 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('success', 'Adresse mis à jour');
-        } elseif ($form->isSubmitted() && !($form->isValid())) {
-            $form->addError(new FormError('Une erreur est survenue'));
         }
         return $this->render('user/address.html.twig', [
             'form' => $form->createView()

@@ -541,4 +541,9 @@ class Product
 
         return $this;
     }
+
+    public function getPriceClean()
+    {
+        return $this->getPriceService();
+    }
 }

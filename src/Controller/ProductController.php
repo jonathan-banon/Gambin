@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Product;
 use App\Entity\Rating;
 use App\Entity\User;

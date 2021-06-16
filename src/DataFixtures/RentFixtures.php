@@ -23,12 +23,11 @@ class RentFixtures extends Fixture implements DependentFixtureInterface
         $rent->setDateIn($dateIn);
         $rent->setDateOut($dateOut);
         $rent->setDateReturn($dateReturned);
-        $rent->setStatus(0);
+        $rent->setStatus($this->getReference('status_0'));
 
         $rent->setStock($this->getReference('stock_0'));
         $rent->setDeposit($this->getReference('deposit_0'));
         $rent->setUser($this->getReference('user_0'));
-        $rent->setStatus(0);
         $manager->persist($rent);
 
 
@@ -42,12 +41,11 @@ class RentFixtures extends Fixture implements DependentFixtureInterface
         $rent->setDateIn($dateIn);
         $rent->setDateOut($dateOut);
         $rent->setDateReturn($dateReturned);
-        $rent->setStatus(0);
+        $rent->setStatus($this->getReference('status_0'));
 
         $rent->setStock($this->getReference('stock_7'));
         $rent->setDeposit($this->getReference('deposit_0'));
         $rent->setUser($this->getReference('user_0'));
-        $rent->setStatus(0);
         $manager->persist($rent);
 
 
@@ -60,6 +58,7 @@ class RentFixtures extends Fixture implements DependentFixtureInterface
             StockFixtures::class,
             DepositFixtures::class,
             UserFixtures::class,
+            StatusFixtures::class,
         ];
     }
 }

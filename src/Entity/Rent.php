@@ -12,15 +12,6 @@ use Datetime;
  */
 class Rent
 {
-    public const STATUS = [
-        0 => 'available',
-        1 => 'cart',
-        2 => 'reserved',
-        3 => 'getBack',
-        4 => 'cleaning',
-    ];
-
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -42,11 +33,6 @@ class Rent
      * @ORM\Column(type="datetime")
      */
     private \DateTimeInterface $dateReturn;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private int $status;
 
     /**
      * @ORM\Column(type="datetime")
@@ -74,6 +60,12 @@ class Rent
      * @ORM\ManyToOne(targetEntity=Deposit::class, inversedBy="rents")
      */
     private ?Deposit $deposit;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Status::class, inversedBy="rents")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $status;
 
     /**
      * @ORM\PrePersist
@@ -129,18 +121,6 @@ class Rent
     public function setDateReturn(\DateTimeInterface $dateReturn): self
     {
         $this->dateReturn = $dateReturn;
-
-        return $this;
-    }
-
-    public function getStatus(): ?int
-    {
-        return $this->status;
-    }
-
-    public function setStatus(int $status): self
-    {
-        $this->status = $status;
 
         return $this;
     }
@@ -201,6 +181,18 @@ class Rent
     public function setDeposit(?Deposit $deposit): self
     {
         $this->deposit = $deposit;
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

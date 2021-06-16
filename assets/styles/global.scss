@@ -6,10 +6,10 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    //margin-top: 12vh;
-    .content{
+    .div-content{
       flex: 1 0 auto;
-      margin-top: 18vh;
+      margin-top: 11vh;
+      margin-bottom: 6vh;
     }
     h1{
       font-weight: $title-weight;

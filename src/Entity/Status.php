@@ -25,9 +25,14 @@ class Status
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Rent::class, mappedBy="status", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Rent::class, mappedBy="status")
      */
     private $rents;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $identifier;
 
     public function __construct()
     {
@@ -77,6 +82,19 @@ class Status
                 $rent->setStatus(null);
             }
         }
+
+        return $this;
+    }
+
+
+    public function getIdentifier(): ?string
+    {
+        return $this->identifier;
+    }
+
+    public function setIdentifier(?string $identifier): self
+    {
+        $this->identifier = $identifier;
 
         return $this;
     }

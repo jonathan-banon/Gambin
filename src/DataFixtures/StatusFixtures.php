@@ -8,22 +8,40 @@ use Doctrine\Persistence\ObjectManager;
 
 class StatusFixtures extends Fixture
 {
-    public const NAME = [
-        'available',
-        'cart',
-        'reserved',
-        'getBack',
-        'cleaning',
-    ];
+    public const CART = 'cart';
+
+    public const PAYED = 'payed';
+
+    public const IN_PROGRESS = 'in_progress';
+
+    public const CLOSED = 'closed';
 
     public function load(ObjectManager $manager)
     {
-        for($i = 0; $i <count(self::NAME); $i++) {
-            $status = new Status();
-            $status->setName(self::NAME[$i]);
-            $manager->persist($status);
-            $this->setReference('status_' . $i, $status);
-        }
+        $status =  new Status();
+        $status->setName(self::CART);
+        $status->setIdentifier(self::CART);
+        $manager->persist($status);
+        $this->setReference('status_0', $status);
+
+        $status =  new Status();
+        $status->setName(self::PAYED);
+        $status->setIdentifier(self::PAYED);
+        $manager->persist($status);
+        $this->setReference('status_1', $status);
+
+        $status =  new Status();
+        $status->setName(self::IN_PROGRESS);
+        $status->setIdentifier(self::IN_PROGRESS);
+        $manager->persist($status);
+        $this->setReference('status_2', $status);
+
+        $status =  new Status();
+        $status->setName(self::CLOSED);
+        $status->setIdentifier(self::CLOSED);
+        $manager->persist($status);
+        $this->setReference('status_3', $status);
+
         $manager->flush();
     }
 }

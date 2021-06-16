@@ -44,11 +44,6 @@ class Rent
      */
     private \DateTimeInterface $updatedAt;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Stock::class, inversedBy="rent", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private Stock $stock;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="rents")
@@ -66,6 +61,11 @@ class Rent
      * @ORM\JoinColumn(nullable=false)
      */
     private $status;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Item::class, mappedBy="rent", cascade={"persist", "remove"})
+     */
+    private $item;
 
     /**
      * @ORM\PrePersist
@@ -149,18 +149,6 @@ class Rent
         return $this;
     }
 
-    public function getStock(): ?Stock
-    {
-        return $this->stock;
-    }
-
-    public function setStock(Stock $stock): self
-    {
-        $this->stock = $stock;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -193,6 +181,23 @@ class Rent
     public function setStatus(?Status $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getItem(): ?Item
+    {
+        return $this->item;
+    }
+
+    public function setItem(Item $item): self
+    {
+        // set the owning side of the relation if necessary
+        if ($item->getRent() !== $this) {
+            $item->setRent($this);
+        }
+
+        $this->item = $item;
 
         return $this;
     }

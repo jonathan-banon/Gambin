@@ -39,11 +39,6 @@ class Stock
     private ?City $city;
 
     /**
-     * @ORM\OneToOne(targetEntity=Rent::class, mappedBy="stock", cascade={"persist", "remove"})
-     */
-    private ?Rent $rent;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="stocks")
      */
     private $product;
@@ -52,6 +47,17 @@ class Stock
      * @ORM\ManyToOne(targetEntity=Accessory::class, inversedBy="stocks")
      */
     private $accessory;
+
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $reference;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isAvailable;
 
     public function getId(): ?int
     {
@@ -109,23 +115,6 @@ class Stock
         return $this;
     }
 
-    public function getRent(): ?Rent
-    {
-        return $this->rent;
-    }
-
-    public function setRent(Rent $rent): self
-    {
-        // set the owning side of the relation if necessary
-        if ($rent->getStock() !== $this) {
-            $rent->setStock($this);
-        }
-
-        $this->rent = $rent;
-
-        return $this;
-    }
-
     public function getProduct(): ?Product
     {
         return $this->product;
@@ -146,6 +135,30 @@ class Stock
     public function setAccessory(?Accessory $accessory): self
     {
         $this->accessory = $accessory;
+
+        return $this;
+    }
+
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(string $reference): self
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    public function getIsAvailable(): ?bool
+    {
+        return $this->isAvailable;
+    }
+
+    public function setIsAvailable(bool $isAvailable): self
+    {
+        $this->isAvailable = $isAvailable;
 
         return $this;
     }

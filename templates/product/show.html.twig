@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% form_theme formRating 'bootstrap_4_layout.html.twig' %}
+{% form_theme formRent'bootstrap_4_layout.html.twig' %}
 
 {% block title %}{{ product.name }}{% endblock %}
 
@@ -45,6 +46,7 @@
             <div class="col-4">
                 <h1> {{ product.name }} </h1>
                 <h3> A partir de {{ product.pricePerDay }}€ / journée (+ frais de service)</h3>
+                <button class="btn button-style col-2 my-3" >Ajouter au panier</button>
             </div>
         </div>
 
@@ -105,10 +107,10 @@
                 <h1 class="text-center my-5"> Ajouter un commentaire </h1>
                 <div class="col-5 mx-auto">
                     <label for="">Commentaire</label>
-                    {{ form_start(form) }}
-                    {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_start(formRating) }}
+                    {{ form_widget(formRating.content, {'attr': {'class': 'form-control'}}) }}
                     <button class="btn button-style col-2 my-3">Envoyer</button>
-                    {{ form_end(form) }}
+                    {{ form_end(formRating) }}
                 </div>
             </div>
             <div class="font-weight-bold my-5">

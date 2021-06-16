@@ -68,7 +68,7 @@ class ProductController extends AbstractController
 
         if ($formRent->isSubmitted() && $formRent->isValid()) {
             $rent->setUser($this->getUser());
-            $rent->setProduct($product);
+            $rent->setItem($product);
             $entityManager->persist($rating);
             $entityManager->flush();
         }
@@ -77,6 +77,7 @@ class ProductController extends AbstractController
             'product' => $product,
             'products' => $products,
             'formRating' => $formRating->createView(),
+            'formRent' => $formRent->createView(),
         ]);
     }
 

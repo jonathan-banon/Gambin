@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Deposit;
 use App\Entity\Item;
 use App\Entity\Rent;
+use App\Entity\Status;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,8 +18,13 @@ class RentType extends AbstractType
         $builder
             ->add('dateIn')
             ->add('dateOut')
-            ->add('deposit')
-            ->add('status')
+            ->add('deposit', EntityType::class, [
+                'class' => Deposit::class,
+                'choice_label' => 'name',
+                'expanded' => false,
+                'multiple' => true,
+                'by_reference' => false,
+            ])
         ;
     }
 

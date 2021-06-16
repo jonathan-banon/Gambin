@@ -19,10 +19,10 @@ class RentFixtures extends Fixture implements DependentFixtureInterface
         $dateReturned = new DateTime();
         $dateIn->setDate(2021, 5, 12);
         $dateOut->setDate(2021, 5, 25);
-        $dateReturned->setDate(2021, 5, 25);
+//        $dateReturned->setDate(2021, 5, 25);
         $rent->setDateIn($dateIn);
         $rent->setDateOut($dateOut);
-        $rent->setDateReturn($dateReturned);
+//        $rent->setDateReturn($dateReturned);
         $rent->setStatus($this->getReference('status_3'));
 
         $rent->setDeposit($this->getReference('deposit_0'));

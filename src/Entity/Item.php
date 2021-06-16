@@ -26,19 +26,19 @@ class Item
     private $rent;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Product::class)
+     * @ORM\OneToMany(targetEntity=ItemProduct::class, mappedBy="item", orphanRemoval=true)
      */
-    private $products;
+    private $itemProducts;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Accessory::class)
+     * @ORM\OneToMany(targetEntity=ItemAccessory::class, mappedBy="item", orphanRemoval=true)
      */
-    private $accessories;
+    private $itemAccessories;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
-        $this->accessories = new ArrayCollection();
+        $this->itemProducts = new ArrayCollection();
+        $this->itemAccessories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -59,50 +59,63 @@ class Item
     }
 
     /**
-     * @return Collection|Product[]
+     * @return Collection|ItemProduct[]
      */
-    public function getProducts(): Collection
+    public function getItemProducts(): Collection
     {
-        return $this->products;
+        return $this->itemProducts;
     }
 
-    public function addProduct(Product $product): self
+    public function addItemProduct(ItemProduct $itemProduct): self
     {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
+        if (!$this->itemProducts->contains($itemProduct)) {
+            $this->itemProducts[] = $itemProduct;
+            $itemProduct->setItem($this);
         }
 
         return $this;
     }
 
-    public function removeProduct(Product $product): self
+    public function removeItemProduct(ItemProduct $itemProduct): self
     {
-        $this->products->removeElement($product);
+        if ($this->itemProducts->removeElement($itemProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($itemProduct->getItem() === $this) {
+                $itemProduct->setItem(null);
+            }
+        }
 
         return $this;
     }
 
     /**
-     * @return Collection|Accessory[]
+     * @return Collection|ItemAccessory[]
      */
-    public function getAccessories(): Collection
+    public function getItemAccessories(): Collection
     {
-        return $this->accessories;
+        return $this->itemAccessories;
     }
 
-    public function addAccessory(Accessory $accessory): self
+    public function addItemAccessory(ItemAccessory $itemAccessory): self
     {
-        if (!$this->accessories->contains($accessory)) {
-            $this->accessories[] = $accessory;
+        if (!$this->itemAccessories->contains($itemAccessory)) {
+            $this->itemAccessories[] = $itemAccessory;
+            $itemAccessory->setItem($this);
         }
 
         return $this;
     }
 
-    public function removeAccessory(Accessory $accessory): self
+    public function removeItemAccessory(ItemAccessory $itemAccessory): self
     {
-        $this->accessories->removeElement($accessory);
+        if ($this->itemAccessories->removeElement($itemAccessory)) {
+            // set the owning side to null (unless already changed)
+            if ($itemAccessory->getItem() === $this) {
+                $itemAccessory->setItem(null);
+            }
+        }
 
         return $this;
     }
+
 }

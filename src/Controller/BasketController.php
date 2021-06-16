@@ -2,20 +2,19 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RentController extends AbstractController
+class BasketController extends AbstractController
 {
     /**
-     * @Route("/rent", name="rent")
+     * @Route("/basket", name="basket")
      */
     public function index(): Response
     {
-        return $this->render('rent/index.html.twig', [
-            'controller_name' => 'RentController',
+        return $this->render('basket/index.html.twig', [
+            'controller_name' => 'BasketController',
         ]);
     }
 }

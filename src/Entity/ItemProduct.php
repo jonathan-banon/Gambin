@@ -15,24 +15,24 @@ class ItemProduct
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $quantity;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Item::class, inversedBy="itemProducts")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $item;
+    private int $quantity;
 
     /**
      * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="itemProducts")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $product;
+    private ?Product $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Basket::class, inversedBy="itemProducts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private ?Basket $basket;
 
     public function getId(): ?int
     {
@@ -51,18 +51,6 @@ class ItemProduct
         return $this;
     }
 
-    public function getItem(): ?Item
-    {
-        return $this->item;
-    }
-
-    public function setItem(?Item $item): self
-    {
-        $this->item = $item;
-
-        return $this;
-    }
-
     public function getProduct(): ?Product
     {
         return $this->product;
@@ -71,6 +59,18 @@ class ItemProduct
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
+
+        return $this;
+    }
+
+    public function getBasket(): ?Basket
+    {
+        return $this->basket;
+    }
+
+    public function setBasket(?Basket $basket): self
+    {
+        $this->basket = $basket;
 
         return $this;
     }

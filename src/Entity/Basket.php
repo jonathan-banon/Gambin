@@ -2,38 +2,42 @@
 
 namespace App\Entity;
 
-use App\Repository\ItemRepository;
+use App\Repository\BasketRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ItemRepository::class)
+ * @ORM\Entity(repositoryClass=BasketRepository::class)
  */
-class Item
+class Basket
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=Rent::class, inversedBy="item", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity=Rent::class, inversedBy="basket", cascade={"persist", "remove"})
      */
-    private $rent;
+    private ?Rent $rent;
 
     /**
-     * @ORM\OneToMany(targetEntity=ItemProduct::class, mappedBy="item", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="baskets")
      */
-    private $itemProducts;
+    private ?User $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=ItemAccessory::class, mappedBy="item", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ItemProduct::class, mappedBy="basket", orphanRemoval=true)
      */
-    private $itemAccessories;
+    private Collection $itemProducts;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ItemAccessory::class, mappedBy="basket", orphanRemoval=true)
+     */
+    private Collection $itemAccessories;
 
     public function __construct()
     {
@@ -51,9 +55,21 @@ class Item
         return $this->rent;
     }
 
-    public function setRent(Rent $rent): self
+    public function setRent(?Rent $rent): self
     {
         $this->rent = $rent;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
@@ -70,7 +86,7 @@ class Item
     {
         if (!$this->itemProducts->contains($itemProduct)) {
             $this->itemProducts[] = $itemProduct;
-            $itemProduct->setItem($this);
+            $itemProduct->setBasket($this);
         }
 
         return $this;
@@ -80,8 +96,8 @@ class Item
     {
         if ($this->itemProducts->removeElement($itemProduct)) {
             // set the owning side to null (unless already changed)
-            if ($itemProduct->getItem() === $this) {
-                $itemProduct->setItem(null);
+            if ($itemProduct->getBasket() === $this) {
+                $itemProduct->setBasket(null);
             }
         }
 
@@ -100,7 +116,7 @@ class Item
     {
         if (!$this->itemAccessories->contains($itemAccessory)) {
             $this->itemAccessories[] = $itemAccessory;
-            $itemAccessory->setItem($this);
+            $itemAccessory->setBasket($this);
         }
 
         return $this;
@@ -110,12 +126,11 @@ class Item
     {
         if ($this->itemAccessories->removeElement($itemAccessory)) {
             // set the owning side to null (unless already changed)
-            if ($itemAccessory->getItem() === $this) {
-                $itemAccessory->setItem(null);
+            if ($itemAccessory->getBasket() === $this) {
+                $itemAccessory->setBasket(null);
             }
         }
 
         return $this;
     }
-
 }

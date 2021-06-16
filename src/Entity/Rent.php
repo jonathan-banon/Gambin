@@ -40,13 +40,6 @@ class Rent
      */
     private \DateTimeInterface $updatedAt;
 
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="rents")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private ?User $user;
-
     /**
      * @ORM\ManyToOne(targetEntity=Deposit::class, inversedBy="rents")
      */
@@ -56,17 +49,17 @@ class Rent
      * @ORM\ManyToOne(targetEntity=Status::class, inversedBy="rents")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $status;
-
-    /**
-     * @ORM\OneToOne(targetEntity=Item::class, mappedBy="rent", cascade={"persist", "remove"})
-     */
-    private $item;
+    private ?Status $status;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
     private \DateTimeInterface $dateReturn;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Basket::class, mappedBy="rent", cascade={"persist", "remove"})
+     */
+    private ?Basket $basket;
 
     /**
      * @ORM\PrePersist
@@ -113,7 +106,6 @@ class Rent
 
         return $this;
     }
-    
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -139,18 +131,6 @@ class Rent
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     public function getDeposit(): ?Deposit
     {
         return $this->deposit;
@@ -162,7 +142,6 @@ class Rent
 
         return $this;
     }
-
     public function getStatus(): ?Status
     {
         return $this->status;
@@ -175,23 +154,6 @@ class Rent
         return $this;
     }
 
-    public function getItem(): ?Item
-    {
-        return $this->item;
-    }
-
-    public function setItem(Item $item): self
-    {
-        // set the owning side of the relation if necessary
-        if ($item->getRent() !== $this) {
-            $item->setRent($this);
-        }
-
-        $this->item = $item;
-
-        return $this;
-    }
-
     public function getDateReturn(): ?\DateTimeInterface
     {
         return $this->dateReturn;
@@ -200,6 +162,28 @@ class Rent
     public function setDateReturn(?\DateTimeInterface $dateReturn): self
     {
         $this->dateReturn = $dateReturn;
+
+        return $this;
+    }
+
+    public function getBasket(): ?Basket
+    {
+        return $this->basket;
+    }
+
+    public function setBasket(?Basket $basket): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($basket === null && $this->basket !== null) {
+            $this->basket->setRent(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($basket !== null && $basket->getRent() !== $this) {
+            $basket->setRent($this);
+        }
+
+        $this->basket = $basket;
 
         return $this;
     }

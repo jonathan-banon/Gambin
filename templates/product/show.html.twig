@@ -46,7 +46,9 @@
             <div class="col-4">
                 <h1> {{ product.name }} </h1>
                 <h3> A partir de {{ product.pricePerDay }}€ / journée (+ frais de service)</h3>
-                <button class="btn button-style col-2 my-3" >Ajouter au panier</button>
+                <form action="{{ path("item_product_add", {id: product.id}) }}" method="get">
+                    <button class="btn button-style col-2 my-3" type="submit" >Ajouter au panier</button>
+                </form>
             </div>
         </div>
 

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210616085116 extends AbstractMigration
+final class Version20210616112408 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -27,8 +27,8 @@ final class Version20210616085116 extends AbstractMigration
         $this->addSql('CREATE TABLE deposit (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, identifier VARCHAR(100) DEFAULT NULL, address VARCHAR(255) DEFAULT NULL, postal_code VARCHAR(255) DEFAULT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE image (id INT AUTO_INCREMENT NOT NULL, product_id INT DEFAULT NULL, accessory_id INT DEFAULT NULL, pack_id INT DEFAULT NULL, marque_id INT DEFAULT NULL, url VARCHAR(255) NOT NULL, INDEX IDX_C53D045F4584665A (product_id), INDEX IDX_C53D045F27E8CC78 (accessory_id), UNIQUE INDEX UNIQ_C53D045F1919B217 (pack_id), UNIQUE INDEX UNIQ_C53D045F4827B9B2 (marque_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE item (id INT AUTO_INCREMENT NOT NULL, rent_id INT NOT NULL, UNIQUE INDEX UNIQ_1F1B251EE5FD6250 (rent_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE item_product (item_id INT NOT NULL, product_id INT NOT NULL, INDEX IDX_D81722F9126F525E (item_id), INDEX IDX_D81722F94584665A (product_id), PRIMARY KEY(item_id, product_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE item_accessory (item_id INT NOT NULL, accessory_id INT NOT NULL, INDEX IDX_AD6B33EC126F525E (item_id), INDEX IDX_AD6B33EC27E8CC78 (accessory_id), PRIMARY KEY(item_id, accessory_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE item_accessory (id INT AUTO_INCREMENT NOT NULL, item_id INT NOT NULL, accessory_id INT NOT NULL, quantity INT NOT NULL, INDEX IDX_AD6B33EC126F525E (item_id), INDEX IDX_AD6B33EC27E8CC78 (accessory_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE item_product (id INT AUTO_INCREMENT NOT NULL, item_id INT NOT NULL, product_id INT NOT NULL, quantity INT NOT NULL, INDEX IDX_D81722F9126F525E (item_id), INDEX IDX_D81722F94584665A (product_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE marque (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(100) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE pack (id INT AUTO_INCREMENT NOT NULL, identifier VARCHAR(100) DEFAULT NULL, name VARCHAR(100) DEFAULT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, price_per_day DOUBLE PRECISION NOT NULL, price_service DOUBLE PRECISION NOT NULL, description LONGTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE pack_product (pack_id INT NOT NULL, product_id INT NOT NULL, INDEX IDX_E80394D01919B217 (pack_id), INDEX IDX_E80394D04584665A (product_id), PRIMARY KEY(pack_id, product_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -48,10 +48,10 @@ final class Version20210616085116 extends AbstractMigration
         $this->addSql('ALTER TABLE image ADD CONSTRAINT FK_C53D045F1919B217 FOREIGN KEY (pack_id) REFERENCES pack (id)');
         $this->addSql('ALTER TABLE image ADD CONSTRAINT FK_C53D045F4827B9B2 FOREIGN KEY (marque_id) REFERENCES marque (id)');
         $this->addSql('ALTER TABLE item ADD CONSTRAINT FK_1F1B251EE5FD6250 FOREIGN KEY (rent_id) REFERENCES rent (id)');
-        $this->addSql('ALTER TABLE item_product ADD CONSTRAINT FK_D81722F9126F525E FOREIGN KEY (item_id) REFERENCES item (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE item_product ADD CONSTRAINT FK_D81722F94584665A FOREIGN KEY (product_id) REFERENCES product (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE item_accessory ADD CONSTRAINT FK_AD6B33EC126F525E FOREIGN KEY (item_id) REFERENCES item (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE item_accessory ADD CONSTRAINT FK_AD6B33EC27E8CC78 FOREIGN KEY (accessory_id) REFERENCES accessory (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE item_accessory ADD CONSTRAINT FK_AD6B33EC126F525E FOREIGN KEY (item_id) REFERENCES item (id)');
+        $this->addSql('ALTER TABLE item_accessory ADD CONSTRAINT FK_AD6B33EC27E8CC78 FOREIGN KEY (accessory_id) REFERENCES accessory (id)');
+        $this->addSql('ALTER TABLE item_product ADD CONSTRAINT FK_D81722F9126F525E FOREIGN KEY (item_id) REFERENCES item (id)');
+        $this->addSql('ALTER TABLE item_product ADD CONSTRAINT FK_D81722F94584665A FOREIGN KEY (product_id) REFERENCES product (id)');
         $this->addSql('ALTER TABLE pack_product ADD CONSTRAINT FK_E80394D01919B217 FOREIGN KEY (pack_id) REFERENCES pack (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE pack_product ADD CONSTRAINT FK_E80394D04584665A FOREIGN KEY (product_id) REFERENCES product (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE product ADD CONSTRAINT FK_D34A04AD4827B9B2 FOREIGN KEY (marque_id) REFERENCES marque (id)');
@@ -76,8 +76,8 @@ final class Version20210616085116 extends AbstractMigration
         $this->addSql('ALTER TABLE category_product DROP FOREIGN KEY FK_149244D312469DE2');
         $this->addSql('ALTER TABLE stock DROP FOREIGN KEY FK_4B3656608BAC62AF');
         $this->addSql('ALTER TABLE rent DROP FOREIGN KEY FK_2784DCC9815E4B1');
-        $this->addSql('ALTER TABLE item_product DROP FOREIGN KEY FK_D81722F9126F525E');
         $this->addSql('ALTER TABLE item_accessory DROP FOREIGN KEY FK_AD6B33EC126F525E');
+        $this->addSql('ALTER TABLE item_product DROP FOREIGN KEY FK_D81722F9126F525E');
         $this->addSql('ALTER TABLE image DROP FOREIGN KEY FK_C53D045F4827B9B2');
         $this->addSql('ALTER TABLE product DROP FOREIGN KEY FK_D34A04AD4827B9B2');
         $this->addSql('ALTER TABLE category DROP FOREIGN KEY FK_64C19C11919B217');
@@ -103,8 +103,8 @@ final class Version20210616085116 extends AbstractMigration
         $this->addSql('DROP TABLE deposit');
         $this->addSql('DROP TABLE image');
         $this->addSql('DROP TABLE item');
-        $this->addSql('DROP TABLE item_product');
         $this->addSql('DROP TABLE item_accessory');
+        $this->addSql('DROP TABLE item_product');
         $this->addSql('DROP TABLE marque');
         $this->addSql('DROP TABLE pack');
         $this->addSql('DROP TABLE pack_product');

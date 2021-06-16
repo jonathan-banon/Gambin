@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Entity\Rating;
+use App\Entity\Rent;
 use App\Entity\User;
 use App\Form\ProductType;
 use App\Form\RatingType;
+use App\Form\RentType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,12 +52,23 @@ class ProductController extends AbstractController
             ->findAll();
 
         $rating = new Rating();
-        $form = $this->createForm(RatingType::class, $rating);
-        $form->handleRequest($request);
+        $formRating = $this->createForm(RatingType::class, $rating);
+        $formRating->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($formRating->isSubmitted() && $formRating->isValid()) {
             $rating->setUser($this->getUser());
             $rating->setProduct($product);
+            $entityManager->persist($rating);
+            $entityManager->flush();
+        }
+
+        $rent = new Rent();
+        $formRent = $this->createForm(RentType::class, $rent);
+        $formRent->handleRequest($request);
+
+        if ($formRent->isSubmitted() && $formRent->isValid()) {
+            $rent->setUser($this->getUser());
+            $rent->setProduct($product);
             $entityManager->persist($rating);
             $entityManager->flush();
         }
@@ -63,7 +76,7 @@ class ProductController extends AbstractController
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'products' => $products,
-            'form' => $form->createView(),
+            'formRating' => $formRating->createView(),
         ]);
     }
 

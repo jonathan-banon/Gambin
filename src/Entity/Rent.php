@@ -29,10 +29,6 @@ class Rent
      */
     private \DateTimeInterface $dateOut;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private \DateTimeInterface $dateReturn;
 
     /**
      * @ORM\Column(type="datetime")
@@ -66,6 +62,11 @@ class Rent
      * @ORM\OneToOne(targetEntity=Item::class, mappedBy="rent", cascade={"persist", "remove"})
      */
     private $item;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private \DateTimeInterface $dateReturn;
 
     /**
      * @ORM\PrePersist
@@ -112,18 +113,7 @@ class Rent
 
         return $this;
     }
-
-    public function getDateReturn(): ?\DateTimeInterface
-    {
-        return $this->dateReturn;
-    }
-
-    public function setDateReturn(\DateTimeInterface $dateReturn): self
-    {
-        $this->dateReturn = $dateReturn;
-
-        return $this;
-    }
+    
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -198,6 +188,18 @@ class Rent
         }
 
         $this->item = $item;
+
+        return $this;
+    }
+
+    public function getDateReturn(): ?\DateTimeInterface
+    {
+        return $this->dateReturn;
+    }
+
+    public function setDateReturn(?\DateTimeInterface $dateReturn): self
+    {
+        $this->dateReturn = $dateReturn;
 
         return $this;
     }

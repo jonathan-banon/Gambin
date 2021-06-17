@@ -6,10 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/basket", name="basket_")
+ */
 class BasketController extends AbstractController
 {
     /**
-     * @Route("/basket", name="basket")
+     * @Route("/", name="index")
      */
     public function index(): Response
     {

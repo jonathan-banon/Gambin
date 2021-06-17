@@ -32,6 +32,8 @@ class ItemProductController extends AbstractController
     public function addProduct(Product $product, EntityManagerInterface $entityManager): Response
     {
         $basket = new Basket();
+        $basket->setUser($this->getUser());
+        $basket->getRent();
         $itemProduct = new ItemProduct();
         $itemProduct->setProduct($product);
         $itemProduct->setQuantity(1);
@@ -40,7 +42,7 @@ class ItemProductController extends AbstractController
         $entityManager->persist($basket);
         $entityManager->flush();
 
-        return $this->render('item/index.html.twig', [
+        return $this->render('basket/index.html.twig', [
             'itemProduct' => $itemProduct,
             'product' => $product,
         ]);

@@ -12,13 +12,13 @@ class ItemAccessoryFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $itemAccessory = new ItemAccessory();
-        $itemAccessory->setItem($this->getReference('item_0'));
+        $itemAccessory->setBasket($this->getReference('item_0'));
         $itemAccessory->setAccessory($this->getReference('accessory_0'));
         $itemAccessory->setQuantity(1);
         $manager->persist($itemAccessory);
 
         $itemAccessory = new ItemAccessory();
-        $itemAccessory->setItem($this->getReference('item_1'));
+        $itemAccessory->setBasket($this->getReference('item_1'));
         $itemAccessory->setAccessory($this->getReference('accessory_1'));
         $itemAccessory->setQuantity(1);
         $manager->persist($itemAccessory);
@@ -29,7 +29,7 @@ class ItemAccessoryFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            ItemFixtures::class,
+            BasketFixtures::class,
         ];
     }
 }

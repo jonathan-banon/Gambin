@@ -61,6 +61,11 @@ class Rent
      */
     private ?Basket $basket;
 
+    public function __sleep()
+    {
+        return [];
+    }
+
     /**
      * @ORM\PrePersist
      */

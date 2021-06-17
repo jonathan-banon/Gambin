@@ -39,6 +39,11 @@ class Basket
      */
     private Collection $itemAccessories;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $isOpen;
+
     public function __construct()
     {
         $this->itemProducts = new ArrayCollection();
@@ -130,6 +135,18 @@ class Basket
                 $itemAccessory->setBasket(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsOpen(): ?bool
+    {
+        return $this->isOpen;
+    }
+
+    public function setIsOpen(?bool $isOpen): self
+    {
+        $this->isOpen = $isOpen;
 
         return $this;
     }

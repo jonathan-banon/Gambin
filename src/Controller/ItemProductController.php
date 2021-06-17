@@ -12,12 +12,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("item/product", name="item_product")
+ * @Route("item/product", name="item_product_")
  */
 class ItemProductController extends AbstractController
 {
     /**
-     * @Route("/", name="_index")
+     * @Route("/", name="index")
      */
     public function index(): Response
     {
@@ -27,13 +27,17 @@ class ItemProductController extends AbstractController
     }
 
     /**
-     * @Route("/add/{id}", name="_add")
+     * @Route("/add/{id}", name="add")
      */
     public function addProduct(Product $product, EntityManagerInterface $entityManager): Response
     {
-        $basket = new Basket();
-        $basket->setUser($this->getUser());
-        $basket->getRent();
+        if (is_null($this->getUser()->getBasketOpen())) {
+            $basket = new Basket();
+            $basket->setUser($this->getUser());
+            $basket->setIsOpen(true);
+        }
+
+        $basket = $this->getUser()->getBasketOpen();
         $itemProduct = new ItemProduct();
         $itemProduct->setProduct($product);
         $itemProduct->setQuantity(1);

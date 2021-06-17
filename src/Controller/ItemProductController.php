@@ -39,6 +39,7 @@ class ItemProductController extends AbstractController
         return $this->render('basket/index.html.twig', [
             'itemProduct' => $itemProduct,
             'product' => $product,
+            'basket' => $basket,
         ]);
     }
 

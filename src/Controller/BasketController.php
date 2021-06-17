@@ -17,12 +17,10 @@ class BasketController extends AbstractController
      */
     public function index(): Response
     {
-        $basket = $this->getDoctrine()
-            ->getRepository(Basket::class)
-            ->findAll();
+        $basket = $this->getUser()->getBasketOpen();
 
         return $this->render('basket/index.html.twig', [
-            'basket' => $basket,
+            'basket'=>$basket,
         ]);
     }
 }

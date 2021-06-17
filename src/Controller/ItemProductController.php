@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Basket;
 use App\Entity\ItemProduct;
 use App\Entity\Product;
-use App\Entity\Rent;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,16 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ItemProductController extends AbstractController
 {
-    /**
-     * @Route("/", name="index")
-     */
-    public function index(): Response
-    {
-        return $this->render('item_product/index.html.twig', [
-            'controller_name' => 'ItemProductController',
-        ]);
-    }
-
     /**
      * @Route("/add/{id}", name="add")
      */
@@ -39,7 +28,6 @@ class ItemProductController extends AbstractController
         } else {
             $basket = $this->getUser()->getBasketOpen();
         }
-
         $itemProduct = new ItemProduct();
         $itemProduct->setProduct($product);
         $itemProduct->setQuantity(1);
@@ -52,6 +40,16 @@ class ItemProductController extends AbstractController
             'itemProduct' => $itemProduct,
             'product' => $product,
             'basket' => $basket,
+        ]);
+    }
+
+    /**
+     * @Route("/", name="index")
+     */
+    public function index(): Response
+    {
+        return $this->render('item_product/index.html.twig', [
+            'controller_name' => 'ItemProductController',
         ]);
     }
 }

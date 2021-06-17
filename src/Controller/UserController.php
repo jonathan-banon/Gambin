@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Form\AddressType;
 use App\Form\ChangePasswordType;
 use App\Form\UserInformationType;
@@ -49,6 +50,26 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/handle/favorite/{product}", name="handle_favorite")
+     */
+    public function handleFavorite(Product $product, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->getUser()->getFavorites()->contains($product)) {
+            $this->getUser()->removeFavorite($product);
+            $entityManager->persist($this->getUser());
+            $entityManager->flush();
+            $this->addFlash('warning', 'Produit retiré de vos favoris !');
+            return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+        } else {
+            $this->getUser()->addFavorite($product);
+            $entityManager->persist($this->getUser());
+            $entityManager->flush();
+            $this->addFlash('success', 'Produit ajouté à vos favoris !');
+            return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+        }
+    }
+
+    /**
      * @Route("/favorite", name="favorite")
      */
     public function favorite(UserRepository $userRepository): Response
@@ -89,7 +110,7 @@ class UserController extends AbstractController
      */
     public function rent(BasketRepository $basketRepository): Response
     {
-        $baskets = $basketRepository->findby(['user' => $this->getUser(), 'isOpen'=>false]);
+        $baskets = $basketRepository->findby(['user' => $this->getUser(), 'isOpen' => false]);
         $rents = [];
         foreach ($baskets as $basket) {
             $rents[] = $basket->getRent();

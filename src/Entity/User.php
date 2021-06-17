@@ -469,4 +469,19 @@ class User implements UserInterface
         }
         return null;
     }
+
+    public function getBasketQuantity(): ?int
+    {
+        $basket = $this->getBasketOpen();
+        $itemProducts = $basket->getItemProducts();
+        $itemAccessories = $basket->getItemAccessories();
+        $quantity = 0;
+        foreach ($itemProducts as $itemProduct) {
+            $quantity += $itemProduct->getQuantity();
+        }
+        foreach ($itemAccessories as $itemAccessory) {
+            $quantity += $itemAccessory->getQuantity();
+        }
+        return $quantity;
+    }
 }

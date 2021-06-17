@@ -13,11 +13,13 @@ class BasketFixtures extends Fixture implements DependentFixtureInterface
     {
         $basket = new Basket();
         $basket->setUser($this->getReference('user_0'));
+        $basket->setIsOpen(false);
         $manager->persist($basket);
         $this->setReference('basket_0', $basket);
 
         $basket = new Basket();
         $basket->setUser($this->getReference('user_1'));
+        $basket->setIsOpen(false);
         $manager->persist($basket);
         $this->setReference('basket_1', $basket);
 

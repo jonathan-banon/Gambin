@@ -458,4 +458,15 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getBasketOpen()
+    {
+        $baskets = $this->baskets;
+        foreach ($baskets as $basket) {
+            if ($basket->getIsOpen()) {
+                return $basket;
+            }
+        }
+        return null;
+    }
 }

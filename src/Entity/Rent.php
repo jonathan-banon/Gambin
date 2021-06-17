@@ -167,7 +167,6 @@ class Rent
     public function setDateReturn(?\DateTimeInterface $dateReturn): self
     {
         $this->dateReturn = $dateReturn;
-
         return $this;
     }
 
@@ -189,7 +188,24 @@ class Rent
         }
 
         $this->basket = $basket;
-
         return $this;
+    }
+
+    public function getItemProducts()
+    {
+        $itemProducts = [];
+        foreach ($this->getBasket()->getItemProducts() as $itemProduct) {
+            $itemProducts[] = $itemProduct;
+        }
+        return $itemProducts;
+    }
+
+    public function getItemAccessories()
+    {
+        $itemAccessories = [];
+        foreach ($this->getBasket()->getItemAccessories() as $itemAccessory) {
+            $itemAccessory[] = $itemAccessory;
+        }
+        return $itemAccessories;
     }
 }

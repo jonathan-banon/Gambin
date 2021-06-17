@@ -93,11 +93,6 @@ class User implements UserInterface
     private ?string $billingCity;
 
     /**
-     * @ORM\OneToMany(targetEntity=Rent::class, mappedBy="user")
-     */
-    private Collection $rents;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="users")
      */
     private Collection $favorites;
@@ -120,13 +115,18 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="user", orphanRemoval=true)
      */
-    private $ratings;
+    private Collection $ratings;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Basket::class, mappedBy="user")
+     */
+    private Collection $baskets;
 
     public function __construct()
     {
-        $this->rents = new ArrayCollection();
         $this->favorites = new ArrayCollection();
         $this->ratings = new ArrayCollection();
+        $this->baskets = new ArrayCollection();
     }
 
     /**
@@ -341,36 +341,6 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Rent[]
-     */
-    public function getRents(): Collection
-    {
-        return $this->rents;
-    }
-
-    public function addRent(Rent $rent): self
-    {
-        if (!$this->rents->contains($rent)) {
-            $this->rents[] = $rent;
-            $rent->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRent(Rent $rent): self
-    {
-        if ($this->rents->removeElement($rent)) {
-            // set the owning side to null (unless already changed)
-            if ($rent->getUser() === $this) {
-                $rent->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Product[]
      */
     public function getFavorites(): Collection
@@ -454,6 +424,35 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($rating->getUser() === $this) {
                 $rating->setUser(null);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * @return Collection|Basket[]
+     */
+    public function getBaskets(): Collection
+    {
+        return $this->baskets;
+    }
+
+    public function addBasket(Basket $basket): self
+    {
+        if (!$this->baskets->contains($basket)) {
+            $this->baskets[] = $basket;
+            $basket->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBasket(Basket $basket): self
+    {
+        if ($this->baskets->removeElement($basket)) {
+            // set the owning side to null (unless already changed)
+            if ($basket->getUser() === $this) {
+                $basket->setUser(null);
             }
         }
 

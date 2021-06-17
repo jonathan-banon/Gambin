@@ -15,24 +15,24 @@ class ItemAccessory
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $quantity;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Item::class, inversedBy="itemAccessories")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $item;
+    private int $quantity;
 
     /**
      * @ORM\ManyToOne(targetEntity=Accessory::class, inversedBy="itemAccessories")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $accessory;
+    private ?Accessory $accessory;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Basket::class, inversedBy="itemAccessories")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private ?Basket $basket;
 
     public function getId(): ?int
     {
@@ -51,18 +51,6 @@ class ItemAccessory
         return $this;
     }
 
-    public function getItem(): ?Item
-    {
-        return $this->item;
-    }
-
-    public function setItem(?Item $item): self
-    {
-        $this->item = $item;
-
-        return $this;
-    }
-
     public function getAccessory(): ?Accessory
     {
         return $this->accessory;
@@ -71,6 +59,18 @@ class ItemAccessory
     public function setAccessory(?Accessory $accessory): self
     {
         $this->accessory = $accessory;
+
+        return $this;
+    }
+
+    public function getBasket(): ?Basket
+    {
+        return $this->basket;
+    }
+
+    public function setBasket(?Basket $basket): self
+    {
+        $this->basket = $basket;
 
         return $this;
     }

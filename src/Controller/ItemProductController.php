@@ -31,13 +31,15 @@ class ItemProductController extends AbstractController
      */
     public function addProduct(Product $product, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         if (is_null($this->getUser()->getBasketOpen())) {
             $basket = new Basket();
             $basket->setUser($this->getUser());
             $basket->setIsOpen(true);
+        } else {
+            $basket = $this->getUser()->getBasketOpen();
         }
 
-        $basket = $this->getUser()->getBasketOpen();
         $itemProduct = new ItemProduct();
         $itemProduct->setProduct($product);
         $itemProduct->setQuantity(1);

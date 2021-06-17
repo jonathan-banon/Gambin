@@ -21,21 +21,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
-     * @return Response
-     */
-    public function index(): Response
-    {
-        $products = $this->getDoctrine()
-            ->getRepository(Product::class)
-            ->findAll();
-
-        return $this->render('product/index.html.twig', [
-            'products' => $products,
-        ]);
-    }
-
-    /**
      * @Route("/show/{id<^[0-9]+$>}", name="show")
      * @return Response
      */
@@ -80,6 +65,23 @@ class ProductController extends AbstractController
             'formRent' => $formRent->createView(),
         ]);
     }
+
+    /**
+     * @Route("/", name="index")
+     * @return Response
+     */
+    public function index(): Response
+    {
+        $products = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->findAll();
+
+        return $this->render('product/index.html.twig', [
+            'products' => $products,
+        ]);
+    }
+
+
 
     /**
      * @Route("/new", name="new")

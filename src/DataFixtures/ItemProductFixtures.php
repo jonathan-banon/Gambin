@@ -18,6 +18,12 @@ class ItemProductFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($itemProduct);
 
         $itemProduct = new ItemProduct();
+        $itemProduct->setQuantity(2);
+        $itemProduct->setProduct($this->getReference('product_1'));
+        $itemProduct->setBasket($this->getReference('basket_0'));
+        $manager->persist($itemProduct);
+
+        $itemProduct = new ItemProduct();
         $itemProduct->setQuantity(1);
         $itemProduct->setProduct($this->getReference('product_1'));
         $itemProduct->setBasket($this->getReference('basket_1'));

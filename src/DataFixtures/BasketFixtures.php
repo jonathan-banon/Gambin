@@ -18,7 +18,7 @@ class BasketFixtures extends Fixture implements DependentFixtureInterface
         $this->setReference('basket_0', $basket);
 
         $basket = new Basket();
-        $basket->setUser($this->getReference('user_1'));
+        $basket->setUser($this->getReference('user_0'));
         $basket->setIsOpen(false);
         $manager->persist($basket);
         $this->setReference('basket_1', $basket);

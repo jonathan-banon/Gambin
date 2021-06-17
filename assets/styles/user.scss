@@ -86,8 +86,9 @@
     .img-fluid{
       height: 70px;
     }
-    p{
-      font-weight: $title-weight;
+    p {
+      color: $color-grey;
+      font-size: 10px;
     }
   }
   .location{
@@ -95,5 +96,6 @@
     margin-top: 30px;
   }
 }
+
 
 

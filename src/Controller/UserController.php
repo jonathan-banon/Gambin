@@ -5,11 +5,10 @@ namespace App\Controller;
 use App\Form\AddressType;
 use App\Form\ChangePasswordType;
 use App\Form\UserInformationType;
-use App\Repository\RentRepository;
+use App\Repository\BasketRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -88,10 +87,16 @@ class UserController extends AbstractController
     /**
      * @Route("/rent", name="rent")
      */
-    public function rent(UserRepository $userRepository, RentRepository $rentRepository): Response
+    public function rent(BasketRepository $basketRepository): Response
     {
+        $baskets = $basketRepository->findby(['user' => $this->getUser(), 'isOpen'=>false]);
+        $rents = [];
+        foreach ($baskets as $basket) {
+            $rents[] = $basket->getRent();
+        }
+
         return $this->render('user/rent.html.twig', [
-            'rents' => $rentRepository->findBy(['user' => $this->getUser()])
+            'rents' => $rents,
         ]);
     }
 

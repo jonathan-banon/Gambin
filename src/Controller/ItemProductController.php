@@ -17,27 +17,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class ItemProductController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
-     */
-    public function index(): Response
-    {
-        return $this->render('item_product/index.html.twig', [
-            'controller_name' => 'ItemProductController',
-        ]);
-    }
-
-    /**
      * @Route("/add/{id}", name="add")
      */
     public function addProduct(Product $product, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         if (is_null($this->getUser()->getBasketOpen())) {
             $basket = new Basket();
             $basket->setUser($this->getUser());
             $basket->setIsOpen(true);
+
+        } else {
+            $basket = $this->getUser()->getBasketOpen();
         }
 
-        $basket = $this->getUser()->getBasketOpen();
         $itemProduct = new ItemProduct();
         $itemProduct->setProduct($product);
         $itemProduct->setQuantity(1);
@@ -51,4 +44,16 @@ class ItemProductController extends AbstractController
             'product' => $product,
         ]);
     }
+
+    /**
+     * @Route("/", name="index")
+     */
+    public function index(): Response
+    {
+        return $this->render('item_product/index.html.twig', [
+            'controller_name' => 'ItemProductController',
+        ]);
+    }
+
+
 }

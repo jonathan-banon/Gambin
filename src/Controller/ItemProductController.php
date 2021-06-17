@@ -9,12 +9,23 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * @Route("item/product", name="item_product_")
  */
 class ItemProductController extends AbstractController
 {
+    /**
+     * @Route("/", name="index")
+     */
+    public function index(): Response
+    {
+        return $this->render('item_product/index.html.twig', [
+            'controller_name' => 'ItemProductController',
+        ]);
+    }
+
     /**
      * @Route("/add/{id}", name="add")
      */
@@ -40,16 +51,6 @@ class ItemProductController extends AbstractController
             'itemProduct' => $itemProduct,
             'product' => $product,
             'basket' => $basket,
-        ]);
-    }
-
-    /**
-     * @Route("/", name="index")
-     */
-    public function index(): Response
-    {
-        return $this->render('item_product/index.html.twig', [
-            'controller_name' => 'ItemProductController',
         ]);
     }
 }

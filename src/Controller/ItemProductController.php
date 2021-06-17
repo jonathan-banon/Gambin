@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Basket;
 use App\Entity\ItemProduct;
 use App\Entity\Product;
-use App\Entity\Rent;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,11 +25,9 @@ class ItemProductController extends AbstractController
             $basket = new Basket();
             $basket->setUser($this->getUser());
             $basket->setIsOpen(true);
-
         } else {
             $basket = $this->getUser()->getBasketOpen();
         }
-
         $itemProduct = new ItemProduct();
         $itemProduct->setProduct($product);
         $itemProduct->setQuantity(1);
@@ -54,6 +51,4 @@ class ItemProductController extends AbstractController
             'controller_name' => 'ItemProductController',
         ]);
     }
-
-
 }

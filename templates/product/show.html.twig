@@ -11,7 +11,6 @@
         <a href="{{ path("home") }}"> Accueil </a>
         <a> > </a>
         <a href="{{ path("product_index") }}"> Catalogue </a>
-        <a> > </a>
         <a> {{ product.name }} </a>
     </div>
 
@@ -45,6 +44,7 @@
             </div>
             <div class="col-4">
                 <h1> {{ product.name }} </h1>
+                <a href="{{ path("user_handle_favorite", {product: product.id}) }}"> Ajouter au favori </a>
                 <h3> A partir de {{ product.pricePerDay }}€ / journée (+ frais de service)</h3>
                 <form action="{{ path("item_product_add", {id: product.id}) }}" method="get">
                     <button class="btn button-style col-2 my-3" type="submit" >Ajouter au panier</button>

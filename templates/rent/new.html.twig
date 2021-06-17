@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+    {% block body %}
+        <div class="container-fluid">
+            <div class="row ">
+                <div class="col-md">
+
+                </div>
+                <div class="col-md ">
+                    {{ form_start(form) }}
+                    <label for="">Date de début </label>
+                    {{ form_widget(form.dateIn) }}
+
+                    {{ form_end (form)}}
+                    <button type="submit"> Valider la location</button>
+                </div>
+            </div>
+
+
+        </div>
+    {% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Basket;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,8 +17,10 @@ class BasketController extends AbstractController
      */
     public function index(): Response
     {
+        $basket = $this->getUser()->getBasketOpen();
+
         return $this->render('basket/index.html.twig', [
-            'controller_name' => 'BasketController',
+            'basket'=>$basket,
         ]);
     }
 }

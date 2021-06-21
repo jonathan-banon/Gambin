@@ -18,10 +18,15 @@ class RentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateIn')
-            ->add('dateOut')
+            ->add('dateIn', null, [
+                'label' => 'Date de début',
+            ])
+            ->add('dateOut', null, [
+                'label' => 'Date de retour'
+            ])
             ->add('deposit', EntityType::class, [
                 'class' => Deposit::class,
+                'label' => 'Lieu de dépôt',
                 'choice_label' => 'name',
                 'expanded' => false,
                 'multiple' => true,

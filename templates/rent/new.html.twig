@@ -9,10 +9,20 @@
                 </div>
                 <div class="col-md ">
                     {{ form_start(form) }}
-                    <label for="">Date de début </label>
-                    {{ form_widget(form.dateIn) }}
+
+                        {{ form_label(form.dateIn) }}
+                        {{ form_widget(form.dateIn) }}
+                        {{ form_errors(form.dateIn) }}
+
+                        {{ form_label(form.dateOut) }}
+                        {{ form_widget(form.dateOut) }}
+                        {{ form_errors(form.dateOut) }}
+
+                        {{ form_label(form.deposit) }}
+                        {{ form_widget(form.deposit) }}
+                        {{ form_errors(form.deposit) }}
+
                     {{ form_end (form)}}
-                    <button type="submit" class="btn button-decoration"> Valider la location</button>
                 </div>
             </div>
         </div>

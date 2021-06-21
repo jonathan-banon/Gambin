@@ -36,7 +36,7 @@ class ProductType extends AbstractType
                 'class' => Accessory::class,
                 'choice_label' => 'name',
                 'multiple' => true,
-                'expanded' => false,
+                'expanded' => true,
                 'required' => false
             ])
             ->add('marque', EntityType::class, [

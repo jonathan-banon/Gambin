@@ -34,10 +34,10 @@ class RentController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $rent = new Rent();
-        $form = $this->createForm(RentType::class , $rent);
+        $form = $this->createForm(RentType::class, $rent);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($rent);
             $entityManager->flush();
         }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Entity\Rent;
+use App\Entity\Status;
 use App\Form\RentType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,15 +35,22 @@ class RentController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $rent = new Rent();
+        $status = new Status();
+        $status->setName('TEST');
+        $rent->setStatus($status);
         $form = $this->createForm(RentType::class, $rent);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($rent);
+            $entityManager->persist($status);
             $entityManager->flush();
+            $this->addFlash('success', 'Location prise en compte');
         }
         return $this->render('rent/new.html.twig', [
             'form' => $form->createView(),
+
         ]);
     }
 }

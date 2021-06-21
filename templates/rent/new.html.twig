@@ -9,19 +9,10 @@
                 </div>
                 <div class="col-md ">
                     {{ form_start(form) }}
-
-                        {{ form_label(form.dateIn) }}
-                        {{ form_widget(form.dateIn) }}
-                        {{ form_errors(form.dateIn) }}
-
-                        {{ form_label(form.dateOut) }}
-                        {{ form_widget(form.dateOut) }}
-                        {{ form_errors(form.dateOut) }}
-
-                        {{ form_label(form.deposit) }}
-                        {{ form_widget(form.deposit) }}
-                        {{ form_errors(form.deposit) }}
-
+                        {{ form_row(form.dateIn) }}
+                        {{ form_row(form.dateOut) }}
+                        {{ form_row(form.deposit) }}
+                        <button type="submit" class="btn button-style">Louer</button>
                     {{ form_end (form)}}
                 </div>
             </div>

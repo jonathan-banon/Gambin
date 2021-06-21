@@ -3,63 +3,63 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    <div class="container-fluid mt-5">
-       <div class="row mt-5">
-           <div class="col-sm-10 d-flex justify-content-center">
-               <div class="col-sm-5 ">
-                   <h1 class="home mt-5 pt-5"> Voyagez sans <br>
-                       déménager la <br>
-                       chambre de bébé!</h1>
-
-                   <a href="{{ path("product_index") }}"><button type="button" class="btn btn-primary btn-lg">Je veux louer</button></a>
+    <div class="container-fluid">
+       <div class="row d-flex justify-content-end mt-5">
+               <div class=" col-md-5 text-center text-md-left ">
+                   <h1 class="home">
+                       Voyagez sans
+                       déménager la
+                       chambre de bébé!
+                   </h1>
+                   <a href="{{ path("product_index") }}">
+                       <button type="button" class="btn btn-primary btn-lg ">
+                           Je veux louer
+                       </button>
+                   </a>
                </div>
-               <div class="col-sm-5">
-                      <div class=" fluid m-3 ">
-                          <img class="" src="{{ asset('build/picture_home_Gambin.png') }}" alt="">
+               <div class=" col-md-6">
+                      <div class=" container  ">
+                          <img class=" mt-3 d-md-inline-block img-fluid " src="{{ asset('build/picture_home_Gambin.png') }}" alt="">
                       </div>
                </div>
-           </div>
        </div>
     </div>
-    <div class="mt-5 container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-sm-10 d-flex justify-content-evenly wrap">
-                <div class="m-3 wrap">
+    <div class="mt-5 container-fluid mx-auto px-md-5">
+            <div class= "row ">
+                <div class="col-md m-3 wrap text-center text-md-left">
                     <img  class="w-25" src="{{ asset('build/star_Gambin.svg') }}" alt="">
                     <h3> L’hygiène comme priorité absolue</h3>
                     <p class="text-break">Nos équipements sont nettoyés avec des produits virucides (contre la Covid-19), bactéricides et fongicides, respectueux
                         de l’environnement.</p>
                     <a href="">En savoir plus</a>
                 </div>
-                <div class="m-3 wrap">
+                <div class="col-md m-3 wrap text-center text-md-left">
                     <img  class="w-25" src="{{ asset('build/heart_Gambin.svg') }}" alt="">
                     <h3> La qualité avant tout</h3>
                     <p class="text-break">Sélection de marques reconnues pour la qualité de leurs produits (satisfaction client, test consommateurs, etc).</p>
                     <a href="">En savoir plus</a>
                 </div>
-                <div class="m-3 wrap">
+                <div class="col-md m-3 wrap text-center text-md-left">
                     <img  class="w-25" src="{{ asset('build/delivery_Gambin.svg') }}" alt="">
                     <h3> Livraison sur mesure</h3>
                     <p class="text-break">Gare, aéroport, hôtels, airbnb : faites-vous livrer sur le lieu de votre choix, nous nous occupons de tout.</p>
                     <a href="">En savoir plus</a>
                 </div>
-                <div class="m-3 wrap">
+                <div class="col-md m-3 wrap text-center text-md-left">
                     <img  class="w-25" src="{{ asset('build/chat_Gambin.svg') }}" alt="">
                     <h3> Un Service Client dédié</h3>
                     <p class="text-break">En cas de problème, nous vous dépannons 2h. Nous remplaçons le matériel en cas de casse.</p>
                     <a href="">En savoir plus</a>
                 </div>
             </div>
-        </div>
     </div>
-    <div class="container-fluid w-100 mt-5">
-        <div class="row">
-            <div class="col-10">
-                <div class="back-design ml-0 pt-5">
-                    <h2 class="Title-2 text-center mt-5"> Nos équipements</h2>
+    <div class="container-fluid mt-5 ">
+            <div class=" row col-md-10 back-design ml-0 pt-5 w-80 h-100 ">
+            <h2 class=" col-md-12 Title-2 text-center mt-5"> Nos équipements</h2>
+                <div class="container-fluid mx-auto  ">
                     <div class=" row d-flex justify-content-center">
-                        <div class="col-3 d-flex flex-column m-5 h-100">
-                            <img  class="w-75 m-3" src="{{ asset('build/Group_2.png') }}" alt="">
+                        <div class="col-md d-flex flex-column m-5 h-100">
+                            <img  class="image-fluid" src="{{ asset('build/Group_2.png') }}" alt="">
                             <h3> Pour la sortie</h3>
                             <p class="text-break">L’indispensable pour parcourir la ville avec bébé
                                 et profiter sereinement de son séjour. <br>
@@ -69,8 +69,8 @@
                                 A partir de 36€ la journée.</p>
                             <a href="">En savoir plus</a>
                         </div>
-                        <div class="col-3 d-flex flex-column m-5 h-100">
-                            <img  class="w-75 m-3 p-0" src="{{ asset('build/Group_3.png') }}" alt="">
+                        <div class="col-md d-flex flex-column m-5 h-100">
+                            <img  class="image-fluid" src="{{ asset('build/Group_3.png') }}" alt="">
                             <h3> Pour dormir</h3>
                             <p class="text-break">Parce qu’une bonne nuit de bébé, ça se gagne
                                 grâce à un lit parapluie de qualité. <br>
@@ -80,25 +80,24 @@
                                 À partir de 26€ la journée.</p>
                             <a href="">En savoir plus</a>
                         </div>
-                        <div class="col-3 d-flex flex-column m-5 h-100">
-                            <img  class="w-75 m-3" src="{{ asset('build/Group_4.png') }}" alt="">
+                        <div class="col-md d-flex flex-column m-5 h-100">
+                            <img  class="image-fluid" src="{{ asset('build/Group_4.png') }}" alt="">
                             <h3> Pour le repas</h3>
                             <p class="text-break">Une chaise haute évolutive, design et pratique
                                 pour assurer le confort de bébé. <br>
                                 Notre sélection : Stokke <br>
                                 <br>
-
                                 À partir de 26€ la journée.</p>
                             <a href="">En savoir plus</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+
     </div>
-    <div class="container-fluid w-100 mt-5">
+    <div class="container-fluid  mt-5">
         <div class="row justify-content-center">
-            <div class="col-5">
+            <div class="col-md-5">
                 <h2 class="home mt-5"> Le pack voyage</h2>
                 <p class="text-break mr-5 mt-5 ">Pour réduire l’encombrement au maximum, optez pour
                     le pack voyage. Ce pack comprend la poussette Babyzen ainsi que 2 équipements de votre choix parmi les suivants : porte-bébé, chaise haute, transat ou lit de voyage.
@@ -106,19 +105,19 @@
                     A partir de 63€ la journée.</p>
                 <a href="">En savoir plus</a>
             </div>
-            <div class="col-5">
-                <img  class="w-100 m-3" src="{{ asset('build/Rectangles.png') }}" alt="">
+            <div class="col-md-5 ">
+                <img  class="image-fluid w-100" src="{{ asset('build/Rectangles.png') }}" alt="">
             </div>
         </div>
     </div>
     <div class="container-fluid w-100 mt-5">
         <div class="row justify-content-center">
-            <div class="col-5">
-                <h3 class=" golden-title p-0 m-0"> Notre sélection de marques auxquelles</h3>
-                <h2 class="home p-0 m-0"> Vous faites confiance</h2>
+            <div class="col-md-5">
+                <h3 class=" golden-title p-0 m-0 lh-sm"> Notre sélection de marques auxquelles</h3>
+                <h2 class="home p-0 m-0 lh-sm"> Vous faites confiance</h2>
 
             </div>
-            <div class="col-5 pl-5">
+            <div class="col-md-5 pl-5">
                 <h3 class="mt-5 pt-5">Comment les avons-nous sélectionnées ? </h3>
                 <p class="text-break mr-5">Nous avons sélectionnés les marques recommandées d’après <br> le retours d’expérience de parents </p>
             </div>
@@ -126,44 +125,36 @@
     </div>
     <div class="container-fluid w-100 mt-5">
         <div class="row justify-content-center mt-5 mb-5">
-            <div class="col-10 d-flex justify-content-around ">
-                <a href=""> <img  class=" m-3" src="{{ asset('build/stokke-partenaire_Gambin.png') }}" alt=""> </a>
-                <a href=""> <img  class=" m-3" src="{{ asset('build/babyzen-partenaire_Gambin.png') }}" alt=""> </a>
-                <a href=""> <img  class=" m-3" src="{{ asset('build/ergobaby-partenaire_Gambin.png') }}" alt=""> </a>
-                <a href=""> <img  class=" m-3" src="{{ asset('build/babyjorne-partenaire_Gambin.png') }}" alt=""> </a>
-
-            </div>
+                <a href=""> <img  class=" col m-3" src="{{ asset('build/stokke-partenaire_Gambin.png') }}" alt=""> </a>
+                <a href=""> <img  class="col m-3" src="{{ asset('build/babyzen-partenaire_Gambin.png') }}" alt=""> </a>
+                <a href=""> <img  class="col m-3" src="{{ asset('build/ergobaby-partenaire_Gambin.png') }}" alt=""> </a>
+                <a href=""> <img  class="col m-3" src="{{ asset('build/babyjorne-partenaire_Gambin.png') }}" alt=""> </a>
 
         </div>
     </div>
-    <div class="container-fluid w-100 mt-5 mb-5">
-        <div class="row justify-content-center mt-5 mb-5  ">
-            <h2 class="home mt-5 "> Ce que disent nos clients</h2>
-            <div class="col-10 mt-5 d-flex justify-content-around ">
-                <div class="col-2 card bg-card wrap p-3 ">
+    <div class="container-fluid mt-5 ">
+            <h2 class="home text-center mt-5 "> Ce que disent nos clients</h2>
+            <div class="row mt-5 d-flex justify-content-around ">
+                <div class="col-md-2 card bg-card wrap p-3 m-auto ">
                     <i class="fas fa-quote-left mb-3"></i>
                     <p class="text-break">Nous avons loué une poussette et un porte-bébé et les équipements étaient comme neufs. De plus, nous avons pu nous faire livrer directement à notre hôtel dans Bordeaux. Je recommande !</p>
                     <p class="text-end">Jean Dupont</p>
                 </div>
-                <div class="col-2 p-3 bg-card card wrap">
+                <div class="col-md-2 p-3 bg-card card wrap m-auto">
                     <i class="fas fa-quote-left mb-3"></i>
-                    <p class="text-break">Top expérience, même avec le retard de notre train, nous avons pu récupérer les équipements dès notre arrivée sur Bordeaux.</p>
+                    <p class="text-break w-100">Top expérience, même avec le retard de notre train, nous avons pu récupérer les équipements dès notre arrivée sur Bordeaux.</p>
                     <p class="text-end w-100">Inès Laffont</p>
                 </div>
-
-                <div class="col-2 card bg-card wrap p-3 ">
+                <div class="col-md-2 card bg-card wrap p-3 m-auto">
                     <i class="fas fa-quote-left mb-3"></i>
                     <p class="text-break">Le Pack voyage est un must have ! Nous avons été livré en gare Bordeaux Saint-Jean et avons pu voyager sans nous encombrer !</p>
                     <p class="text-end w-100">Jordan Tolot</p>
                 </div>
-                <div class="col-2 card bg-card wrap p-3 ">
+                <div class="col-md-2 card bg-card wrap p-3 m-auto">
                     <i class="fas fa-quote-left mb-3"></i>
                     <p class="text-break ">La location se fait en un clic depuis le site, et les équipements loués sont conformes à la description. Je vous recommande Gambin pour vos prochaines vacances.</p>
                     <p class="text-end w-100">Claire Bonnet</p>
                 </div>
-
             </div>
-
-        </div>
     </div>
 {% endblock %}

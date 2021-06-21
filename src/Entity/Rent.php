@@ -12,15 +12,6 @@ use Datetime;
  */
 class Rent
 {
-    public const STATUS = [
-        0 => 'available',
-        1 => 'cart',
-        2 => 'reserved',
-        3 => 'getBack',
-        4 => 'cleaning',
-    ];
-
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -38,15 +29,6 @@ class Rent
      */
     private \DateTimeInterface $dateOut;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private \DateTimeInterface $dateReturn;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private int $status;
 
     /**
      * @ORM\Column(type="datetime")
@@ -59,21 +41,30 @@ class Rent
     private \DateTimeInterface $updatedAt;
 
     /**
-     * @ORM\OneToOne(targetEntity=Stock::class, inversedBy="rent", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private Stock $stock;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="rents")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private ?User $user;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Deposit::class, inversedBy="rents")
      */
     private ?Deposit $deposit;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Status::class, inversedBy="rents")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private ?Status $status;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private \DateTimeInterface $dateReturn;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Basket::class, mappedBy="rent", cascade={"persist", "remove"})
+     */
+    private ?Basket $basket;
+
+    public function __sleep()
+    {
+        return [];
+    }
 
     /**
      * @ORM\PrePersist
@@ -121,30 +112,6 @@ class Rent
         return $this;
     }
 
-    public function getDateReturn(): ?\DateTimeInterface
-    {
-        return $this->dateReturn;
-    }
-
-    public function setDateReturn(\DateTimeInterface $dateReturn): self
-    {
-        $this->dateReturn = $dateReturn;
-
-        return $this;
-    }
-
-    public function getStatus(): ?int
-    {
-        return $this->status;
-    }
-
-    public function setStatus(int $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -169,30 +136,6 @@ class Rent
         return $this;
     }
 
-    public function getStock(): ?Stock
-    {
-        return $this->stock;
-    }
-
-    public function setStock(Stock $stock): self
-    {
-        $this->stock = $stock;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     public function getDeposit(): ?Deposit
     {
         return $this->deposit;
@@ -203,5 +146,66 @@ class Rent
         $this->deposit = $deposit;
 
         return $this;
+    }
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getDateReturn(): ?\DateTimeInterface
+    {
+        return $this->dateReturn;
+    }
+
+    public function setDateReturn(?\DateTimeInterface $dateReturn): self
+    {
+        $this->dateReturn = $dateReturn;
+        return $this;
+    }
+
+    public function getBasket(): ?Basket
+    {
+        return $this->basket;
+    }
+
+    public function setBasket(?Basket $basket): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($basket === null && $this->basket !== null) {
+            $this->basket->setRent(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($basket !== null && $basket->getRent() !== $this) {
+            $basket->setRent($this);
+        }
+
+        $this->basket = $basket;
+        return $this;
+    }
+
+    public function getItemProducts()
+    {
+        $itemProducts = [];
+        foreach ($this->getBasket()->getItemProducts() as $itemProduct) {
+            $itemProducts[] = $itemProduct;
+        }
+        return $itemProducts;
+    }
+
+    public function getItemAccessories()
+    {
+        $itemAccessories = [];
+        foreach ($this->getBasket()->getItemAccessories() as $itemAccessory) {
+            $itemAccessory[] = $itemAccessory;
+        }
+        return $itemAccessories;
     }
 }

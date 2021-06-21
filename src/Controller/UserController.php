@@ -2,14 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Form\AddressType;
 use App\Form\ChangePasswordType;
 use App\Form\UserInformationType;
-use App\Repository\RentRepository;
+use App\Repository\BasketRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,12 +43,30 @@ class UserController extends AbstractController
             $entityManager->persist($this->getUser());
             $entityManager->flush();
             $this->addFlash('success', 'Informations de profil mis à jour');
-        } elseif ($form->isSubmitted() && !($form->isValid())) {
-            $form->addError(new FormError('Une erreur est survenue'));
         }
         return $this->render('user/information.html.twig', [
             'form_information' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/handle/favorite/{product}", name="handle_favorite")
+     */
+    public function handleFavorite(Product $product, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->getUser()->getFavorites()->contains($product)) {
+            $this->getUser()->removeFavorite($product);
+            $entityManager->persist($this->getUser());
+            $entityManager->flush();
+            $this->addFlash('warning', 'Produit retiré de vos favoris !');
+            return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+        } else {
+            $this->getUser()->addFavorite($product);
+            $entityManager->persist($this->getUser());
+            $entityManager->flush();
+            $this->addFlash('success', 'Produit ajouté à vos favoris !');
+            return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+        }
     }
 
     /**
@@ -80,8 +98,6 @@ class UserController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
                 $this->addFlash('success', 'Votre mot de passe a été changé avec succès');
-            } else {
-                $form->addError(new FormError('Ancien mot de passe incorrect'));
             }
         }
         return $this->render('user/password.html.twig', [
@@ -92,13 +108,16 @@ class UserController extends AbstractController
     /**
      * @Route("/rent", name="rent")
      */
-    public function rent(UserRepository $userRepository, RentRepository $rentRepository): Response
+    public function rent(BasketRepository $basketRepository): Response
     {
-        $userMail = $this->getUser()->getUsername();
-        $userId = $userRepository->findOneBy(['email' => $userMail])->getId();
-        $rents = $rentRepository->findBy(['user' => $userId]);
+        $baskets = $basketRepository->findby(['user' => $this->getUser(), 'isOpen' => false]);
+        $rents = [];
+        foreach ($baskets as $basket) {
+            $rents[] = $basket->getRent();
+        }
+
         return $this->render('user/rent.html.twig', [
-            'rents' => $rents
+            'rents' => $rents,
         ]);
     }
 
@@ -115,8 +134,6 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('success', 'Adresse mis à jour');
-        } elseif ($form->isSubmitted() && !($form->isValid())) {
-            $form->addError(new FormError('Une erreur est survenue'));
         }
         return $this->render('user/address.html.twig', [
             'form' => $form->createView()

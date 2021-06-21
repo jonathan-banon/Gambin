@@ -97,10 +97,16 @@ class Accessory
      */
     private float $priceService;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ItemAccessory::class, mappedBy="accessory", orphanRemoval=true)
+     */
+    private $itemAccessories;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->itemAccessories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -322,6 +328,41 @@ class Accessory
     public function setPriceService(float $priceService): self
     {
         $this->priceService = $priceService;
+
+        return $this;
+    }
+
+    public function getPriceClean()
+    {
+        return $this->getPriceService();
+    }
+
+    /**
+     * @return Collection|ItemAccessory[]
+     */
+    public function getItemAccessories(): Collection
+    {
+        return $this->itemAccessories;
+    }
+
+    public function addItemAccessory(ItemAccessory $itemAccessory): self
+    {
+        if (!$this->itemAccessories->contains($itemAccessory)) {
+            $this->itemAccessories[] = $itemAccessory;
+            $itemAccessory->setAccessory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemAccessory(ItemAccessory $itemAccessory): self
+    {
+        if ($this->itemAccessories->removeElement($itemAccessory)) {
+            // set the owning side to null (unless already changed)
+            if ($itemAccessory->getAccessory() === $this) {
+                $itemAccessory->setAccessory(null);
+            }
+        }
 
         return $this;
     }

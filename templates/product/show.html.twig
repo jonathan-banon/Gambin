@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% form_theme formRating 'bootstrap_4_layout.html.twig' %}
+{% form_theme formRent'bootstrap_4_layout.html.twig' %}
 
 {% block title %}{{ product.name }}{% endblock %}
 
@@ -10,7 +11,6 @@
         <a href="{{ path("home") }}"> Accueil </a>
         <a> > </a>
         <a href="{{ path("product_index") }}"> Catalogue </a>
-        <a> > </a>
         <a> {{ product.name }} </a>
     </div>
 
@@ -44,7 +44,11 @@
             </div>
             <div class="col-4">
                 <h1> {{ product.name }} </h1>
+                <a href="{{ path("user_handle_favorite", {product: product.id}) }}"> Ajouter au favori </a>
                 <h3> A partir de {{ product.pricePerDay }}€ / journée (+ frais de service)</h3>
+                <form action="{{ path("item_product_add", {id: product.id}) }}" method="get">
+                    <button class="btn button-style col-2 my-3" type="submit" >Ajouter au panier</button>
+                </form>
             </div>
         </div>
 
@@ -105,10 +109,10 @@
                 <h1 class="text-center my-5"> Ajouter un commentaire </h1>
                 <div class="col-5 mx-auto">
                     <label for="">Commentaire</label>
-                    {{ form_start(form) }}
-                    {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_start(formRating) }}
+                    {{ form_widget(formRating.content, {'attr': {'class': 'form-control'}}) }}
                     <button class="btn button-style col-2 my-3">Envoyer</button>
-                    {{ form_end(form) }}
+                    {{ form_end(formRating) }}
                 </div>
             </div>
             <div class="font-weight-bold my-5">
@@ -120,7 +124,7 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                                        <p class="text-secondary text-center">{{ rating.createdAt |date('F j, Y, g:i a')}}</p>
+                                        <p class="text-secondary text-center">{{ rating.createdAt|date('F j, Y, g:i a') }}</p>
                                     </div>
                                     <div class="col-md-10">
                                         <p>

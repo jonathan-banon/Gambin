@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Product;
 use App\Entity\Rating;
+use App\Entity\Rent;
 use App\Entity\User;
 use App\Form\ProductType;
-use App\Form\RantingType;
+use App\Form\RatingType;
+use App\Form\RentType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,21 +20,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductController extends AbstractController
 {
-    /**
-     * @Route("/", name="index")
-     * @return Response
-     */
-    public function index(): Response
-    {
-        $products = $this->getDoctrine()
-            ->getRepository(Product::class)
-            ->findAll();
-
-        return $this->render('product/index.html.twig', [
-            'products' => $products,
-        ]);
-    }
-
     /**
      * @Route("/show/{id<^[0-9]+$>}", name="show")
      * @return Response
@@ -51,12 +37,23 @@ class ProductController extends AbstractController
             ->findAll();
 
         $rating = new Rating();
-        $form = $this->createForm(RantingType::class, $rating);
-        $form->handleRequest($request);
+        $formRating = $this->createForm(RatingType::class, $rating);
+        $formRating->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($formRating->isSubmitted() && $formRating->isValid()) {
             $rating->setUser($this->getUser());
             $rating->setProduct($product);
+            $entityManager->persist($rating);
+            $entityManager->flush();
+        }
+
+        $rent = new Rent();
+        $formRent = $this->createForm(RentType::class, $rent);
+        $formRent->handleRequest($request);
+
+        if ($formRent->isSubmitted() && $formRent->isValid()) {
+            $rent->setUser($this->getUser());
+            $rent->setItem($product);
             $entityManager->persist($rating);
             $entityManager->flush();
         }
@@ -64,9 +61,27 @@ class ProductController extends AbstractController
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'products' => $products,
-            'form' => $form->createView(),
+            'formRating' => $formRating->createView(),
+            'formRent' => $formRent->createView(),
         ]);
     }
+
+    /**
+     * @Route("/", name="index")
+     * @return Response
+     */
+    public function index(): Response
+    {
+        $products = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->findAll();
+
+        return $this->render('product/index.html.twig', [
+            'products' => $products,
+        ]);
+    }
+
+
 
     /**
      * @Route("/new", name="new")

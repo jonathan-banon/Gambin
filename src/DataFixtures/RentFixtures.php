@@ -19,17 +19,14 @@ class RentFixtures extends Fixture implements DependentFixtureInterface
         $dateReturned = new DateTime();
         $dateIn->setDate(2021, 5, 12);
         $dateOut->setDate(2021, 5, 25);
-        $dateReturned->setDate(2021, 5, 25);
         $rent->setDateIn($dateIn);
         $rent->setDateOut($dateOut);
-        $rent->setDateReturn($dateReturned);
-        $rent->setStatus(0);
+        $rent->setBasket($this->getReference('basket_0'));
+        $rent->setStatus($this->getReference('status_3'));
 
-        $rent->setStock($this->getReference('stock_0'));
         $rent->setDeposit($this->getReference('deposit_0'));
-        $rent->setUser($this->getReference('user_0'));
-        $rent->setStatus(0);
         $manager->persist($rent);
+        $this->setReference('rent_0', $rent);
 
 
         $rent = new Rent();
@@ -42,13 +39,12 @@ class RentFixtures extends Fixture implements DependentFixtureInterface
         $rent->setDateIn($dateIn);
         $rent->setDateOut($dateOut);
         $rent->setDateReturn($dateReturned);
-        $rent->setStatus(0);
+        $rent->setBasket($this->getReference('basket_1'));
+        $rent->setStatus($this->getReference('status_3'));
 
-        $rent->setStock($this->getReference('stock_7'));
         $rent->setDeposit($this->getReference('deposit_0'));
-        $rent->setUser($this->getReference('user_0'));
-        $rent->setStatus(0);
         $manager->persist($rent);
+        $this->setReference('rent_1', $rent);
 
 
         $manager->flush();
@@ -57,9 +53,9 @@ class RentFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            StockFixtures::class,
             DepositFixtures::class,
-            UserFixtures::class,
+            StatusFixtures::class,
+            BasketFixtures::class,
         ];
     }
 }

@@ -250,4 +250,9 @@ class Pack
 
         return $this;
     }
+
+    public function getPriceClean()
+    {
+        return $this->getPriceService();
+    }
 }

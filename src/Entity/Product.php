@@ -134,6 +134,11 @@ class Product
      */
     private float $priceService;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ItemProduct::class, mappedBy="product", orphanRemoval=true)
+     */
+    private $itemProducts;
+
     public function __sleep()
     {
          return [];
@@ -165,6 +170,7 @@ class Product
         $this->images = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->itemProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -292,7 +298,6 @@ class Product
     public function setMarque(?Marque $marque): self
     {
         $this->marque = $marque;
-
         return $this;
     }
 
@@ -538,6 +543,41 @@ class Product
     public function setPriceService(float $priceService): self
     {
         $this->priceService = $priceService;
+
+        return $this;
+    }
+
+    public function getPriceClean()
+    {
+        return $this->getPriceService();
+    }
+
+    /**
+     * @return Collection|ItemProduct[]
+     */
+    public function getItemProducts(): Collection
+    {
+        return $this->itemProducts;
+    }
+
+    public function addItemProduct(ItemProduct $itemProduct): self
+    {
+        if (!$this->itemProducts->contains($itemProduct)) {
+            $this->itemProducts[] = $itemProduct;
+            $itemProduct->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemProduct(ItemProduct $itemProduct): self
+    {
+        if ($this->itemProducts->removeElement($itemProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($itemProduct->getProduct() === $this) {
+                $itemProduct->setProduct(null);
+            }
+        }
 
         return $this;
     }

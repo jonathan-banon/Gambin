@@ -20,16 +20,18 @@ class RentType extends AbstractType
         $builder
             ->add('dateIn', null, [
                 'label' => 'Date de début',
+                'widget' => 'single_text'
             ])
             ->add('dateOut', null, [
-                'label' => 'Date de retour'
+                'label' => 'Date de retour',
+                'widget' => 'single_text',
             ])
             ->add('deposit', EntityType::class, [
                 'class' => Deposit::class,
                 'label' => 'Lieu de dépôt',
                 'choice_label' => 'name',
                 'expanded' => false,
-                'multiple' => true,
+                'multiple' => false,
                 'by_reference' => false,
             ])
         ;

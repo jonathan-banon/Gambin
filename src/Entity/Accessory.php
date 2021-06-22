@@ -366,4 +366,12 @@ class Accessory
 
         return $this;
     }
+
+    public function getFirstPicture()
+    {
+        $images = $this->getImages();
+        foreach ($images as $key => $image) {
+            return $image;
+        }
+    }
 }

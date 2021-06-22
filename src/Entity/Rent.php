@@ -203,8 +203,25 @@ class Rent
     {
         $itemAccessories = [];
         foreach ($this->getBasket()->getItemAccessories() as $itemAccessory) {
-            $itemAccessory[] = $itemAccessory;
+            $itemAccessories[] = $itemAccessory;
         }
         return $itemAccessories;
+    }
+
+    public function countDays()
+    {
+        return date_diff($this->getDateIn(), $this->getDateOut())->days;
+    }
+
+    public function getQuantity()
+    {
+        $count = 0;
+        foreach ($this->getItemAccessories() as $accessory) {
+            $count += $accessory->getQuantity();
+        }
+        foreach ($this->getItemProducts() as $product) {
+            $count += $product->getQuantity();
+        }
+        return $count;
     }
 }

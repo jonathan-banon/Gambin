@@ -2,23 +2,26 @@
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
     {% block body %}
-        <h1>Location</h1>
+        <div class="container ">
+            <div class="row justify-content-md-center">
+                <div class="col-md">
+                    <h1 class="text-center">Location</h1>
+                </div>
+            </div>
+        </div>
+
         <div class="d-flex">
             <div class="row ">
-                <div class="col-md-4">
+                <div class="col-md">
+
                 </div>
-                <div class="col-md-8 ">
+                <div class="col-md ">
                     {{ form_start(form) }}
-
-                        <div class="w-100">
-                            {{ form_row(form.dateIn) }}
-                        </div>
-
+                        {{ form_row(form.dateIn) }}
                         {{ form_row(form.dateOut) }}
-
                         {{ form_row(form.deposit) }}
-
-                    {{ form_end (form)}}
+                        <button type="submit" class="btn button-style">Louer</button>
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>

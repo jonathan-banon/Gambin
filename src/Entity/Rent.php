@@ -20,12 +20,12 @@ class Rent
     private int $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private \DateTimeInterface $dateIn;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private \DateTimeInterface $dateOut;
 
@@ -47,7 +47,6 @@ class Rent
 
     /**
      * @ORM\ManyToOne(targetEntity=Status::class, inversedBy="rents")
-     * @ORM\JoinColumn(nullable=false)
      */
     private ?Status $status;
 

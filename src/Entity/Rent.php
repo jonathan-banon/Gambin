@@ -25,7 +25,7 @@ class Rent
     private \DateTimeInterface $dateIn;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private \DateTimeInterface $dateOut;
 
@@ -51,7 +51,7 @@ class Rent
     private ?Status $status;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private \DateTimeInterface $dateReturn;
 
@@ -163,7 +163,7 @@ class Rent
         return $this->dateReturn;
     }
 
-    public function setDateReturn(?\DateTimeInterface $dateReturn): self
+    public function setDateReturn(\DateTimeInterface $dateReturn): self
     {
         $this->dateReturn = $dateReturn;
         return $this;

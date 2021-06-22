@@ -295,7 +295,7 @@ class Product
         return $this->marque;
     }
 
-    public function setMarque(?Marque $marque): self
+    public function setMarque(Marque $marque): self
     {
         $this->marque = $marque;
         return $this;
@@ -580,5 +580,13 @@ class Product
         }
 
         return $this;
+    }
+
+    public function getFirstPicture()
+    {
+        $images = $this->getImages();
+        foreach ($images as $key => $image) {
+                return $image;
+        }
     }
 }

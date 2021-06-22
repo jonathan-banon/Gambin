@@ -20,7 +20,7 @@ class Rent
     private int $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private \DateTimeInterface $dateIn;
 

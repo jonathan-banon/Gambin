@@ -13,15 +13,15 @@ class Price
         $price = 0;
 
         foreach ($rent->getItemProducts() as $itemProduct) {
-            $price += $itemProduct->getProduct()->getPriceService()
+            $price += $itemProduct->getQuantity() * ($itemProduct->getProduct()->getPriceService()
                       + $itemProduct->getProduct()->getPriceClean()
-                      + $days * $itemProduct->getProduct()->getPricePerDay();
+                      + $days * $itemProduct->getProduct()->getPricePerDay());
         }
 
         foreach ($rent->getItemAccessories() as $itemAccessory) {
-            $price += $itemAccessory->getAccessory()->getPriceService()
+            $price += $itemAccessory->getQuantity() * ($itemAccessory->getAccessory()->getPriceService()
                 + $itemAccessory->getAccessory()->getPriceClean()
-                + $days * $itemAccessory->getAccessory()->getPricePerDay();
+                + $days * $itemAccessory->getAccessory()->getPricePerDay());
         }
 
         return $price;

@@ -20,6 +20,7 @@ class RentType extends AbstractType
         $builder
             ->add('dateIn', null, [
                 'label' => 'Date de début',
+
             ])
             ->add('dateOut', null, [
                 'label' => 'Date de retour'

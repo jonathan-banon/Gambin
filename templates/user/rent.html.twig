@@ -8,7 +8,8 @@
         <h2>Mes dernières locations</h2>
         {% for rent in rents %}
             <div class="location">
-                <h3>Location du {{ rent.dateIn|date("d/m/Y") }} au {{ rent.dateOut|date("d/m/Y") }}</h3>
+                {{ dump(rent.dateIn|date("Y/m/d", false)) }}
+{#                <h3>Location du {{ rent.dateIn|date("Y/m/d") }} au {{ rent.dateOut|date("Y/m/d") }}</h3>#}
                 {% for products in rent.getItemProducts %}
                     {% for image in products.product.images %}
                         {% if loop.index0 == 0 %}

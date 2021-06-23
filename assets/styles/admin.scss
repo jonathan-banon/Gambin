@@ -1,0 +1,20 @@
+.title-admin {
+  border-right : 1px solid $color-grey;
+  ul{
+    list-style: none;
+    li{
+      height:50px;
+      padding-left: 15px;
+      &.active{
+        background: linear-gradient(0deg, rgba(94, 129, 244, 0.1), rgba(94, 129, 244, 0.1)), #FFFFFF;
+        border-radius: 4px;
+      }
+      svg{
+        margin-right: 40px;
+        color:$color-svg-admin;
+      }
+    }
+  }
+
+}
+

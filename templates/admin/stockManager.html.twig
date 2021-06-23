@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vu des stocks{% endblock %}
+
+{% block body %}
+    <h1>Hello ADMIN ✅</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>createdAt</th>
+            <th>updatedAt</th>
+            <th>city</th>
+            <th>reference</th>
+            <th>Nom du produit</th>
+            <th>Disponible</th>
+            <th>Changer Disponibilité</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for stock in stocks %}
+            <tr>
+                <td>{{ stock.id }}</td>
+                <td>{{ stock.createdAt|date("d/m/Y") }}</td>
+                <td>{{ stock.updatedAt|date("d/m/Y") }}</td>
+                <td>{{ stock.city.name }}</td>
+                <td>{{ stock.reference }}</td>
+                <td>
+                    {% if stock.product is empty %}
+                        {{ stock.accessory.name }}
+                    {% else %}
+                        {{ stock.product.name }}
+                    {% endif %}
+
+                </td>
+                <td>
+                    {% if stock.isAvailable %}
+                        <strong class="text-success">DISPONIBLE</strong>
+                    {% else %}
+                        <strong class="text-danger">NON DISPONIBLE</strong>
+                    {% endif %}
+                </td>
+                <td>
+                        <label class="switch">
+                            <a href="{{ path('admin_stock_available', {stock: stock.id}) }}">
+                                <input type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </a>
+                        </label>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+
+    <label class="switch">
+        <input type="checkbox" checked>
+        <span class="slider round"></span>
+    </label>
+{% endblock %}

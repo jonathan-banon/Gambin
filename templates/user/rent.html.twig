@@ -38,7 +38,7 @@
                 {% endfor %}
                 {% for accessories in rent.getItemAccessories %}
                     <div class="col-12 col-lg-5">
-    {#                    <a href="{{ path('accessory_show', {id: accessories.accessory.id}) }}">#}
+                        <a href="{{ path('accessory_show', {id: accessories.accessory.id}) }}">
                             <div class="card-rent d-flex justify-content-between">
                                 {% if accessories.accessory.getFirstPicture is not null %}
                                     <div>
@@ -58,8 +58,6 @@
         {% endfor %}
     </div>
     <a href="{{ path('user_index') }}"><button class="btn button-decoration"><i class="fas fa-arrow-circle-left"></i>  Revenir à mon Compte</button></a>
-
-
 
 {% endblock %}
 

@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Catalogue produits!{% endblock %}
+{% block title %}Catalogue des accessoires!{% endblock %}
 {% block body %}
     <div class="container-fluid catalogue">
         <div class="row nav-catalogue">
             <div class="col-12">
                 <div class=" text-dark col-12 text-center mx-auto py-3 ">
-                    <a class='current' href="{{ path('product_index') }}">EQUIPEMENTS</a>
-                    <a href="{{ path('accessory_index') }}" class="mx-5">ACCESSOIRES</a>
+                    <a href="{{ path('product_index') }}">EQUIPEMENTS</a>
+                    <a href="{{ path('accessory_index') }}" class="current mx-5">ACCESSOIRES</a>
                     <a href="#">PACKS</a>
                 </div>
             </div>
@@ -44,15 +44,15 @@
             <div class="col-lg-8 col-12">
                 <div class="container-fluid list-catalogue">
                     <div class="row d-flex justify-content-center">
-                        {% for product in products %}
-                            <a href="{{ path("product_show", {id: product.id}) }}" class="card col-md-4 col-lg-3 col-12">
+                        {% for accessory in accessories %}
+                            <a href="" class="card col-md-4 col-lg-3 col-12">
                                 <div class="card-block">
-                                    {% if product.getFirstPicture %}
-                                        <img class="card-img-top img-fluid" src="{{ product.getFirstPicture.url }}" alt="Card image cap">
+                                    {% if accessory.getFirstPicture %}
+                                        <img class="card-img-top img-fluid" src="{{ accessory.getFirstPicture.url }}" alt="Card image cap">
                                     {% endif %}
                                     <div class="card-body">
-                                        <h5 class="card-title">{{ product.name }}</h5>
-                                        <p class="card-text">A partir de {{ product.pricePerDay }} €</p>
+                                        <h5 class="card-title">{{ accessory.name }}</h5>
+                                        <p class="card-text">A partir de {{ accessory.pricePerDay }} €</p>
                                     </div>
                                 </div>
                             </a>

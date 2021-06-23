@@ -80,26 +80,4 @@ class ProductController extends AbstractController
             'products' => $products,
         ]);
     }
-
-
-
-    /**
-     * @Route("/new", name="new")
-     * @return Response
-     */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $product = new Product();
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($product);
-            $entityManager->flush();
-        }
-
-        return $this->render('product/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
 }

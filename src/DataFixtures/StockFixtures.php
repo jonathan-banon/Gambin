@@ -17,7 +17,6 @@ class StockFixtures extends Fixture implements DependentFixtureInterface
             $stock = new Stock();
             $stock->setCity($this->getReference('city_0'));
             $stock->setProduct($this->getReference('product_0'));
-            $stock->setReference('ref' . $i);
             $stock->setIsAvailable(true);
             $manager->persist($stock);
             $this->setReference('stock_' . $i, $stock);
@@ -27,7 +26,6 @@ class StockFixtures extends Fixture implements DependentFixtureInterface
             $stock = new Stock();
             $stock->setCity($this->getReference('city_0'));
             $stock->setProduct($this->getReference('product_1'));
-            $stock->setReference('ref12' . $i);
             $stock->setIsAvailable(true);
             $manager->persist($stock);
             $number = $i + self::NUMBER + 1;
@@ -39,7 +37,6 @@ class StockFixtures extends Fixture implements DependentFixtureInterface
             $stock->setCity($this->getReference('city_0'));
             $stock->setAccessory($this->getReference('accessory_0'));
             $number = $i + self::NUMBER * 2 + 1;
-            $stock->setReference('ref23' . $i);
             $stock->setIsAvailable(true);
             $manager->persist($stock);
             $this->setReference('stock_' . $number, $stock);

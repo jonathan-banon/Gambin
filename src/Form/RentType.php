@@ -34,8 +34,7 @@ class RentType extends AbstractType
                 'expanded' => false,
                 'multiple' => false,
                 'by_reference' => false,
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

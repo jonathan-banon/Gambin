@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\User;
 use App\Entity\Rent;
 use App\Entity\Status;
+use App\Form\AddressType;
 use App\Form\RentType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -55,6 +57,37 @@ class RentController extends AbstractController
         return $this->render('rent/new.html.twig', [
             'form' => $form->createView(),
             'basket'=>$basket,
+        ]);
+    }
+
+    /**
+     * @Route("/adress", name="adress")
+     * @return Response
+     */
+    public function adress(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(AddressType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $this->addFlash('success', 'Adresse mis à jour');
+        }
+        return $this->render('rent/adress.html.twig', [
+            'controller_name' => 'RentController',
+            'form'=> $form->createView()
+        ]);
+    }
+    /**
+     * @Route("/payment", name="payment")
+     * @return Response
+     */
+    public function payment(Request $request, EntityManagerInterface $entityManager): Response
+    {
+
+        return $this->render('rent/payment.html.twig', [
+            'controller_name' => 'RentController',
         ]);
     }
 }

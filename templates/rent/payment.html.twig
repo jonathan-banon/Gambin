@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}Informations - {{ app.user.pseudo }}{% endblock %}
+
+{% block body %}
+    <div class=" text-center align-middle mt-5">
+        <h1 class="mt-5"> Paiment de votre commande  </h1>
+        <p> Désolé, cette partie n'est pas prise en compte par la Wild Code School !</p>
+        <img src="" alt="">
+    </div>
+<div class="container ">
+    <div class="row">
+        <div class="col-10 ">
+            <hr>
+            <div class="d-flex justify-content-between">
+                <p> total </p>
+                <p><strong> 100€</strong></p>
+            </div>
+            <div class="col text-center ">
+                <a href="{{ path('rent_new') }}"> <i type="" class="btn button-style align-content-end w-50 ">Terminer la location </i> </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

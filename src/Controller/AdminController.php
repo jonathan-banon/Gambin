@@ -59,8 +59,8 @@ class AdminController extends AbstractController
                     ->subject('La disponibilité du produit vient de changer')
                     ->html('<p>La disponibilité du produit vient de changer</p>');
                 $mailer->send($email);
-                }
             }
+        }
         return $this->redirectToRoute('admin_stock');
     }
 }

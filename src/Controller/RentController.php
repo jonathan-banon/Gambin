@@ -56,7 +56,7 @@ class RentController extends AbstractController
 
         return $this->render('rent/new.html.twig', [
             'form' => $form->createView(),
-            'basket'=>$basket,
+            'basket' => $basket,
         ]);
     }
 
@@ -76,7 +76,7 @@ class RentController extends AbstractController
         }
         return $this->render('rent/adress.html.twig', [
             'controller_name' => 'RentController',
-            'form'=> $form->createView()
+            'form' => $form->createView()
         ]);
     }
     /**

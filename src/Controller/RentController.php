@@ -90,4 +90,16 @@ class RentController extends AbstractController
             'controller_name' => 'RentController',
         ]);
     }
+    /**
+     * @Route("/sucess", name="sucess")
+     * @return Response
+     */
+    public function sucess(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $user=$this->getUser()->getFirstName();
+        return $this->render('rent/sucess.html.twig', [
+            'controller_name' => 'RentController',
+            'name' => $user
+        ]);
+    }
 }

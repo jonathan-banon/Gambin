@@ -19,25 +19,25 @@ class StatusFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $status =  new Status();
-        $status->setName(self::CART);
+        $status->setName('Dans le pagnier');
         $status->setIdentifier(self::CART);
         $manager->persist($status);
         $this->setReference('status_0', $status);
 
         $status =  new Status();
-        $status->setName(self::PAYED);
+        $status->setName('Payé');
         $status->setIdentifier(self::PAYED);
         $manager->persist($status);
         $this->setReference('status_1', $status);
 
         $status =  new Status();
-        $status->setName(self::IN_PROGRESS);
+        $status->setName('En cours');
         $status->setIdentifier(self::IN_PROGRESS);
         $manager->persist($status);
         $this->setReference('status_2', $status);
 
         $status =  new Status();
-        $status->setName(self::CLOSED);
+        $status->setName('Location terminée');
         $status->setIdentifier(self::CLOSED);
         $manager->persist($status);
         $this->setReference('status_3', $status);

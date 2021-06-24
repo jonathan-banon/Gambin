@@ -49,6 +49,4 @@ class ItemProductController extends AbstractController
         $this->addFlash('success', 'produit ajouté au pagnier ! ');
         return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
     }
-
-
 }

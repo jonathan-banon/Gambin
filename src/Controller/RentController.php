@@ -97,7 +97,7 @@ class RentController extends AbstractController
      */
     public function sucess(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $user=$this->getUser()->getFirstName();
+        $user = $this->getUser()->getFirstName();
         return $this->render('rent/sucess.html.twig', [
             'controller_name' => 'RentController',
             'name' => $user

@@ -59,13 +59,13 @@ class UserController extends AbstractController
             $entityManager->persist($this->getUser());
             $entityManager->flush();
             $this->addFlash('warning', 'Produit retiré de vos favoris !');
-            return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+            return $this->redirectToRoute('product_show', ['slug' => $product->getSlug()]);
         } else {
             $this->getUser()->addFavorite($product);
             $entityManager->persist($this->getUser());
             $entityManager->flush();
             $this->addFlash('success', 'Produit ajouté à vos favoris !');
-            return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+            return $this->redirectToRoute('product_show', ['slug' => $product->getSlug()]);
         }
     }
 

@@ -21,7 +21,7 @@
                 <div class="row">
                 {% for products in rent.getItemProducts %}
                     <div class="col-12 col-lg-5">
-                        <a href="{{ path('product_show', {id: products.product.id}) }}">
+                        <a href="{{ path('product_show', {slug: products.product.slug}) }}">
                             <div class="card-rent d-flex justify-content-between">
                                 {% if products.product.getFirstPicture is not null %}
                                 <div>
@@ -38,7 +38,7 @@
                 {% endfor %}
                 {% for accessories in rent.getItemAccessories %}
                     <div class="col-12 col-lg-5">
-                        <a href="{{ path('accessory_show', {id: accessories.accessory.id}) }}">
+{#                        <a href="{{ path('accessory_show', {id: accessories.accessory.id}) }}">#}
                             <div class="card-rent d-flex justify-content-between">
                                 {% if accessories.accessory.getFirstPicture is not null %}
                                     <div>

@@ -27,9 +27,9 @@
                             </div>
                             <strong>OFFERTE</strong>
                         </div>
-                        <div class="row">
+                        <div class="row d-flex justify-content-center">
                             {% if products.product.getFirstPicture is not null %}
-                                <div class="col-2 d-flex justify-content-center">
+                                <div class="col-md-2 col-sm-12 d-flex justify-content-center">
                                     <a href="{{ path('product_show', {id: products.product.id}) }}">
                                         <img src="{{ products.product.getFirstPicture.url }}" alt="image du produit" class="img-fluid">
                                     </a>

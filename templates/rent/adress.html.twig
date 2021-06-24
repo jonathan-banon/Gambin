@@ -29,20 +29,12 @@
                 <div class="mr-3 col-md-5 "> {{ form_row(form.billingCity) }}</div>
                 <div class=" col-md-5"> {{ form_row(form.billingPostal) }}</div>
             </div>
-
-            <div class="container-fluid d-md-flex  p-0">
-                <div class="m-3 col-md-5 justify-content-center p-0 ">
-                    <button type="submit" class="btn button-style">Confirmer</button>
-                </div>
+            <div class="d-flex justify-content-end">
+                <a href="{{ path('rent_payment') }}">
+                    <i type="submit" class="btn button-style text-center ">Poursuivre </i>
+                </a>
             </div>
             {{ form_end(form) }}
-        </div>
-    </div>
-    <div class="container">
-        <div class="d-flex justify-content-end ">
-            <a href="{{ path('rent_payment') }}">
-                <button class="btn button-style">Poursuivre</button>
-            </a>
         </div>
     </div>
 {% endblock %}

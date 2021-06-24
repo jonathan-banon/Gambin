@@ -77,6 +77,19 @@ class UserController extends AbstractController
         return $this->render('user/favorite.html.twig');
     }
 
+    /**
+     * @Route("/alert", name="alert")
+     */
+    public function alert(UserRepository $userRepository): Response
+    {
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->findAll();
+
+        return $this->render('user/alert.html.twig', [
+            'product' => $product,
+        ]);
+    }
 
     /**
      * @Route("/password", name="password")

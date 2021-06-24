@@ -46,8 +46,9 @@ class AdminController extends AbstractController
      * @Route("/product/new", name="new_product")
      * @return Response
      */
-    public function newProduct(Request $request, EntityManagerInterface $entityManager, Slugify $slugify): Response
+    public function newProduct(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $slugify = new Slugify();
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);

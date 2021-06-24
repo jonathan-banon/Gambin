@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Entity\Rent;
 use App\Entity\Status;
 use App\Form\RentType;
+use App\Service\Price;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

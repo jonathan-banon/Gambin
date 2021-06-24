@@ -48,12 +48,6 @@ class Stock
      */
     private $accessory;
 
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $reference;
-
     /**
      * @ORM\Column(type="boolean")
      */
@@ -135,18 +129,6 @@ class Stock
     public function setAccessory(?Accessory $accessory): self
     {
         $this->accessory = $accessory;
-
-        return $this;
-    }
-
-    public function getReference(): ?string
-    {
-        return $this->reference;
-    }
-
-    public function setReference(string $reference): self
-    {
-        $this->reference = $reference;
 
         return $this;
     }

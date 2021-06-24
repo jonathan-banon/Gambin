@@ -1,0 +1,42 @@
+.catalogue{
+  .nav-catalogue{
+    background: $color-gray;
+    margin-bottom: 50px;
+  }
+  .filter-part{
+    margin-left: 15px;
+    margin-right: 40px;
+    margin-bottom: 40px;
+  }
+
+}
+.current{
+  font-weight: 700;
+  border-bottom: $color-orange solid 2px;
+}
+
+.list-catalogue {
+  .card{
+    border-radius: $border-radius-button;
+    margin-right: 15px;
+    margin-bottom: 30px;
+    margin-left: 40px;
+    &:hover{
+      box-shadow: 0 3px 4px
+      rgba(153, 155, 168, 0.30);
+    }
+  }
+  .card-body{
+    .card-title{
+      font-weight: 700;
+      font-size: 1em;
+      margin-bottom: 5px;
+    }
+    .card-text{
+      color:$color-grey;
+      font-size: smaller;
+    }
+  }
+}
+
+

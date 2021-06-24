@@ -45,7 +45,7 @@
                 <div class="container-fluid list-catalogue">
                     <div class="row d-flex justify-content-center">
                         {% for product in products %}
-                            <a href="{{ path("product_show", {id: product.id}) }}" class="card col-md-4 col-lg-3 col-12">
+                            <a href="{{ path("product_show", {slug: product.slug}) }}" class="card col-md-4 col-lg-3 col-12">
                                 <div class="card-block">
                                     {% if product.getFirstPicture %}
                                         <img class="card-img-top img-fluid" src="{{ product.getFirstPicture.url }}" alt="Card image cap">

@@ -19,8 +19,7 @@
 
                         <div class="card-body">
                             <h5 class="card-title">{{ favorite.name }}</h5>
-                            <p class="card-text">{{ favorite.description }}</p>
-                            <a href="{{ path('product_show', {id: favorite.id}) }}" class="btn btn-primary">Go somewhere</a>
+                            <a href="{{ path('product_show', {slug: favorite.slug}) }}" class="color-blue" ><i class="fas fa-long-arrow-alt-right"></i>Voir la fiche</a>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -11,8 +12,10 @@ class AccessoryFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
+         $slugify = new Slugify();
          $accessory = new Accessory();
          $accessory->setName('parasole');
+         $accessory->setSlug($slugify->slugify($accessory->getName()));
          $accessory->setIdentifier('cadre');
          $accessory->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tempor 
          fermentum nulla at pellentesque. Nam ultricies cursus lectus. Etiam venenatis fermentum tortor, 
@@ -29,6 +32,7 @@ class AccessoryFixtures extends Fixture implements DependentFixtureInterface
 
         $accessory = new Accessory();
         $accessory->setName('nacelle de poussette');
+        $accessory->setSlug($slugify->slugify($accessory->getName()));
         $accessory->setIdentifier('nacelle');
         $accessory->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tempor 
          fermentum nulla at pellentesque. Nam ultricies cursus lectus. Etiam venenatis fermentum tortor, 
@@ -45,6 +49,7 @@ class AccessoryFixtures extends Fixture implements DependentFixtureInterface
 
         $accessory = new Accessory();
         $accessory->setName('moustiquaire');
+        $accessory->setSlug($slugify->slugify($accessory->getName()));
         $accessory->setIdentifier('nacelle');
         $accessory->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tempor 
          fermentum nulla at pellentesque. Nam ultricies cursus lectus. Etiam venenatis fermentum tortor, 

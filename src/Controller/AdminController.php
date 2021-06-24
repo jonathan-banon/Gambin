@@ -96,7 +96,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/accessory/new", name="new_accessory")
      */
-    public function newAccessory(Request $request, EntityManagerInterface $entityManager, Slugify $slugify): Response
+    public function newAccessory(Request $request, EntityManagerInterface $entityManager): Response
     {
         $slugify = new Slugify();
         $accessory = new Accessory();

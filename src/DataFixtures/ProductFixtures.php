@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -11,8 +12,11 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
+        $slugify = new Slugify();
+
         $product = new Product();
         $product->setName('La poussette Yoyo');
+        $product->setSlug($slugify->slugify($product->getName()));
         $product->setIdentifier('pousette');
         $product->setDescription("La poussette Yoyo est la poussette idéale pour arpenter les pavais 
         bordelais comme les quais le long de la garonne. Très légère, elle se déplie facilement d’une main.");
@@ -32,6 +36,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 
         $product = new Product();
         $product->setName('Le lit parapluie');
+        $product->setSlug($slugify->slugify($product->getName()));
         $product->setIdentifier('bed');
         $product->setDescription("Pour assurer les nuits de bébé, nous avons sélectionné le lit de voyage 
         light de Babyjorn. Très prisé des parents pour l’épaisseur de son matelas ainsi que pour sa légèreté
@@ -53,6 +58,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 
         $product = new Product();
         $product->setName('Le transat bébé');
+        $product->setSlug($slugify->slugify($product->getName()));
         $product->setIdentifier('transat');
         $product->setDescription("Pour le repas ou pour se reposer, vous avez l’habitude de mettre bébé
          dans un transat ? Notre transat bébé de la marque Babyjorn devrait vous satisfaire. Idéal dès la naissance
@@ -72,6 +78,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 
         $product = new Product();
         $product->setName('Le porte-bébé');
+        $product->setSlug($slugify->slugify($product->getName()));
         $product->setIdentifier('carrybaby');
         $product->setDescription("Pour flâner en ville tout en portant bébé dans la position la 
         plus confortable pour son développement. Ce porte-bébé s’utilise de la naissance jusqu’aux 20kg de bébé.");
@@ -91,6 +98,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 
         $product = new Product();
         $product->setName('La chaise haute');
+        $product->setSlug($slugify->slugify($product->getName()));
         $product->setIdentifier('carrybaby');
         $product->setDescription("Pour assurer les repas avec bébé, nous avons sélectionné la chaise
          haute de la marque Stokke. On adore son design et sa simplicité d’utilisation. Récupérez cet équipement

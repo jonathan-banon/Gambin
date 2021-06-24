@@ -3,26 +3,30 @@
 
     {% block body %}
         <div class="container ">
-            <div class="row justify-content-md-center">
-                <div class="col-md">
-                    <h1 class="text-center">Location</h1>
-                </div>
+            <div class="d-flex justify-content-center my-5">
+                <h1>Location</h1>
+            </div>
+            <div class="container d-flex justify-content-center my-5">
+                <img class="img-fluid" src="{{ asset('build/Step2.png') }}" alt="img_Steps">
             </div>
         </div>
-
-        <div class="d-flex text-center justify-content-center">
+        <div class="container">
             <div class="row ">
-
-                <div class=" col-12 mt-5 p-5">
-                    <h2>Durée de Location et lieu de dépôt</h2>
+                <div class=" col-12 ">
                     {{ form_start(form) }}
                     {{ form_row(form.dateIn) }}
                     {{ form_row(form.dateOut) }}
                     {{ form_row(form.deposit) }}
-                    <a href="{{ path('rent_adress') }}"> <i type="submit" class="btn button-style text-center">Poursuivre ma location > </i></a>
+                    <a href="">
+                        <i type="submit" class="btn button-style text-center w-25">Confirmer </i>
+                    </a>
                     {{ form_end(form) }}
                 </div>
-
+            </div>
+            <div class="d-flex justify-content-end ">
+                <a href="{{ path('rent_adress') }}">
+                    <button class="btn button-style">Poursuivre</button>
+                </a>
             </div>
         </div>
     {% endblock %}

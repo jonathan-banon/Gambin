@@ -3,18 +3,61 @@
 
 {% block body %}
     <div class=" text-center align-middle mt-5">
+
         <h1 class="mt-5"> Votre Facture  </h1>
+        {{ dump(basket) }}
+
+{#        {% for rent in rents %}#}
+{#        <div class="location">#}
+{#            <div class="d-flex justify-content-between">#}
+{#                <div>#}
+{#                    <h3>Location du {{ rent.dateIn|date("d/m/Y") }} au {{ rent.dateOut|date("d/m/Y") }}</h3>#}
+{#                    <h4>Status : {{ rent.status.name }}</h4>#}
+{#                </div>#}
+{#                <div>#}
+{#                    <h4>Nombre d'article : {{ rent.getQuantity }}</h4>#}
+{#                    <strong>Prix : {{ price.calculation(rent) }}€ pour {{ rent.countDays }} jours</strong>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="row">#}
+{#                {% for products in rent.getItemProducts %}#}
+{#                    <div class="col-12 col-lg-5">#}
+{#                        <a href="{{ path('product_show', {slug: products.product.slug}) }}">#}
+{#                            <div class="card-rent d-flex justify-content-between">#}
+{#                                {% if products.product.getFirstPicture is not null %}#}
+{#                                    <div>#}
+{#                                        <img src="{{ products.product.getFirstPicture.url }}" alt="image du produit" class="img-fluid">#}
+{#                                    </div>#}
+{#                                {% endif %}#}
+{#                                <div class="flex-fill d-flex flex-column justify-content-center">#}
+{#                                    <strong>{{ products.product.name }}</strong>#}
+{#                                    <p class="quantity">x{{ products.quantity }}</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+
+{#                {% endfor %}#}
+
+{#        <div class="d-flex justify-content-center my-5">#}
+{#            <h1>Location</h1>#}
+{#        </div>#}
+{#        <div class="container d-flex justify-content-center my-5">#}
+{#            <img class="img-fluid" src="{{ asset('build/Step4.png') }}" alt="img_Steps">#}
+{#        </div>#}
         <p> Lorem ipsum dolor</p>
+
         <img src="" alt="">
     </div>
 <div class="container ">
     <div class="row justify-content-md-center">
         <div class="col-10 ">
             <hr>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1">Code parainage</label>
-            </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                    <label class="form-check-label" for="inlineCheckbox1">Code parainage</label>
+                </div>
             <hr>
             <div class="d-flex justify-content-between">
                 <div>

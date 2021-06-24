@@ -1,74 +1,76 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme formRating 'bootstrap_4_layout.html.twig' %}
-{% form_theme formRent'bootstrap_4_layout.html.twig' %}
-
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block body %}
 
-    <div class="text-dark col-12 my-3 ">
+    <div class="col-12 my-3 d-inline">
         <a href="{{ path("home") }}"> Accueil </a>
-        <a> > </a>
+        <p class="d-inline"> > </p>
         <a href="{{ path("product_index") }}"> Catalogue </a>
+        <p class="d-inline"> > </p>
         <a> {{ product.name }} </a>
     </div>
 
-    <div class="container col-12 pt-2">
+    <div class="container show-product col-12 pt-2">
         <div class="row">
-            <div class="col-2">
+            <div class="col-1 d-flex flex-column">
                 {% for image in product.images %}
-                    <img class="card-img-top" src="{{ image.url }}" alt="Card image cap">
+                    <img class="card-img-top img-miniature" src="{{ image.url }}" alt="Card image cap img-fluid">
                 {% endfor %}
             </div>
             <div class="card col-6">
-                <div class="card-block">
-                    {% for image in product.images %}
-                        {% if loop.index == 1 %}
-                            <img class="card-img-top" src="{{ image.url }}" alt="Card image cap">
-                        {% endif %}
-                    {% endfor %}
+                <div class="container-image">
+                    <a href="{{ path("user_handle_favorite", {product: product.id}) }}"><i class="far fa-heart"></i></a>
+                    {% if product.getFirstPicture %}
+                        <img class="card-img-top img-zoom" src="{{ product.getFirstPicture.url }}" alt="Card image cap">
+                    {% endif %}
                 </div>
                 <div class="card-body">
-                    <p class="font-weight-bold">Description :</p>
                     <p>{{ product.description }}</p>
                     <ul>
-                        <li>{{ product.argumentOne }}</li>
-                        <li>{{ product.argumentTwo }}</li>
-                        <li>{{ product.argumentThree }}</li>
+                        <li>> {{ product.argumentOne }}</li>
+                        <li>> {{ product.argumentTwo }}</li>
+                        <li>> {{ product.argumentThree }}</li>
                     </ul>
                     <p class="font-weight-bold">Caractéristiques :</p>
                     <p>{{ product.characteristic }}</p>
                     <p>Age idéal : {{ product.target }} ans</p>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-5">
                 <h1> {{ product.name }} </h1>
-                <a href="{{ path("user_handle_favorite", {product: product.id}) }}"> Ajouter au favori </a>
-                <h3> A partir de {{ product.pricePerDay }}€ / journée (+ frais de service)</h3>
-                <form action="{{ path("item_product_add", {id: product.id}) }}" method="get">
-                    <button class="btn button-style col-2 my-3" type="submit" >Ajouter au panier</button>
-                </form>
+                <div class="row">
+                    <div class="col-5">
+                        <p class="price d-inline">{{ product.pricePerDay }}€</p><p class="grey-text d-inline"> / journée</p>
+                    </div>
+                    {% if product.countRatings != 0 %}
+                    <div class="col-5">
+                        <i class="fas fa-star"></i><strong>{{ product.averageRatings }}</strong><p class="grey-text d-inline">({{ product.countRatings }})</p>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <a href="{{ path("item_product_add", {id: product.id}) }}" class="btn button-style col-4">Ajouter au panier</a>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div>
-            <div class="font-weight-bold col-12 text-center my-5">
-                <h4>Les accessoires disponibles pour cet équipement</h4>
-            </div>
-            <div class="d-flex flex-wrap center col-12 mx-auto">
+            <h2>Les accessoires disponibles pour cet équipement</h2>
+            <div class="row">
                 {% for accessory in product.accessories %}
-                    <div class="card col-3 mx-auto mb-5">
+                    <div class="col-3">
                         <div class="card-block">
-                            {% for image in accessory.images %}
-                                {% if loop.index == 1 %}
-                                    <img class="card-img-top" src="{{ image.url }}" alt="Card image cap">
-                                {% endif %}
-                            {% endfor %}
+                            {% if accessory.getFirstPicture is not null %}
+                                <img src="{{ accessory.getFirstPicture.url }}" alt="image de l'accessoire'" class="img-fluid">
+                            {% endif %}
                             <div class="card-body">
-                                <h5 class="card-title">{{ accessory.name }}</h5>
-                                <p class="card-text">A partir de {{ accessory.pricePerDay }} €</p>
-                                <a href="{{ path("product_show", {id: accessory.id}) }}" class="btn btn-primary">-> Ajouter</a>
+                                <p class="card-title">{{ accessory.name }}</p>
+                                <p class="card-text grey-text">A partir de {{ accessory.pricePerDay }} €</p>
+                                <a href="" class="color-blue" ><i class="fas fa-long-arrow-alt-right"></i> Ajouter</a>
                             </div>
                         </div>
                     </div>
@@ -81,40 +83,26 @@
         </div>
 
         <div>
-            <div class="font-weight-bold text-center my-5">
-                <h4>Les autres équipements</h4>
-            </div>
+            <h3>Les autres équipements</h3>
             <div class="d-flex flex-wrap center col-12 mx-auto">
                 {% for product in products %}
-                    <div class="card col-3 mx-5 mb-5">
+                    <a href="{{ path("product_show", {slug: product.slug}) }}" class="card col-3 mx-5 mb-5">
                         <div class="card-block">
-                            {% for image in product.images %}
-                                {% if loop.index == 1 %}
-                                    <img class="card-img-top" src="{{ image.url }}" alt="Card image cap">
-                                {% endif %}
-                            {% endfor %}
+                            {% if product.getFirstPicture is not null %}
+                                <img src="{{ product.getFirstPicture.url }}" alt="image de l'accessoire'" class="img-fluid">
+                            {% endif %}
                             <div class="card-body">
-                                <h5 class="card-title">{{ product.name }}</h5>
-                                <p class="card-text">A partir de {{ product.pricePerDay }} €</p>
-                                <a href="{{ path("product_show", {id: product.id}) }}" class="btn btn-primary">Voir la fiche produit</a>
+                                <p class="card-title">{{ product.name }}</p>
+                                <p class="card-text grey-text">A partir de {{ product.pricePerDay }} €</p>
+
                             </div>
                         </div>
-                    </div>
+                    </a>
                 {% endfor %}
             </div>
         </div>
 
         <div>
-            <div>
-                <h1 class="text-center my-5"> Ajouter un commentaire </h1>
-                <div class="col-5 mx-auto">
-                    <label for="">Commentaire</label>
-                    {{ form_start(formRating) }}
-                    {{ form_widget(formRating.content, {'attr': {'class': 'form-control'}}) }}
-                    <button class="btn button-style col-2 my-3">Envoyer</button>
-                    {{ form_end(formRating) }}
-                </div>
-            </div>
             <div class="font-weight-bold my-5">
                 <h4>Commentaires</h4>
             </div>
@@ -122,17 +110,16 @@
                 {% for rating in product.ratings %}
                             <div class="card my-3">
                                 <div class="row">
-                                    <div class="col-md-2">
+                                    <div class="col-2">
                                         <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                                        <p class="text-secondary text-center">{{ rating.createdAt|date('F j, Y, g:i a') }}</p>
+                                        <p class="text-secondary text-center">{{ rating.createdAt|date('F j, Y') }}</p>
                                     </div>
-                                    <div class="col-md-10">
+                                    <div class="col-10">
                                         <p>
                                             <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{ rating.user.pseudo }}</strong></a>
-                                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                            {% for i in 1..rating.getMark %}
+                                                <span class="float-right"><i class="fa fa-star"></i></span>
+                                            {% endfor %}
                                         </p>
                                         <div class="clearfix"></div>
                                         <p>{{ rating.content }}</p>

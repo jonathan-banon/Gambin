@@ -48,6 +48,11 @@ class Rating
     private $user;
 
     /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $mark;
+
+    /**
      * @ORM\PrePersist
      */
     public function onPrePersist(): void
@@ -125,6 +130,18 @@ class Rating
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getMark(): ?float
+    {
+        return $this->mark;
+    }
+
+    public function setMark(?float $mark): self
+    {
+        $this->mark = $mark;
 
         return $this;
     }

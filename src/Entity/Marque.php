@@ -107,4 +107,5 @@ class Marque
 
         return $this;
     }
+
 }

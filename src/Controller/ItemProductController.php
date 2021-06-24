@@ -46,11 +46,9 @@ class ItemProductController extends AbstractController
         $entityManager->persist($itemProduct);
         $entityManager->persist($basket);
         $entityManager->flush();
-
-        return $this->render('basket/index.html.twig', [
-            'itemProduct' => $itemProduct,
-            'product' => $product,
-            'basket' => $basket,
-        ]);
+        $this->addFlash('success', 'produit ajouté au pagnier ! ');
+        return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
     }
+
+
 }

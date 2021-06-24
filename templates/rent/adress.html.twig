@@ -3,40 +3,45 @@
 {% block title %}Informations - {{ app.user.pseudo }}{% endblock %}
 
 {% block body %}
-    <div class="p-3">
-        <h1 class="text-center mt-5"> Adresse </h1>
-            <div class="row justify-content-md-center">
-             <div class="col-8 ">
-                 {{ form_start(form) }}
-                 <div class="container-fluid d-md-flex  ">
-                     <div class="col-md mr-md-3 w-md-50 p-0 ">{{ form_row(form.firstName) }}</div>
-                     <div class="col-md mr-md-3 w-md-50 p-0"> {{ form_row(form.lastName) }}</div>
-                     <div class=" col-md w-md-50 p-0"> {{ form_row(form.phoneNumber) }}</div>
-                 </div>
-                 <div class="col-md "> {{ form_row(form.address) }}</div>
-                 <div class="container-fluid d-md-flex ">
-                     <div class="mr-3 col-md-5 p-0"> {{ form_row(form.postalCode) }}</div>
-                     <div class=" col-md-5 p-0"> {{ form_row(form.city) }}</div>
-                 </div>
-
-                 <div class=" col-md "> {{ form_row(form.billingAddress) }}</div>
-
-                 <div class="container-fluid d-md-flex p-0 ">
-                     <div class="mr-3 col-md-5 "> {{ form_row(form.billingCity) }}</div>
-                     <div class=" col-md-5"> {{ form_row(form.billingPostal) }}</div>
-                 </div>
-
-                 <div class="container-fluid d-md-flex  p-0">
-                        <div class="m-3 col-md-5 justify-content-center p-0 ">
-                         <button type="submit" class="btn button-style">Modifier mes informations</button>
-                        </div>
-                        <div class="m-3 col-md-5 justify-content-center p-0">
-                            <a href="{{ path('rent_payment') }}"> <i type="" class="btn button-style">Valider et payer  </i> </a>
-                        </div>
-                    </div>
-                 {{ form_end(form) }}
-                </div>
-         </div>
+    <div class="d-flex container">
+        <h1>Location</h1>
     </div>
+    <div class="container d-flex justify-content-center my-5">
+        <img class="img-fluid" src="{{ asset('build/Step3.png') }}" alt="img_Steps">
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-8 ">
+            {{ form_start(form) }}
+            <div class="container-fluid d-md-flex  ">
+                <div class="col-md mr-md-3 w-md-50 p-0 ">{{ form_row(form.firstName) }}</div>
+                <div class="col-md mr-md-3 w-md-50 p-0"> {{ form_row(form.lastName) }}</div>
+                <div class=" col-md w-md-50 p-0"> {{ form_row(form.phoneNumber) }}</div>
+            </div>
+            <div class="col-md "> {{ form_row(form.address) }}</div>
+            <div class="container-fluid d-md-flex ">
+                <div class="mr-3 col-md-5 p-0"> {{ form_row(form.postalCode) }}</div>
+                <div class=" col-md-5 p-0"> {{ form_row(form.city) }}</div>
+            </div>
+            <div class=" col-md "> {{ form_row(form.billingAddress) }}</div>
 
+            <div class="container-fluid d-md-flex p-0 ">
+                <div class="mr-3 col-md-5 "> {{ form_row(form.billingCity) }}</div>
+                <div class=" col-md-5"> {{ form_row(form.billingPostal) }}</div>
+            </div>
+
+            <div class="container-fluid d-md-flex  p-0">
+                <div class="m-3 col-md-5 justify-content-center p-0 ">
+                    <button type="submit" class="btn button-style">Confirmer</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <div class="container">
+        <div class="d-flex justify-content-end ">
+            <a href="{{ path('rent_payment') }}">
+                <button class="btn button-style">Poursuivre</button>
+            </a>
+        </div>
+    </div>
 {% endblock %}

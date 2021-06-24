@@ -8,7 +8,9 @@ use App\Entity\Rent;
 use App\Entity\Status;
 use App\Form\AddressType;
 use App\Form\RentType;
+
 use App\Repository\BasketRepository;
+use App\Service\Price;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -106,7 +108,7 @@ class RentController extends AbstractController
      */
     public function sucess(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $user=$this->getUser()->getFirstName();
+        $user = $this->getUser()->getFirstName();
         return $this->render('rent/sucess.html.twig', [
             'controller_name' => 'RentController',
             'name' => $user

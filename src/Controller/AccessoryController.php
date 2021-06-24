@@ -14,14 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/accessory", name="accessory_")
- */
 class AccessoryController extends AbstractController
 {
 
     /**
-     * @Route("/", name="index")
+     * @Route("/catalogue/accessoires", name="accessory_index")
      * @return Response
      */
     public function index(AccessoryRepository $accessoryRepository): Response

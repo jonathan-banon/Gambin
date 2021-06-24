@@ -40,3 +40,56 @@
 }
 
 
+.show-product{
+  .img-miniature{
+    height:80px;
+    width:80px;
+  }
+  .card{
+    border:transparent;
+    .container-image{
+      position: relative;
+      display: inline-block;
+      svg{
+        height:50px;
+        width:50px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        text-align: center;
+      }
+    }
+    ul{
+      list-style:none;
+    }
+  }
+  .price{
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .fa-star{
+    color:red;
+  }
+  h2{
+    font-weight: 900;
+    font-size: 24px;
+  }
+  .card-block{
+    .card-title{
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
+  h3{
+    margin-top: 40px;
+    font-size: 24px;
+    font-weight: 900;
+  }
+}
+
+
+
+
+
+
+

@@ -8,6 +8,8 @@ use App\Entity\Rent;
 use App\Entity\Status;
 use App\Form\AddressType;
 use App\Form\RentType;
+
+use App\Repository\BasketRepository;
 use App\Service\Price;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -84,11 +86,20 @@ class RentController extends AbstractController
      * @Route("/payment", name="payment")
      * @return Response
      */
-    public function payment(Request $request, EntityManagerInterface $entityManager): Response
+    public function payment(Request $request, EntityManagerInterface $entityManager,BasketRepository $basketRepository): Response
     {
+        $basket = $this->getUser()->getBasketOpen();
+
+        $baskets = $basketRepository->findby(['user' => $this->getUser(), 'isOpen' => false]);
+        $rents = [];
+        foreach ($baskets as $basket) {
+            $rents[] = $basket->getRent();
+        }
 
         return $this->render('rent/payment.html.twig', [
             'controller_name' => 'RentController',
+            'basket' => $basket,
+            'rents' => $rents
         ]);
     }
     /**

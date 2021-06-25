@@ -17,16 +17,13 @@
                     {{ form_row(form.dateIn) }}
                     {{ form_row(form.dateOut) }}
                     {{ form_row(form.deposit) }}
-                    <a href="">
-                        <i type="submit" class="btn button-style text-center w-25">Confirmer </i>
-                    </a>
+                    <div class="d-flex justify-content-end">
+                        <a href="{{ path('rent_adress') }}">
+                            <i type="submit" class="btn button-style text-center ">Poursuivre </i>
+                        </a>
+                    </div>
                     {{ form_end(form) }}
                 </div>
-            </div>
-            <div class="d-flex justify-content-end ">
-                <a href="{{ path('rent_adress') }}">
-                    <button class="btn button-style">Poursuivre</button>
-                </a>
             </div>
         </div>
     {% endblock %}

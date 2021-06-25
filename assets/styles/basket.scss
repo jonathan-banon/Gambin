@@ -1,5 +1,15 @@
 .basket-information {
 
+  .grey-row {
+    background: #E7E5EA;
+  }
+
+  .dark-row {
+    border-radius: 20px 20px 0 0;
+    background: $color-blue;
+    color: $color-white;
+  }
+
   h3, h4 {
     font-size: 0.75em;
     color: $color-grey;
@@ -11,25 +21,18 @@
     &:hover {
       text-decoration: none;
     }
-  }
-    .card-basket {
-      box-shadow: 0 3px 4px rgba(153, 155, 168, 0.30);
-      border-radius: 20px;
-      .grey-row{
-        background: #E7E5EA;
-      }
-      .dark-row{
-        border-radius: 20px 20px 0 0;
-        background:$color-blue;
-        color: $color-white;
-      }
-      .img-fluid {
-        height: 100px;
-      }
 
-      p {
-        color: $color-grey;
-        font-size: 12px;
-      }
+    .img-fluid {
+      height: 100px;
+    }
+
+    p {
+      color: $color-grey;
+      font-size: 12px;
     }
   }
+  .card-basket {
+    box-shadow: 0 3px 4px rgba(153, 155, 168, 0.30);
+    border-radius: 10px;
+  }
+}

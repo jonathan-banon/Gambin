@@ -86,7 +86,9 @@ class RentController extends AbstractController
      * @Route("/payment", name="payment")
      * @return Response
      */
-    public function payment(Request $request, EntityManagerInterface $entityManager,BasketRepository $basketRepository): Response
+    public function payment(Request $request,
+                            EntityManagerInterface $entityManager,
+                            BasketRepository $basketRepository): Response
     {
         $basket = $this->getUser()->getBasketOpen();
 

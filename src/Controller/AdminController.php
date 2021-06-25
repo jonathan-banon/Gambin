@@ -6,6 +6,7 @@ use App\Entity\Accessory;
 use App\Entity\Product;
 use App\Form\AccessoryType;
 use App\Form\ProductType;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,11 +48,13 @@ class AdminController extends AbstractController
      */
     public function newProduct(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $slugify = new Slugify();
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $product->setSlug($slugify->slugify($product->getName()));
             $entityManager->persist($product);
             $entityManager->flush();
         }
@@ -95,10 +98,12 @@ class AdminController extends AbstractController
      */
     public function newAccessory(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $slugify = new Slugify();
         $accessory = new Accessory();
         $form = $this->createForm(AccessoryType::class, $accessory);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $accessory->setSlug($slugify->slugify($accessory->getName()));
             $entityManager->persist($accessory);
             $entityManager->flush();
         }

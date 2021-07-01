@@ -16,6 +16,7 @@ class RatingFixtures extends Fixture implements DependentFixtureInterface
         $rating->setUser($this->getReference('user_0'));
         $rating->setProduct($this->getReference('product_0'));
         $rating->setMark(4.5);
+        $rating->setIsValidated(false);
         $manager->persist($rating);
 
         $rating = new Rating();
@@ -23,6 +24,7 @@ class RatingFixtures extends Fixture implements DependentFixtureInterface
         $rating->setUser($this->getReference('user_1'));
         $rating->setProduct($this->getReference('product_0'));
         $rating->setMark(3.2);
+        $rating->setIsValidated(false);
         $manager->persist($rating);
 
         $manager->flush();

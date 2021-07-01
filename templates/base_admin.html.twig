@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+		<title>
+			{% block title %}Projet 3 Name{% endblock %}
+		</title>
+
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<body>
+		{% include 'component/_navbar.html.twig' %}
+		<div class="content-fluid div-content catalogue">
+			{% for category, messages in app.flashes %}
+				{% for message in messages %}
+					<div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+				{% endfor %}
+			{% endfor %}
+			<div class="row h-100">
+				<div class="col-3 title-admin d-flex flex-column justify-content-between">
+					{% include 'component/_admin_menu.html.twig' %}
+				</div>
+				<div class="col-9">
+					{% block content %}{% endblock %}
+				</div>
+			</div>
+		</div>
+
+		{% include 'component/_footer.html.twig' %}
+	</body>
+</html>

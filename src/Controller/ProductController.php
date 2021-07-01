@@ -10,6 +10,7 @@ use App\Form\ProductType;
 use App\Form\RatingType;
 use App\Form\RentType;
 use App\Repository\ProductRepository;
+use App\Repository\RatingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +29,7 @@ class ProductController extends AbstractController
     public function show(
         Product $product,
         ProductRepository $productRepository,
+        RatingRepository $ratingRepository,
         Request $request,
         EntityManagerInterface $entityManager
     ): Response {
@@ -37,10 +39,12 @@ class ProductController extends AbstractController
             );
         }
         $products = $productRepository->findAll();
+        $ratings = $ratingRepository->findBy(['product' => $product, 'isValidated' => true]);
 
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'products' => $products,
+            'ratings' => $ratings,
         ]);
     }
 

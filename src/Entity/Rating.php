@@ -53,6 +53,12 @@ class Rating
     private $mark;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isValidated;
+
+
+    /**
      * @ORM\PrePersist
      */
     public function onPrePersist(): void
@@ -142,6 +148,18 @@ class Rating
     public function setMark(?float $mark): self
     {
         $this->mark = $mark;
+
+        return $this;
+    }
+
+    public function getIsValidated(): ?bool
+    {
+        return $this->isValidated;
+    }
+
+    public function setIsValidated(bool $isValidated): self
+    {
+        $this->isValidated = $isValidated;
 
         return $this;
     }

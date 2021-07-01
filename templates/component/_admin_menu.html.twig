@@ -1,0 +1,11 @@
+<ul>
+    <a href="{{ path('admin_index') }}"><li class='{{ app.request.attributes.get('_route') == 'admin_index' ? 'active' : '' }} d-flex align-items-center'><i class="fas fa-history"></i> Tableau de Bord</li></a>
+    <a href="{{ path('admin_new_product') }}"><li class='{{ app.request.attributes.get('_route') == 'admin_new_product' ? 'active' : '' }} d-flex align-items-center'><i class="fas fa-baby-carriage"></i> Equipements</li></a>
+    <a href="{{ path('admin_new_accessory') }}"><li class='{{ app.request.attributes.get('_route') == 'admin_new_accessory' ? 'active' : '' }} d-flex align-items-center'><i class="fas fa-umbrella"></i> Accessoires</li></a>
+    <a href="{{ path('admin_stock') }}"><li class='{{ app.request.attributes.get('_route') == 'admin_stock' ? 'active' : '' }} d-flex align-items-center'><i class="fas fa-box-open"></i> Stocks</li></a>
+    <a href=""><li class='d-flex align-items-center'><i class="far fa-calendar-check"></i> Locations</li></a>
+    <a href=""><li class='d-flex align-items-center'><i class="far fa-calendar-alt"></i> Calendrier</li></a>
+    <a href=""><li class='d-flex align-items-center'><i class="fas fa-user-lock"></i> Utilisateurs</li></a>
+    <a href="{{ path('admin_comment') }}"><li class='{{ app.request.attributes.get('_route') == 'admin_comment' ? 'active' : '' }} d-flex align-items-center'><i class="far fa-comments"></i> Commentaires</li></a>
+    <a href=""><li class='d-flex align-items-center'><i class="fas fa-chart-area"></i> Analytics</li></a>
+</ul>

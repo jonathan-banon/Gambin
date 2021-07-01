@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Accessory;
 use App\Entity\Product;
+use App\Entity\Rating;
 use App\Form\AccessoryType;
 use App\Form\ProductType;
+use App\Repository\RatingRepository;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,13 +21,13 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
 /**
- * @Route("/admin", name="admin_")
+ * @Route("/administration", name="admin_")
  * @IsGranted("ROLE_ADMIN")
  */
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/index", name="index")
+     * @Route("/dashboard", name="index")
      */
     public function index(): Response
     {
@@ -43,7 +45,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/product/new", name="new_product")
+     * @Route("/equipement/ajout", name="new_product")
      * @return Response
      */
     public function newProduct(Request $request, EntityManagerInterface $entityManager): Response
@@ -94,7 +96,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/accessory/new", name="new_accessory")
+     * @Route("/accessoroire/ajout", name="new_accessory")
      */
     public function newAccessory(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -111,5 +113,40 @@ class AdminController extends AbstractController
         return $this->render('admin/accessory_new.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/commentaires", name="comment")
+     */
+    public function comment(RatingRepository $ratingRepository): Response
+    {
+        $comments = $ratingRepository->findBy(['isValidated' => false]);
+        return $this->render('admin/comment.html.twig', [
+            'comments' => $comments,
+            ]);
+    }
+
+    /**
+     * @Route ("/commentaires/{id}", name="comment_delete", methods={"POST"})
+     */
+    public function commentDelete(Rating $rating, Request $request, EntityManagerInterface $manager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $rating->getId(), $request->request->get('_token'))) {
+            $manager->remove($rating);
+            $manager->flush();
+            $this->addFlash('danger', 'Le commentaire a été supprimé');
+            return $this->redirectToRoute('admin_comment');
+        }
+    }
+
+    /**
+     * @Route ("/commentaires/{id}", name="comment_authorized", methods={"GET"})
+     */
+    public function commentAuthorized(Rating $rating, Request $request, EntityManagerInterface $manager): Response
+    {
+            $rating->setIsValidated(true);
+            $manager->flush();
+            $this->addFlash('success', 'Commentaire ajouté à la plateforme !');
+            return $this->redirectToRoute('admin_comment');
     }
 }

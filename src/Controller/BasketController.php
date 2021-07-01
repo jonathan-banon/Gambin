@@ -21,7 +21,9 @@ class BasketController extends AbstractController
      */
     public function index(): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_CONTRIBUTOR');
         $basket = $this->getUser()->getBasketOpen();
+
         return $this->render('basket/index.html.twig', [
             'basket' => $basket,
         ]);

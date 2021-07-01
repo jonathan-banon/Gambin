@@ -1,80 +1,57 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
 {% block title %}Panneau d'administration{% endblock %}
 
-{% block body %}
+{% block content %}
+<table class="table">
+    <thead>
+    <tr>
+        <th>Ajouté le</th>
+        <th>Mis à jour le</th>
+        <th>Ville</th>
+        <th>Nom du produit</th>
+        <th>Disponible</th>
+        <th>Changer Disponibilité</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for stock in stocks %}
+        <tr>
+            <td>{{ stock.createdAt|date("d/m/Y") }}</td>
+            <td>{{ stock.updatedAt|date("d/m/Y") }}</td>
+            <td>{{ stock.city.name }}</td>
+            <td>
+                {% if stock.product is empty %}
+                    {{ stock.accessory.name }}
+                {% else %}
+                    {{ stock.product.name }}
+                {% endif %}
 
-    <div class="container-fluid catalogue">
-        <div class="row">
-            <div class="col-3 title-admin">
-                <ul>
-                    <a href="{{ path('admin_index') }}"><li class='d-flex align-items-center'><i class="fas fa-history"></i> Tableau de Bord</li></a>
-                    <a href="{{ path('admin_new_product') }}"><li class='d-flex align-items-center'><i class="fas fa-baby-carriage"></i> Equipements</li></a>
-                    <a href="{{ path('admin_new_accessory') }}"><li class='d-flex align-items-center'><i class="fas fa-umbrella"></i> Accessoires</li></a>
-                    <a href="{{ path('admin_stock') }}"><li class='active d-flex align-items-center'><i class="fas fa-box-open"></i> Stocks</li></a>
-                    <a href=""><li class='d-flex align-items-center'><i class="far fa-calendar-check"></i> Locations</li></a>
-                    <a href=""><li class='d-flex align-items-center'><i class="far fa-calendar-alt"></i> Calendrier</li></a>
-                    <a href=""><li class='d-flex align-items-center'><i class="fas fa-user-lock"></i> Utilisateurs</li></a>
-                    <a href=""><li class='d-flex align-items-center'><i class="fas fa-chart-area"></i> Analytics</li></a>
-                </ul>
-            </div>
-            <div class="col-9">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>createdAt</th>
-                            <th>updatedAt</th>
-                            <th>city</th>
-                            <th>Nom du produit</th>
-                            <th>Disponible</th>
-                            <th>Changer Disponibilité</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for stock in stocks %}
-                            <tr>
-                                <td>{{ stock.id }}</td>
-                                <td>{{ stock.createdAt|date("d/m/Y") }}</td>
-                                <td>{{ stock.updatedAt|date("d/m/Y") }}</td>
-                                <td>{{ stock.city.name }}</td>
-                                <td>
-                                    {% if stock.product is empty %}
-                                        {{ stock.accessory.name }}
-                                    {% else %}
-                                        {{ stock.product.name }}
-                                    {% endif %}
-
-                                </td>
-                                <td>
-                                    {% if stock.isAvailable %}
-                                        <strong class="text-success">DISPONIBLE</strong>
-                                    {% else %}
-                                        <strong class="text-danger">NON DISPONIBLE</strong>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <label class="switch">
-                                        <a href="{{ path('admin_stock_available', {stock: stock.id}) }}">
-                                            <input type="checkbox" checked>
-                                            <span class="slider round"></span>
-                                        </a>
-                                    </label>
-                                </td>
-                            </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="5">no records found</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="mx-auto my-5 text-center">
-            <a href="{{ path("home") }}"><button class="btn button-style col-3"> Retour sur la page d'accueil </button></a>
-        </div>
-    </div>
-
+            </td>
+            <td>
+                {% if stock.isAvailable %}
+                    <strong class="text-success">DISPONIBLE</strong>
+                {% else %}
+                    <strong class="text-danger">NON DISPONIBLE</strong>
+                {% endif %}
+            </td>
+            <td>
+                <label class="switch">
+                    <a href="{{ path('admin_stock_available', {stock: stock.id}) }}">
+                        <input type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </a>
+                </label>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div class="mx-auto my-5 text-center">
+    <a href="{{ path("home") }}"><button class="btn button-style col-3"> Retour sur la page d'accueil </button></a>
+</div>
 {% endblock %}

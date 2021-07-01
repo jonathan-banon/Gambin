@@ -78,3 +78,11 @@ input:checked + .slider:before {
 
 }
 
+.button-blue{
+  background-color: $color-blue;
+  color:white;
+  &:hover{
+    color:white;
+  }
+}
+

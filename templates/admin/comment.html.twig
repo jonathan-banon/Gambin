@@ -1,0 +1,53 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Administration Commentaires{% endblock %}
+
+{% block content %}
+
+
+
+{% for comment in comments %}
+    <div class="card">
+        <div class="card-header">
+            Commentaire posté le {{ comment.createdAt|date("d/m/Y") }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Pseudo de l'utilisateur {{ comment.user.pseudo }} </h5>
+            <p class="card-text">{{ comment.content }}</p>
+            <a href="{{ path('admin_comment_authorized', {id: comment.id}) }}" class="btn button-blue">Autoriser</a>
+            <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                Supprimer
+            </a>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirmation Suppression</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Êtes-vous sûr de vouloir supprimer ce commentaire ?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <form method="post" action="{{ path('admin_comment_delete', {id: comment.id}) }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                                <button type="submit" class="btn btn-danger">Supprimer le commentaire</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+
+<div class="mx-auto my-5 text-center">
+    <a href="{{ path("home") }}"><button class="btn button-style col-3"> Retour sur la page d'accueil </button></a>
+</div>
+{% endblock %}

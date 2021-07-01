@@ -1,21 +1,29 @@
 {% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
     {% block body %}
-        <div class="container-fluid">
+        <div class="container ">
+            <div class="d-flex justify-content-center my-5">
+                <h1>Location</h1>
+            </div>
+            <div class="container d-flex justify-content-center my-5">
+                <img class="img-fluid" src="{{ asset('build/Step2.png') }}" alt="img_Steps">
+            </div>
+        </div>
+        <div class="container">
             <div class="row ">
-                <div class="col-md">
-
-                </div>
-                <div class="col-md ">
+                <div class=" col-12 ">
                     {{ form_start(form) }}
-                    <label for="">Date de début </label>
-                    {{ form_widget(form.dateIn) }}
-
-                    {{ form_end (form)}}
-                    <button type="submit"> Valider la location</button>
+                    {{ form_row(form.dateIn) }}
+                    {{ form_row(form.dateOut) }}
+                    {{ form_row(form.deposit) }}
+                    <div class="d-flex justify-content-end">
+                        <a href="{{ path('rent_adress') }}">
+                            <i type="submit" class="btn button-style text-center ">Poursuivre </i>
+                        </a>
+                    </div>
+                    {{ form_end(form) }}
                 </div>
             </div>
-
-
         </div>
     {% endblock %}

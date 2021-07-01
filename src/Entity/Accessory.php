@@ -102,6 +102,11 @@ class Accessory
      */
     private $itemAccessories;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
@@ -363,6 +368,26 @@ class Accessory
                 $itemAccessory->setAccessory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFirstPicture()
+    {
+        $images = $this->getImages();
+        foreach ($images as $key => $image) {
+            return $image;
+        }
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

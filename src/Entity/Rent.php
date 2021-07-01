@@ -47,12 +47,11 @@ class Rent
 
     /**
      * @ORM\ManyToOne(targetEntity=Status::class, inversedBy="rents")
-     * @ORM\JoinColumn(nullable=false)
      */
     private ?Status $status;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private \DateTimeInterface $dateReturn;
 
@@ -164,7 +163,7 @@ class Rent
         return $this->dateReturn;
     }
 
-    public function setDateReturn(?\DateTimeInterface $dateReturn): self
+    public function setDateReturn(\DateTimeInterface $dateReturn): self
     {
         $this->dateReturn = $dateReturn;
         return $this;
@@ -204,8 +203,25 @@ class Rent
     {
         $itemAccessories = [];
         foreach ($this->getBasket()->getItemAccessories() as $itemAccessory) {
-            $itemAccessory[] = $itemAccessory;
+            $itemAccessories[] = $itemAccessory;
         }
         return $itemAccessories;
+    }
+
+    public function countDays()
+    {
+        return date_diff($this->getDateIn(), $this->getDateOut())->days;
+    }
+
+    public function getQuantity()
+    {
+        $count = 0;
+        foreach ($this->getItemAccessories() as $accessory) {
+            $count += $accessory->getQuantity();
+        }
+        foreach ($this->getItemProducts() as $product) {
+            $count += $product->getQuantity();
+        }
+        return $count;
     }
 }

@@ -1,6 +1,13 @@
 .basket-information {
-  h2 {
-    margin-top: 30px;
+
+  .grey-row {
+    background: #E7E5EA;
+  }
+
+  .dark-row {
+    border-radius: 20px 20px 0 0;
+    background: $color-blue;
+    color: $color-white;
   }
 
   h3, h4 {
@@ -14,14 +21,6 @@
     &:hover {
       text-decoration: none;
     }
-  }
-
-  .card-basket {
-    margin-bottom: 15px;
-    width: 400px;
-    height: 100px;
-    box-shadow: 0 3px 4px rgba(153, 155, 168, 0.30);
-    border-radius: $border-radius-button;
 
     .img-fluid {
       height: 100px;
@@ -32,9 +31,8 @@
       font-size: 12px;
     }
   }
-
-  .basket {
-    border-bottom: 1px solid #EDE8E9;
-    margin-top: 30px;
+  .card-basket {
+    box-shadow: 0 3px 4px rgba(153, 155, 168, 0.30);
+    border-radius: 10px;
   }
 }

@@ -45,8 +45,6 @@ class Product
      */
     private ?string $storage;
 
-
-
     /**
      * @ORM\Column(type="datetime", nullable=false)
      */
@@ -138,6 +136,11 @@ class Product
      * @ORM\OneToMany(targetEntity=ItemProduct::class, mappedBy="product", orphanRemoval=true)
      */
     private $itemProducts;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     public function __sleep()
     {
@@ -295,7 +298,7 @@ class Product
         return $this->marque;
     }
 
-    public function setMarque(?Marque $marque): self
+    public function setMarque(Marque $marque): self
     {
         $this->marque = $marque;
         return $this;
@@ -578,6 +581,44 @@ class Product
                 $itemProduct->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFirstPicture()
+    {
+        $images = $this->getImages();
+        foreach ($images as $key => $image) {
+                return $image;
+        }
+    }
+
+    public function averageRatings()
+    {
+        $rating = 0;
+        foreach ($this->ratings as $rate) {
+            $rating += $rate->getMark();
+        }
+        return $rating / $this->countRatings();
+    }
+
+    public function countRatings()
+    {
+        $count = 0;
+        foreach ($this->ratings as $rate) {
+            $count++;
+        }
+        return $count;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

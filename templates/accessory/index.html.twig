@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catalogue des accessoires!{% endblock %}
+{% block body %}
+    <div class="container-fluid catalogue">
+        <div class="row nav-catalogue">
+            <div class="col-12">
+                <div class=" text-dark col-12 text-center mx-auto py-3 ">
+                    <a href="{{ path('product_index') }}">EQUIPEMENTS</a>
+                    <a href="{{ path('accessory_index') }}" class="current mx-5">ACCESSOIRES</a>
+                    <a href="#">PACKS</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-12 filter-part">
+                <a href="{{ path('home') }}"> Accueil </a> > <strong>Catalogue </strong></p>
+                <strong> Vous partez d'ou ?</strong>
+                <form>
+                    <div class="form-group">
+                        <label>Destination</label>
+                        <input type="text" class="form-control" id="city-catalogue">
+                    </div>
+                </form>
+
+                <strong> Vous partez quand ?</strong>
+                <form>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Début</label>
+                                <input type="date" class="form-control" id="start-rent">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Fin</label>
+                                <input type="date" class="form-control" id="start-rent">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-8 col-12">
+                <div class="container-fluid list-catalogue">
+                    <div class="row d-flex justify-content-center">
+                        {% for accessory in accessories %}
+                            <a href="" class="card col-md-4 col-lg-3 col-12">
+                                <div class="card-block">
+                                    {% if accessory.getFirstPicture %}
+                                        <img class="card-img-top img-fluid" src="{{ accessory.getFirstPicture.url }}" alt="Card image cap">
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ accessory.name }}</h5>
+                                        <p class="card-text">A partir de {{ accessory.pricePerDay }} €</p>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mx-auto my-5 text-center">
+            <a href="{{ path("home") }}"><button class="btn button-style col-3"> Retour sur la page d'accueil </button></a>
+        </div>
+    </div>
+
+
+{% endblock %}

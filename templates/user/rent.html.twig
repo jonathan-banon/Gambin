@@ -5,33 +5,60 @@
 {% block body %}
     <h1>Paramètre du compte</h1>
     <div class="container justify-content-center rent-information">
-        <h2>Mes dernières locations</h2>
+        <h2>Détail de vos dernières location</h2>
         {% for rent in rents %}
             <div class="location">
-                <h3>Location du {{ rent.dateIn|date("d/m/Y") }} au {{ rent.dateOut|date("d/m/Y") }}</h3>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h3>Location du {{ rent.dateIn|date("d/m/Y") }} au {{ rent.dateOut|date("d/m/Y") }}</h3>
+                        <h4>Status : {{ rent.status.name }}</h4>
+                    </div>
+                    <div>
+                        <h4>Nombre d'article : {{ rent.getQuantity }}</h4>
+                        <strong>Prix : {{ price.calculation(rent) }}€ pour {{ rent.countDays }} jours</strong>
+                    </div>
+                </div>
+                <div class="row">
                 {% for products in rent.getItemProducts %}
-                    {% for image in products.product.images %}
-                        {% if loop.index0 == 0 %}
-                            <a href="{{ path('product_show', {id: products.product.id}) }}">
-                                <div class="card-rent d-flex justify-content-between">
-                                    <div>
-                                        <img src="{{ image.url }}" alt="image du produit" class="img-fluid">
-                                    </div>
-                                    <div class="flex-fill d-flex flex-column justify-content-center">
-                                        <strong>{{ products.product.name }}</strong>
-                                        <p class="quantity">x{{ products.quantity }}</p>
-                                    </div>
+                    <div class="col-12 col-lg-5">
+                        <a href="{{ path('product_show', {slug: products.product.slug}) }}">
+                            <div class="card-rent d-flex justify-content-between">
+                                {% if products.product.getFirstPicture is not null %}
+                                <div>
+                                    <img src="{{ products.product.getFirstPicture.url }}" alt="image du produit" class="img-fluid">
                                 </div>
-                            </a>
-                        {% endif %}
-                    {% endfor %}
+                                {% endif %}
+                                <div class="flex-fill d-flex flex-column justify-content-center">
+                                    <strong>{{ products.product.name }}</strong>
+                                    <p class="quantity">x{{ products.quantity }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 {% endfor %}
+                {% for accessories in rent.getItemAccessories %}
+                    <div class="col-12 col-lg-5">
+{#                        <a href="{{ path('accessory_show', {id: accessories.accessory.id}) }}">#}
+                            <div class="card-rent d-flex justify-content-between">
+                                {% if accessories.accessory.getFirstPicture is not null %}
+                                    <div>
+                                        <img src="{{ accessories.accessory.getFirstPicture.url }}" alt="image de l'accessoire'" class="img-fluid">
+                                    </div>
+                                {% endif %}
+                                <div class="flex-fill d-flex flex-column justify-content-center">
+                                    <strong>{{ accessories.accessory.name }}</strong>
+                                    <p class="quantity">x{{ accessories.quantity }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
             </div>
         {% endfor %}
     </div>
-    <a href="{{ path('user_index') }}"><button class="btn button-decoration"><i class="fas fa-arrow-circle-left"></i>  Revenir à mon Compte</button></a>
-
-
-
+    <div class="mx-auto my-5 text-center">
+        <a href="{{ path('user_index') }}"><button class="btn button-decoration"><i class="fas fa-arrow-circle-left"></i>  Revenir à mon Compte</button></a>
+    </div>
 {% endblock %}
 

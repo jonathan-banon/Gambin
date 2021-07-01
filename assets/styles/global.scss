@@ -16,6 +16,14 @@
     }
     a{
       text-decoration:none;
+      color: $font-color;
+      &:hover{
+        text-decoration:none;
+      }
     }
   }
+}
+
+.color-blue{
+  color: $color-blue;
 }

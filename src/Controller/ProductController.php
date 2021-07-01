@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Form\ProductType;
 use App\Form\RatingType;
 use App\Form\RentType;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,58 +17,35 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/product", name="product_")
+ * @Route("/catalogue", name="product_")
  */
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/show/{id<^[0-9]+$>}", name="show")
+     * @Route("/equipement/{slug}", name="show")
      * @return Response
      */
-    public function show(Product $product, Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function show(
+        Product $product,
+        ProductRepository $productRepository,
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
         if (!$product) {
             throw $this->createNotFoundException(
                 'No product found.'
             );
         }
-
-        $products = $this->getDoctrine()
-            ->getRepository(Product::class)
-            ->findAll();
-
-        $rating = new Rating();
-        $formRating = $this->createForm(RatingType::class, $rating);
-        $formRating->handleRequest($request);
-
-        if ($formRating->isSubmitted() && $formRating->isValid()) {
-            $rating->setUser($this->getUser());
-            $rating->setProduct($product);
-            $entityManager->persist($rating);
-            $entityManager->flush();
-        }
-
-        $rent = new Rent();
-        $formRent = $this->createForm(RentType::class, $rent);
-        $formRent->handleRequest($request);
-
-        if ($formRent->isSubmitted() && $formRent->isValid()) {
-            $rent->setUser($this->getUser());
-            $rent->setItem($product);
-            $entityManager->persist($rating);
-            $entityManager->flush();
-        }
+        $products = $productRepository->findAll();
 
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'products' => $products,
-            'formRating' => $formRating->createView(),
-            'formRent' => $formRent->createView(),
         ]);
     }
 
     /**
-     * @Route("/", name="index")
+     * @Route("/index", name="index")
      * @return Response
      */
     public function index(): Response
@@ -78,28 +56,6 @@ class ProductController extends AbstractController
 
         return $this->render('product/index.html.twig', [
             'products' => $products,
-        ]);
-    }
-
-
-
-    /**
-     * @Route("/new", name="new")
-     * @return Response
-     */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $product = new Product();
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($product);
-            $entityManager->flush();
-        }
-
-        return $this->render('product/new.html.twig', [
-            'form' => $form->createView(),
         ]);
     }
 }

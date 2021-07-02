@@ -46,7 +46,7 @@ class ItemProductController extends AbstractController
         $entityManager->persist($itemProduct);
         $entityManager->persist($basket);
         $entityManager->flush();
-        $this->addFlash('success', 'produit ajouté au pagnier ! ');
+        $this->addFlash('success', 'produit ajouté au panier ! ');
         return $this->redirectToRoute('product_show', ['slug' => $product->getSlug()]);
     }
 }
